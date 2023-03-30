@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -15,22 +16,31 @@ export class MainComponent {
     'tt6060964', 
     'tt0441909',
     'tt9770150',  
-    'tt10627352'
-  ]  
+    'tt10627352',
+    'tt0109830', 
+  ];
+  public movieTitle = "";  
 
   constructor(
     private movieService: MoviesService
   ) {}
 
   ngOnInit() {
+    if (localStorage.getItem('movies')) {
+      this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
+    }
     this.getAllMovies();    
+    this.updateSearch();
+  }
+  ngOnDestroy() {
   }
 
   getAllMovies(): void {
     for( let i=0; i < this.moviesIdList.length; i++ ) {           
       if (!this.moviesList.find(element => element.id === this.moviesIdList[i])) {      
-        this.getOneMovie(this.moviesIdList[i])
+        this.getOneMovie(this.moviesIdList[i]);        
     }
+
   }
 }
 
@@ -44,7 +54,8 @@ export class MainComponent {
       director: [],
       poster: '',
       genres: [],
-      actors: []  
+      actors: [],
+      watched: false 
     };       
       this.movieService.getOneMovie(movieId).subscribe(data => {
         console.log(data);
@@ -58,9 +69,27 @@ export class MainComponent {
         movie.director.forEach(item => item.trim());
         movie.genres = data.Genre.split(', ');
         movie.actors = data.Actors.split(',');
-        this.moviesList.push(movie)        
-      })
-    }
+        this.moviesList.push(movie);        
+        this.saveToLocalStorage(this.moviesList);
+      })      
+  }
+
+  saveToLocalStorage(moviesList: IMovie[]) {
+    localStorage.setItem('movies', JSON.stringify(moviesList))
+  }
+
+  checkWatched(movie: IMovie): void {
+    movie.watched = !movie.watched;
+    this.saveToLocalStorage(this.moviesList);    
+  }
+
+  updateSearch(): void {
+    this.movieService.changeMovieTitle.subscribe( () => {      
+      this.movieTitle = this.movieService.inputMovieTitle;
+    })
+  }
+
+
 
 
 }

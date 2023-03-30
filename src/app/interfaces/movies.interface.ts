@@ -40,5 +40,6 @@ export interface IMovie {
     poster: string,
     director: Array<string>,
     genres: Array<string>,
-    actors: Array<string>
+    actors: Array<string>,
+    watched: boolean
 }
