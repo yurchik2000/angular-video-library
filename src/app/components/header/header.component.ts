@@ -10,6 +10,8 @@ import { MoviesService } from 'src/app/services/movies.service';
 export class HeaderComponent {
 
   public movieTitle: string = "";
+  public movieImdbTitle: string = "";
+  public isShowAddMovie = false;
 
   constructor(
     private movieService: MoviesService
@@ -22,5 +24,16 @@ export class HeaderComponent {
     this.movieService.inputMovieTitle = this.movieTitle;
     this.movieService.changeMovieTitle.next(true);    
   }
+  searchOnImdb(title:string): void {
+    if (title.length > 3) {
+      this.movieService.getMoviesList(title).subscribe(data => {
+        console.log(data);
+      })
+    }    
+  }
+  showAddMovieInput(): void {
+    this.isShowAddMovie = !this.isShowAddMovie;    
+  }
+
 
 }

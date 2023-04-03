@@ -26,4 +26,8 @@ export class MoviesService {
     return this.http.get<IMovieResponce>(`${this.url}?apikey=${this.apiKey}&i=${movieId}`)
   }
 
+  getMoviesList(title: string): Observable<IMovieResponce[]> {
+    return this.http.get<IMovieResponce[]>(`${this.url}?apikey=${this.apiKey}&s=${title}`)
+  }
+
 }
