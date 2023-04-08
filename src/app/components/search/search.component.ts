@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { IMovie, ISearchListMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -29,37 +29,41 @@ export class SearchComponent {
   };
 
   getOneMovie(movieId: string): void {        
-    let movie: IMovie = {
-      id: '',
-      title: '',
-      year: 0,
-      imdbRating: 0,
-      plot: '',
-      director: [],
-      poster: '',
-      genres: [],
-      actors: [],
-      watched: false 
-    };       
-      this.movieService.getOneMovie(movieId).subscribe(data => {
-        console.log(data);
-        movie.id = movieId;
-        movie.title = data.Title;      
-        movie.year = data.Year;
-        movie.imdbRating = Number(data.imdbRating);
-        movie.plot = data.Plot;
-        movie.poster = data.Poster;
-        movie.director = data.Director.split(',');
-        movie.director.forEach(item => item.trim());
-        movie.genres = data.Genre.split(', ');
-        movie.actors = data.Actors.split(',');
-        if (localStorage.getItem('movies')) {
-          this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-        };
-        this.moviesList.push(movie);        
-        this.saveToLocalStorage(this.moviesList);
-        this.router.navigate(['']);
-      })      
+    if (localStorage.getItem('movies')) {
+      this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
+    };    
+    let index = this.moviesList.findIndex(movie => movie.id === movieId);    
+    if (index >=0 ) { console.log('This movie is already in list!')}
+     else {
+      let movie: IMovie = {
+        id: '',
+        title: '',
+        year: 0,
+        imdbRating: 0,
+        plot: '',
+        director: [],
+        poster: '',
+        genres: [],
+        actors: [],
+        watched: false 
+      };       
+        this.movieService.getOneMovie(movieId).subscribe(data => {
+          console.log(data);
+          movie.id = movieId;
+          movie.title = data.Title;      
+          movie.year = data.Year;
+          movie.imdbRating = Number(data.imdbRating);
+          movie.plot = data.Plot;
+          movie.poster = data.Poster;
+          movie.director = data.Director.split(',');
+          movie.director.forEach(item => item.trim());
+          movie.genres = data.Genre.split(', ');
+          movie.actors = data.Actors.split(',');        
+          this.moviesList.push(movie);        
+          this.saveToLocalStorage(this.moviesList);
+          this.router.navigate(['']);          
+        })      
+     }    
   }
 
   saveToLocalStorage(moviesList: IMovie[]) {

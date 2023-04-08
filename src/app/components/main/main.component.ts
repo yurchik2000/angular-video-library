@@ -20,6 +20,7 @@ export class MainComponent {
     'tt0109830', 
   ];
   public movieTitle = "";  
+  public isGridMode = this.movieService.isGridMode;
 
   constructor(
     private movieService: MoviesService
@@ -31,6 +32,7 @@ export class MainComponent {
     }
     this.getAllMovies();    
     this.updateSearch();
+    this.updateMode();
   }
 
   getAllMovies(): void {
@@ -42,6 +44,7 @@ export class MainComponent {
 }
 
   getOneMovie(movieId: string): void {        
+
     let movie: IMovie = {
       id: '',
       title: '',
@@ -84,7 +87,13 @@ export class MainComponent {
     this.movieService.changeMovieTitle.subscribe( () => {      
       this.movieTitle = this.movieService.inputMovieTitle;
     })
-  }
+  };
+
+  updateMode(): void {    
+    this.movieService.changeGridMode.subscribe( () => {           
+      this.isGridMode = this.movieService.isGridMode;
+    })
+  };
 
   deleteMovie(id:string): void {
     console.log(this.moviesList);

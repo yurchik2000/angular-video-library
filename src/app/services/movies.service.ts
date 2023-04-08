@@ -15,6 +15,8 @@ export class MoviesService {
   public searchMoviesList: Array<ISearchListMovie> = [];
   public changeMovieTitle = new Subject<boolean>();
   public changeSearchMovieTitle = new Subject<boolean>();
+  public changeGridMode = new Subject<boolean>();
+  public isGridMode = false;
 
   constructor(
     private http: HttpClient
@@ -27,7 +29,6 @@ export class MoviesService {
   getOneMovie(movieId: string): Observable<IMovieResponce> {
     return this.http.get<IMovieResponce>(`${this.url}?apikey=${this.apiKey}&i=${movieId}`)
   }
-
   getMoviesList(title: string): Observable<ISearchResponce> {
     return this.http.get<ISearchResponce>(`${this.url}?apikey=${this.apiKey}&s=${title}`)
   }

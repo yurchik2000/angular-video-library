@@ -13,8 +13,8 @@ export class HeaderComponent {
 
   public movieTitle: string = "";
   public movieImdbTitle: string = "";
-  public isShowAddMovie = false;
-  // public searchMoviesList: Array<ISearchListMovie> = [];
+  public isShowAddMovie = false;  
+  public isGridMode = this.movieService.isGridMode;
 
   constructor(
     private movieService: MoviesService,
@@ -42,6 +42,11 @@ export class HeaderComponent {
   }
   showAddMovieInput(): void {
     this.isShowAddMovie = !this.isShowAddMovie;    
+  }
+  changeGridMode(): void {
+    this.isGridMode = !this.isGridMode;
+    this.movieService.isGridMode = this.isGridMode;
+    this.movieService.changeGridMode.next(true);    
   }
 
 
