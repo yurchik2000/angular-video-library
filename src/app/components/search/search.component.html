@@ -1,0 +1,20 @@
+<div class="main container mx-auto max-w-7xl">
+    <ul class="movie__list font-mono flex flex-wrap justify-center">
+        <li class="search__movie border border-2 border-gray-300 rounded-xl my-4 mx-2 px-2 pt-8 pb-2 w-60 text-center relative" 
+        *ngFor="let movie of searchMoviesList"
+        >
+        <button 
+            class="add__btn absolute top-1 font-lg right-2"
+            (click)="getOneMovie(movie.imdbID)"
+        >+</button>
+        <div class="img__inner">
+            <img src="{{movie.Poster}}" alt="{{movie.Title}}">
+        </div>        
+        <h5 class="text-lg font-bold">{{movie.Title}}</h5>
+        <p class="text-sm">{{movie.Year}}</p>        
+        <p class="absolute bottom-1 right-1 text-xs">{{movie.imdbID}}</p>
+        </li>
+    </ul>
+
+
+</div>

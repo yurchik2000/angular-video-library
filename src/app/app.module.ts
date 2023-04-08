@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { SearchPipe } from './pipes/search.pipe';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     MainComponent,
-    SearchPipe
+    SearchPipe,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

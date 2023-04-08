@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { IMovieResponce, ISearchResponce, ISearchListMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -12,9 +14,11 @@ export class HeaderComponent {
   public movieTitle: string = "";
   public movieImdbTitle: string = "";
   public isShowAddMovie = false;
+  // public searchMoviesList: Array<ISearchListMovie> = [];
 
   constructor(
-    private movieService: MoviesService
+    private movieService: MoviesService,
+    private router: Router
   ) {}
 
   updateInput(): void {
@@ -26,8 +30,13 @@ export class HeaderComponent {
   }
   searchOnImdb(title:string): void {
     if (title.length > 3) {
-      this.movieService.getMoviesList(title).subscribe(data => {
-        console.log(data);
+      this.movieService.getMoviesList(title).subscribe(data => {                        
+        if (data.totalResults > 0) {          
+          this.movieService.searchMoviesList = data.Search;
+          console.log(this.movieService.searchMoviesList);
+          this.router.navigate(['/search']);
+          this.movieService.changeSearchMovieTitle.next(true);    
+        }        
       })
     }    
   }

@@ -43,3 +43,16 @@ export interface IMovie {
     actors: Array<string>,
     watched: boolean
 }
+
+export interface ISearchResponce {
+    Response: boolean,
+    Search: Array<ISearchListMovie>,    
+    totalResults: number,    
+}
+export interface ISearchListMovie {
+    Poster: string,
+    Title: string,
+    Type: string,
+    Year: number,
+    imdbID: string
+}

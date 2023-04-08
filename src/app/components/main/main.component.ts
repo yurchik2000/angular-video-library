@@ -32,15 +32,12 @@ export class MainComponent {
     this.getAllMovies();    
     this.updateSearch();
   }
-  ngOnDestroy() {
-  }
 
   getAllMovies(): void {
     for( let i=0; i < this.moviesIdList.length; i++ ) {           
       if (!this.moviesList.find(element => element.id === this.moviesIdList[i])) {      
         this.getOneMovie(this.moviesIdList[i]);        
     }
-
   }
 }
 
@@ -89,7 +86,12 @@ export class MainComponent {
     })
   }
 
-
+  deleteMovie(id:string): void {
+    console.log(this.moviesList);
+    let index = this.moviesList.findIndex(movie => movie.id === id);
+    this.moviesList.splice(index, 1);
+    this.saveToLocalStorage(this.moviesList);
+  }
 
 
 }
