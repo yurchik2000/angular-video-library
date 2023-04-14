@@ -14,6 +14,7 @@ export class HeaderComponent {
   public movieTitle: string = "";
   public movieImdbTitle: string = "";
   public isShowAddMovie = false;  
+  public isDescending = true;  
   public isGridMode = this.movieService.isGridMode;
 
   constructor(
@@ -39,15 +40,18 @@ export class HeaderComponent {
         }        
       })
     }    
-  }
+  };
   showAddMovieInput(): void {
     this.isShowAddMovie = !this.isShowAddMovie;    
-  }
+  };
   changeGridMode(): void {
     this.isGridMode = !this.isGridMode;
     this.movieService.isGridMode = this.isGridMode;
     this.movieService.changeGridMode.next(true);    
-  }
+  };
+  changeDirection(): void {
+    this.isDescending = !this.isDescending;    
+  };
 
 
 }

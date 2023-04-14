@@ -1,74 +1,352 @@
-<header class="header container mx-auto bg-violet-400 font-mono relative rounded max-w-7xl">
-    <nav class="flex items-center ">
-        <div *ngIf="!isShowAddMovie" class="input__wrapper p-2 flex items-center">        
-            <input                 
-                class="search__video p-2 pr-8 rounded-xl outline-transparent w-56 " 
-                type="text" 
-                placeholder="Search on this page"
-                [(ngModel)]="movieTitle"
-                (input) = "searchByTitle()"
-            >
-            <button type="button" class="-ml-8">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 513.749 513.749" style="enable-background:new 0 0 513.749 513.749;" xml:space="preserve" width="22" height="22">
-                    <g>                            
-                        <path fill="#d1d5db" d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"/>
-                    </g>
-                    </svg>
-            </button>                                            
-        </div>                           
-        <div *ngIf="isShowAddMovie" class="input__wrapper p-2 bg-white-100 flex items-center ">
-                <input 
-                    class="search__video-imdb p-2 pr-8 rounded-xl outline-transparent w-56" 
-                    type="text" 
-                    placeholder="Search IMDb"  
-                    [(ngModel)]="movieImdbTitle"
-                    (keyup.enter)="searchOnImdb(movieImdbTitle)"
-                >
-                <button type="button" class="-ml-8" (click)="searchOnImdb(movieImdbTitle)">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 513.749 513.749" style="enable-background:new 0 0 513.749 513.749;" xml:space="preserve" width="22" height="22">
-                        <g>                            
-                            <path fill="#d1d5db" d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"/>
-                        </g>
-                        </svg>
-                </button>                                            
-        </div>                   
-        
-        <div 
-            class="add__film-btn ml-8 cursor-pointer" 
-            (click)="showAddMovieInput()"
-            [ngClass]="{'bg-white-500': isShowAddMovie, 'bg-red-100': !isShowAddMovie }"       
+<header
+  class="header container mx-auto bg-violet-400 font-mono relative rounded max-w-7xl sticky top-0 z-30"
+>
+  <nav class="flex items-center">
+    <div *ngIf="!isShowAddMovie" class="input__wrapper p-2 flex items-center">
+      <input
+        class="search__video p-2 pr-8 rounded-xl outline-transparent w-56"
+        type="text"
+        placeholder="Search on page"
+        [(ngModel)]="movieTitle"
+        (input)="searchByTitle()"
+      />
+      <button type="button" class="-ml-8">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          id="Capa_1"
+          x="0px"
+          y="0px"
+          viewBox="0 0 513.749 513.749"
+          style="enable-background: new 0 0 513.749 513.749"
+          xml:space="preserve"
+          width="22"
+          height="22"
         >
-            <svg width="26" height="26" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 137.144 137.144" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 137.144 137.144">
-                <g>
-                  <g>
-                    <path d="M75.429,34.286H61.715v27.429H34.286v13.714h27.429v27.43h13.714v-27.43h27.429V61.715H75.429V34.286z M109.715,0H27.429    C12.28,0,0,12.281,0,27.429v82.286c0,15.149,12.28,27.429,27.429,27.429h82.286c15.149,0,27.429-12.28,27.429-27.429V27.429    C137.144,12.281,124.864,0,109.715,0z M123.43,102.858c0,11.361-9.21,20.572-20.571,20.572H34.286    c-11.361,0-20.571-9.21-20.571-20.572V34.286c0-11.361,9.21-20.572,20.571-20.572h68.573c11.361,0,20.571,9.21,20.571,20.572    V102.858z"/>
-                  </g>
-                </g>
-              </svg>
-        </div>
-        <div class="arrow__inner flex mx-2">
-            <svg width="24" height="24"
-                 enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  
-                xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <path clip-rule="evenodd" d="M15.294,0.295L15.294,0.295L15.294,0.295  l-9.991,9.97c-0.66,0.634-0.162,1.748,0.734,1.723h4.976c0,0.004-0.002,0.008-0.002,0.012v19c0,0.55,0.45,1,1,1h8c0.55,0,1-0.45,1-1  V12c0-0.004-0.002-0.008-0.002-0.012h4.972c0.892,0.024,1.376-1.082,0.742-1.715l-9.999-9.977  C16.328-0.098,15.688-0.098,15.294,0.295z M23.574,9.983H19.01V10v1v0.988h0.002c0,0.004-0.002,0.008-0.002,0.012v1v17h-6V13v-1  c0-0.004-0.002-0.008-0.002-0.012h0.002V11v-1V9.983H8.442l7.566-7.55L23.574,9.983z" fill="#121313" fill-rule="evenodd" id="Arrow_Up"/><g/><g/><g/><g/><g/><g/>
-            </svg>
-            <svg class="-ml-2" width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M16.716,31.705L16.716,31.705L16.716,31.705  l9.991-9.97c0.66-0.634,0.162-1.748-0.734-1.723h-4.976C20.998,20.008,21,20.004,21,20V1c0-0.55-0.45-1-1-1l-8,0c-0.55,0-1,0.45-1,1  v19c0,0.004,0.002,0.008,0.002,0.012H6.031c-0.892-0.024-1.376,1.082-0.742,1.715l9.999,9.977  C15.682,32.098,16.322,32.098,16.716,31.705z M8.436,22.017H13V22v-1v-0.988h-0.002C12.998,20.008,13,20.004,13,20v-1V2h6v17v1  c0,0.004,0.002,0.008,0.002,0.012H19V21v1v0.017h4.568l-7.566,7.55L8.436,22.017z" fill="#121313" fill-rule="evenodd" stroke="#11d5db" stroke-opacity="0.8" id="Arrow_Down"/><g/><g/><g/><g/><g/><g/></svg>                    
-        </div>
-        <div class="hidden grid__inner sm:flex cursor-pointer" (click)="changeGridMode()">            
-            <svg *ngIf="!isGridMode" width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Apps"><path d="M6,0H2C0.895,0,0,0.896,0,2v4c0,1.105,0.895,2,2,2h4c1.105,0,2-0.895,2-2V2C8,0.896,7.105,0,6,0z M6,6H2V2   h4V6z" fill="#121313"/><path d="M18,0h-4c-1.105,0-2,0.896-2,2v4c0,1.105,0.895,2,2,2h4c1.104,0,2-0.895,2-2V2C20,0.896,19.104,0,18,0z    M18,6h-4V2h4V6z" fill="#121313"/><path d="M30,0h-4c-1.105,0-2,0.896-2,2v4c0,1.105,0.895,2,2,2h4c1.104,0,2-0.895,2-2V2C32,0.896,31.104,0,30,0z    M30,6h-4V2h4V6z" fill="#121313"/><path clip-rule="evenodd" d="M6,12H2c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.105,0,2-0.895,2-2v-4C8,12.896,7.105,12,6,12z M6,18H2v-4h4V18z" fill="#121313" fill-rule="evenodd"/><path clip-rule="evenodd" d="M18,12h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C20,12.896,19.104,12,18,12z M18,18h-4v-4h4V18z" fill="#121313" fill-rule="evenodd"/><path clip-rule="evenodd" d="M30,12h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C32,12.896,31.104,12,30,12z M30,18h-4v-4h4V18z" fill="#121313" fill-rule="evenodd"/><path clip-rule="evenodd" d="M6,24H2c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.105,0,2-0.895,2-2v-4C8,24.896,7.105,24,6,24z M6,30H2v-4h4V30z" fill="#121313" fill-rule="evenodd"/><path clip-rule="evenodd" d="M18,24h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C20,24.896,19.104,24,18,24z M18,30h-4v-4h4V30z" fill="#121313" fill-rule="evenodd"/><path clip-rule="evenodd" d="M30,24h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C32,24.896,31.104,24,30,24z M30,30h-4v-4h4V30z" fill="#121313" fill-rule="evenodd"/></g><g/><g/><g/><g/><g/><g/></svg>
-            <svg *ngIf="isGridMode" flood-color="" width="24" height="24"  xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 64 64"><rect width="8" height="8" x="1" y="4" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/><rect width="8" height="8" x="1" y="20" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/><rect width="8" height="8" x="1" y="36" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/><rect width="8" height="8" x="1" y="52" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/><line x1="19" x2="63" y1="8" y2="8" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/><line x1="19" x2="55" y1="24" y2="24" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/><line x1="19" x2="47" y1="40" y2="40" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/><line x1="19" x2="55" y1="56" y2="56" fill="none" stroke="#010101" stroke-miterlimit="10" stroke-width="4"/></svg>
-        </div>
-    </nav>        
-    <div class="new__line absolute top-0 left-0 hidden ">
-        <div class="input__wrapper p-2 bg-white-100 flex items-center">
-            <input class="search__video p-2 pr-8 rounded-xl outline-transparent w-56" type="text" placeholder="Search IMDb"  >
-            <button type="button" class="-ml-8">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 513.749 513.749" style="enable-background:new 0 0 513.749 513.749;" xml:space="preserve" width="26" height="26">
-                    <g>                            
-                        <path fill="#d1d5db" d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"/>
-                    </g>
-                    </svg>
-            </button>                                            
-        </div>                   
+          <g>
+            <path
+              fill="#d1d5db"
+              d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"
+            />
+          </g>
+        </svg>
+      </button>
     </div>
+    <div
+      *ngIf="isShowAddMovie"
+      class="input__wrapper p-2 bg-white-100 flex items-center"
+    >
+      <input
+        class="search__video-imdb p-2 pr-8 rounded-xl outline-transparent w-56"
+        type="text"
+        placeholder="Search IMDb"
+        [(ngModel)]="movieImdbTitle"
+        (keyup.enter)="searchOnImdb(movieImdbTitle)"
+      />
+      <button
+        type="button"
+        class="-ml-8"
+        (click)="searchOnImdb(movieImdbTitle)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          id="Capa_1"
+          x="0px"
+          y="0px"
+          viewBox="0 0 513.749 513.749"
+          style="enable-background: new 0 0 513.749 513.749"
+          xml:space="preserve"
+          width="22"
+          height="22"
+        >
+          <g>
+            <path
+              fill="#d1d5db"
+              d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"
+            />
+          </g>
+        </svg>
+      </button>
+    </div>
+
+    <div
+      class="add__film-btn ml-4 h-10 p-0 cursor-pointer bg-amber-300 rounded-md hover:shadow-lg transition-all duration-300 align-top flex flex-col justify-center"
+      (click)="showAddMovieInput()"
+      [ngClass]="{
+        'bg-amber-500': isShowAddMovie,
+        'bg-amber-300': !isShowAddMovie
+      }"
+    >
+      <svg
+        height="40"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 40 40"
+        id="imdb"
+      >
+        <path
+          d="M6 14.51h2.9v11.16H6Zm0 0h2.9v11.16H6Zm8.38 5.14C14.13 17.94 14 17 14 16.81c-.12-.91-.23-1.7-.35-2.38H9.86v11.16h2.54v-7.37l1.07 7.37h1.81l1-7.53v7.53h2.54V14.43h-3.77Zm0 0C14.13 17.94 14 17 14 16.81c-.12-.91-.23-1.7-.35-2.38H9.86v11.16h2.54v-7.37l1.07 7.37h1.81l1-7.53v7.53h2.54V14.43h-3.77Zm9.24-2.9a6.09 6.09 0 0 1 .05 1v4.33a3.92 3.92 0 0 1-.14 1.37c-.1.16-.36.25-.77.25v-7.36a1.35 1.35 0 0 1 .64.1.44.44 0 0 1 .22.31Zm1.31 8.73a2.06 2.06 0 0 0 .87-.4 1.43 1.43 0 0 0 .49-.79 8.42 8.42 0 0 0 .16-2v-3.93a14.8 14.8 0 0 0-.11-2.12 2 2 0 0 0-1.61-1.61 11.79 11.79 0 0 0-2.71-.2h-2.16v11.16h3.51a10.66 10.66 0 0 0 1.56-.11Zm-1.31-8.73a6.09 6.09 0 0 1 .05 1v4.33a3.92 3.92 0 0 1-.14 1.37c-.1.16-.36.25-.77.25v-7.36a1.35 1.35 0 0 1 .64.1.44.44 0 0 1 .22.31Zm1.31 8.73a2.06 2.06 0 0 0 .87-.4 1.43 1.43 0 0 0 .49-.79 8.42 8.42 0 0 0 .16-2v-3.93a14.8 14.8 0 0 0-.11-2.12 2 2 0 0 0-1.61-1.61 11.79 11.79 0 0 0-2.71-.2h-2.16v11.16h3.51a10.66 10.66 0 0 0 1.56-.11Zm6.19-1.67c-.05.14-.28.21-.46.21a.34.34 0 0 1-.35-.2 3.09 3.09 0 0 1-.08-.94v-2.95a3.52 3.52 0 0 1 .07-.93.32.32 0 0 1 .34-.19c.17 0 .41.07.47.21a3 3 0 0 1 .09.93v2.86a5.24 5.24 0 0 1-.08 1Zm-3.69 1.68H30c.11-.42.17-.66.18-.71a2.12 2.12 0 0 0 1.82.86 2 2 0 0 0 1.19-.36 1.56 1.56 0 0 0 .63-.85 6.1 6.1 0 0 0 .14-1.5V19.8a11.45 11.45 0 0 0 0-1.32 1.39 1.39 0 0 0-.26-.63 1.44 1.44 0 0 0-.65-.5 2.52 2.52 0 0 0-1-.18 2.75 2.75 0 0 0-1 .2 2.18 2.18 0 0 0-.77.6v-3.64h-2.8Zm3.69-1.68c-.05.14-.28.21-.46.21a.34.34 0 0 1-.35-.2 3.09 3.09 0 0 1-.08-.94v-2.95a3.52 3.52 0 0 1 .07-.93.32.32 0 0 1 .34-.19c.17 0 .41.07.47.21a3 3 0 0 1 .09.93v2.86a5.24 5.24 0 0 1-.08 1Zm-3.69 1.68H30c.11-.42.17-.66.18-.71a2.12 2.12 0 0 0 1.82.86 2 2 0 0 0 1.19-.36 1.56 1.56 0 0 0 .63-.85 6.1 6.1 0 0 0 .14-1.5V19.8a11.45 11.45 0 0 0 0-1.32 1.39 1.39 0 0 0-.26-.63 1.44 1.44 0 0 0-.65-.5 2.52 2.52 0 0 0-1-.18 2.75 2.75 0 0 0-1 .2 2.18 2.18 0 0 0-.77.6v-3.64h-2.8Z"
+        ></path>
+      </svg>
+    </div>
+
+    <div class="arrow__inner flex mx-2 cursor-pointer" (click)="changeDirection()"        
+    >
+      <svg
+        width="24"
+        height="24"
+        enable-background="new 0 0 32 32"
+        id="Слой_1"
+        version="1.1"
+        viewBox="0 0 32 32"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"        
+      >
+        <path
+          clip-rule="evenodd"
+          d="M15.294,0.295L15.294,0.295L15.294,0.295  l-9.991,9.97c-0.66,0.634-0.162,1.748,0.734,1.723h4.976c0,0.004-0.002,0.008-0.002,0.012v19c0,0.55,0.45,1,1,1h8c0.55,0,1-0.45,1-1  V12c0-0.004-0.002-0.008-0.002-0.012h4.972c0.892,0.024,1.376-1.082,0.742-1.715l-9.999-9.977  C16.328-0.098,15.688-0.098,15.294,0.295z M23.574,9.983H19.01V10v1v0.988h0.002c0,0.004-0.002,0.008-0.002,0.012v1v17h-6V13v-1  c0-0.004-0.002-0.008-0.002-0.012h0.002V11v-1V9.983H8.442l7.566-7.55L23.574,9.983z"
+          [ngClass]="{
+            'fill-amber-800': !isDescending,
+            'fill-indigo-800': isDescending
+          }"
+          fill-rule="evenodd"
+          id="Arrow_Up"
+        />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+      </svg>
+      <svg
+        class="-ml-2"
+        width="24"
+        height="24"
+        enable-background="new 0 0 32 32"
+        id="Слой_1"
+        version="1.1"
+        viewBox="0 0 32 32"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <path          
+          clip-rule="evenodd"
+          d="M16.716,31.705L16.716,31.705L16.716,31.705  l9.991-9.97c0.66-0.634,0.162-1.748-0.734-1.723h-4.976C20.998,20.008,21,20.004,21,20V1c0-0.55-0.45-1-1-1l-8,0c-0.55,0-1,0.45-1,1  v19c0,0.004,0.002,0.008,0.002,0.012H6.031c-0.892-0.024-1.376,1.082-0.742,1.715l9.999,9.977  C15.682,32.098,16.322,32.098,16.716,31.705z M8.436,22.017H13V22v-1v-0.988h-0.002C12.998,20.008,13,20.004,13,20v-1V2h6v17v1  c0,0.004,0.002,0.008,0.002,0.012H19V21v1v0.017h4.568l-7.566,7.55L8.436,22.017z"
+          [ngClass]="{
+            'fill-amber-800': isDescending,
+            'fill-indigo-800': !isDescending
+          }"
+          fill-rule="evenodd"                    
+          id="Arrow_Down"
+        />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+      </svg>
+    </div>
+
+    <div
+      class="hidden grid__inner sm:flex cursor-pointer"
+      (click)="changeGridMode()"
+    >
+      <svg
+        *ngIf="!isGridMode"
+        width="24"
+        height="24"
+        enable-background="new 0 0 32 32"
+        id="Слой_1"
+        version="1.1"
+        viewBox="0 0 32 32"
+        xml:space="preserve"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <g id="Apps">
+          <path
+            d="M6,0H2C0.895,0,0,0.896,0,2v4c0,1.105,0.895,2,2,2h4c1.105,0,2-0.895,2-2V2C8,0.896,7.105,0,6,0z M6,6H2V2   h4V6z"
+            fill="#121313"
+          />
+          <path
+            d="M18,0h-4c-1.105,0-2,0.896-2,2v4c0,1.105,0.895,2,2,2h4c1.104,0,2-0.895,2-2V2C20,0.896,19.104,0,18,0z    M18,6h-4V2h4V6z"
+            fill="#121313"
+          />
+          <path
+            d="M30,0h-4c-1.105,0-2,0.896-2,2v4c0,1.105,0.895,2,2,2h4c1.104,0,2-0.895,2-2V2C32,0.896,31.104,0,30,0z    M30,6h-4V2h4V6z"
+            fill="#121313"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M6,12H2c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.105,0,2-0.895,2-2v-4C8,12.896,7.105,12,6,12z M6,18H2v-4h4V18z"
+            fill="#121313"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M18,12h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C20,12.896,19.104,12,18,12z M18,18h-4v-4h4V18z"
+            fill="#121313"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M30,12h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C32,12.896,31.104,12,30,12z M30,18h-4v-4h4V18z"
+            fill="#121313"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M6,24H2c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.105,0,2-0.895,2-2v-4C8,24.896,7.105,24,6,24z M6,30H2v-4h4V30z"
+            fill="#121313"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M18,24h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C20,24.896,19.104,24,18,24z M18,30h-4v-4h4V30z"
+            fill="#121313"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M30,24h-4c-1.105,0-2,0.895-2,2v4c0,1.105,0.895,2,2,2h4   c1.104,0,2-0.895,2-2v-4C32,24.896,31.104,24,30,24z M30,30h-4v-4h4V30z"
+            fill="#121313"
+            fill-rule="evenodd"
+          />
+        </g>
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+      </svg>
+      <svg
+        *ngIf="isGridMode"
+        flood-color=""
+        width="24"
+        height="24"
+        xmlns="http://www.w3.org/2000/svg"
+        data-name="Layer 1"
+        viewBox="0 0 64 64"
+      >
+        <rect
+          width="8"
+          height="8"
+          x="1"
+          y="4"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+        <rect
+          width="8"
+          height="8"
+          x="1"
+          y="20"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+        <rect
+          width="8"
+          height="8"
+          x="1"
+          y="36"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+        <rect
+          width="8"
+          height="8"
+          x="1"
+          y="52"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+        <line
+          x1="19"
+          x2="63"
+          y1="8"
+          y2="8"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+        <line
+          x1="19"
+          x2="55"
+          y1="24"
+          y2="24"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+        <line
+          x1="19"
+          x2="47"
+          y1="40"
+          y2="40"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+        <line
+          x1="19"
+          x2="55"
+          y1="56"
+          y2="56"
+          fill="none"
+          stroke="#010101"
+          stroke-miterlimit="10"
+          stroke-width="4"
+        />
+      </svg>
+    </div>
+  </nav>
+  <div class="new__line absolute top-0 left-0 hidden">
+    <div class="input__wrapper p-2 bg-white-100 flex items-center">
+      <input
+        class="search__video p-2 pr-8 rounded-xl outline-transparent w-56"
+        type="text"
+        placeholder="Search IMDb"
+      />
+      <button type="button" class="-ml-8">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          version="1.1"
+          id="Capa_1"
+          x="0px"
+          y="0px"
+          viewBox="0 0 513.749 513.749"
+          style="enable-background: new 0 0 513.749 513.749"
+          xml:space="preserve"
+          width="26"
+          height="26"
+        >
+          <g>
+            <path
+              fill="#d1d5db"
+              d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"
+            />
+          </g>
+        </svg>
+      </button>
+    </div>
+  </div>
 </header>
