@@ -23,6 +23,7 @@ export class MainComponent {
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
   public sortDirection = this.movieService.sortDirection;  
+  public activeGenre = '';
 
   constructor(
     private movieService: MoviesService
@@ -47,7 +48,6 @@ export class MainComponent {
 }
 
   getOneMovie(movieId: string): void {        
-
     let movie: IMovie = {
       id: '',
       title: '',
@@ -109,6 +109,11 @@ export class MainComponent {
     let index = this.moviesList.findIndex(movie => movie.id === id);
     this.moviesList.splice(index, 1);
     this.saveToLocalStorage(this.moviesList);
+  }
+
+  changeActiveGenre(genre:string): void {
+    if (this.activeGenre === genre) this.activeGenre = '';
+     else this.activeGenre = genre;
   }
   
 

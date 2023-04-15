@@ -10,6 +10,7 @@ import { MainComponent } from './components/main/main.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { SortPipe } from './pipes/sort.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SortPipe } from './pipes/sort.pipe';
     MainComponent,
     SearchPipe,
     SearchComponent,
-    SortPipe
+    SortPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
