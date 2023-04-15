@@ -26,6 +26,7 @@ export class MainComponent {
   public activeGenre = '';
   public activeDirector = '';
   public activeActor = '';
+  public currentPage = 1;
 
   constructor(
     private movieService: MoviesService

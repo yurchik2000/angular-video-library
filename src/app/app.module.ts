@@ -13,6 +13,7 @@ import { SortPipe } from './pipes/sort.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterbydirectorPipe } from './pipes/filterbydirector.pipe';
 import { SortbyactorPipe } from './pipes/sortbyactor.pipe';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SortbyactorPipe } from './pipes/sortbyactor.pipe';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
