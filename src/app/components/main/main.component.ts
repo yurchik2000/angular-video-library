@@ -22,7 +22,7 @@ export class MainComponent {
   ];
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
-  public sortDirection1 = this.movieService.sortDirection;
+  public sortDirection = this.movieService.sortDirection;  
 
   constructor(
     private movieService: MoviesService
@@ -100,8 +100,7 @@ export class MainComponent {
 
   updateSortDirection(): void {
     this.movieService.changeSortDirection.subscribe( () => {           
-      this.sortDirection1 = this.movieService.sortDirection;      
-      console.log(2, this.sortDirection1);
+      this.sortDirection = this.movieService.sortDirection;            
     })
   };
 
@@ -111,6 +110,7 @@ export class MainComponent {
     this.moviesList.splice(index, 1);
     this.saveToLocalStorage(this.moviesList);
   }
+  
 
 
 }
