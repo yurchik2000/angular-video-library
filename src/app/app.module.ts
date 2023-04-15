@@ -11,6 +11,8 @@ import { SearchPipe } from './pipes/search.pipe';
 import { SearchComponent } from './components/search/search.component';
 import { SortPipe } from './pipes/sort.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { FilterbydirectorPipe } from './pipes/filterbydirector.pipe';
+import { SortbyactorPipe } from './pipes/sortbyactor.pipe';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     SearchPipe,
     SearchComponent,
     SortPipe,
-    FilterPipe
+    FilterPipe,
+    FilterbydirectorPipe,
+    SortbyactorPipe
   ],
   imports: [
     BrowserModule,
