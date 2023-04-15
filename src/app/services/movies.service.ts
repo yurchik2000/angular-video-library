@@ -15,8 +15,10 @@ export class MoviesService {
   public searchMoviesList: Array<ISearchListMovie> = [];
   public changeMovieTitle = new Subject<boolean>();
   public changeSearchMovieTitle = new Subject<boolean>();
+  public changeSortDirection = new Subject<boolean>();
   public changeGridMode = new Subject<boolean>();
   public isGridMode = false;
+  public sortDirection = true;
 
   constructor(
     private http: HttpClient

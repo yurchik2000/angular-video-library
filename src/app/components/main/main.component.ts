@@ -21,7 +21,8 @@ export class MainComponent {
     'tt13833688'
   ];
   public movieTitle = "";  
-  public isGridMode = this.movieService.isGridMode;
+  public isGridMode = this.movieService.isGridMode;  
+  public sortDirection1 = this.movieService.sortDirection;
 
   constructor(
     private movieService: MoviesService
@@ -34,6 +35,7 @@ export class MainComponent {
     this.getAllMovies();    
     this.updateSearch();
     this.updateMode();
+    this.updateSortDirection();
   }
 
   getAllMovies(): void {
@@ -93,6 +95,13 @@ export class MainComponent {
   updateMode(): void {    
     this.movieService.changeGridMode.subscribe( () => {           
       this.isGridMode = this.movieService.isGridMode;
+    })
+  };
+
+  updateSortDirection(): void {
+    this.movieService.changeSortDirection.subscribe( () => {           
+      this.sortDirection1 = this.movieService.sortDirection;      
+      console.log(2, this.sortDirection1);
     })
   };
 

@@ -51,6 +51,9 @@ export class HeaderComponent {
   };
   changeDirection(): void {
     this.isDescending = !this.isDescending;    
+    this.movieService.sortDirection = this.isDescending;    
+    this.movieService.changeSortDirection.next(true);     
+    console.log(1, this.movieService.sortDirection);
   };
 
 
