@@ -73,12 +73,14 @@
     </div>
 
     <div
-      class="add__film-btn ml-4 h-10 p-0 cursor-pointer bg-amber-300 rounded-md hover:shadow-lg transition-all duration-300 align-top flex flex-col justify-center"
+      class="add__film-btn ml-4 h-10 p-0 cursor-pointer bg-amber-300 rounded-md hover:shadow-lg transition-all duration-300 align-top flex flex-col justify-center border border-2"
       (click)="showAddMovieInput()"
       [ngClass]="{
         'bg-amber-500': isShowAddMovie,
-        'bg-amber-300': !isShowAddMovie
-      }"
+        'bg-amber-300': !isShowAddMovie,
+        'border-gray-300': isShowAddMovie,
+        'border-transparent': !isShowAddMovie
+      }"      
     >
       <svg
         height="40"

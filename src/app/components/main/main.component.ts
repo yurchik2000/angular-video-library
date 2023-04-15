@@ -15,9 +15,10 @@ export class MainComponent {
   public moviesIdList = [
     'tt6060964', 
     'tt0441909',
-    'tt9770150',  
-    'tt10627352',
+    'tt9770150',      
     'tt0109830', 
+    'tt5827916',
+    'tt13833688'
   ];
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;
