@@ -13,7 +13,9 @@ import { SortPipe } from './pipes/sort.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterbydirectorPipe } from './pipes/filterbydirector.pipe';
 import { SortbyactorPipe } from './pipes/sortbyactor.pipe';
-import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
+import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ToastrModule,
+    ToastNoAnimationModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

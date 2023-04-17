@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IMovie } from '../interfaces/movies.interface';
 
 @Pipe({
-  name: 'sort'  
+  name: 'sort',
+  pure: false
 })
 export class SortPipe implements PipeTransform {
 

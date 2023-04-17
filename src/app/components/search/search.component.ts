@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { IMovie, ISearchListMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search',
@@ -15,7 +16,8 @@ export class SearchComponent {
 
   constructor(
     private movieService: MoviesService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {};
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class SearchComponent {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
     };    
     let index = this.moviesList.findIndex(movie => movie.id === movieId);    
-    if (index >=0 ) { console.log('This movie is already in list!')}
+    if (index >=0 ) { this.toastr.info('This film is already in your list');}
      else {
       let movie: IMovie = {
         id: '',
@@ -61,7 +63,8 @@ export class SearchComponent {
           movie.actors = data.Actors.split(',');        
           this.moviesList.push(movie);        
           this.saveToLocalStorage(this.moviesList);
-          this.router.navigate(['']);          
+          this.toastr.success('New film successfully added');
+          this.router.navigate(['']);
         })      
      }    
   }

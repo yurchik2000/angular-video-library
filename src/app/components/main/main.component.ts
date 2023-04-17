@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-main',
@@ -26,10 +28,11 @@ export class MainComponent {
   public activeGenre = '';
   public activeDirector = '';
   public activeActor = '';
-  public currentPage = 1;
+  public currentPage = 1;  
 
   constructor(
-    private movieService: MoviesService
+    private movieService: MoviesService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -87,6 +90,9 @@ export class MainComponent {
   checkWatched(movie: IMovie): void {
     movie.watched = !movie.watched;
     this.saveToLocalStorage(this.moviesList);    
+    if (movie.watched) this.toastr.info('Add to watched list'); else {
+      this.toastr.info('Remove from watched list');
+    }
   }
 
   updateSearch(): void {
@@ -109,10 +115,11 @@ export class MainComponent {
   };
 
   deleteMovie(id:string): void {
-    console.log(this.moviesList);
+    console.log(id, this.moviesList);
     let index = this.moviesList.findIndex(movie => movie.id === id);
     this.moviesList.splice(index, 1);
     this.saveToLocalStorage(this.moviesList);
+    this.toastr.warning('This film successfully deleted from your list');        
   };
 
   changeActiveGenre(genre:string): void {
