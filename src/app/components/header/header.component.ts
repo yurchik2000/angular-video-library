@@ -22,21 +22,26 @@ export class HeaderComponent {
     private router: Router
   ) {}
 
+  ngOnInit() {
+    
+  }
+
   updateInput(): void {
 
   } 
   searchByTitle(): void {    
     this.movieService.inputMovieTitle = this.movieTitle;
-    this.movieService.changeMovieTitle.next(true);    
+    this.movieService.changeMovieTitle.next(true);        
   }
   searchOnImdb(title:string): void {
     if (title.length > 3) {
       this.movieService.getMoviesList(title).subscribe(data => {                        
         if (data.totalResults > 0) {          
           this.movieService.searchMoviesList = data.Search;
-          console.log(this.movieService.searchMoviesList);
+          console.log(this.movieService.searchMoviesList);          
           this.router.navigate(['/search']);
-          this.movieService.changeSearchMovieTitle.next(true);    
+          this.movieImdbTitle = '';
+          this.movieService.changeSearchMovieTitle.next(true);
         }        
       })
     }    
