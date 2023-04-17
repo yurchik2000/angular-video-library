@@ -92,6 +92,7 @@ export class MainComponent {
   updateSearch(): void {
     this.movieService.changeMovieTitle.subscribe( () => {      
       this.movieTitle = this.movieService.inputMovieTitle;
+      this.currentPage = 1;
     })
   };
 
@@ -117,14 +118,17 @@ export class MainComponent {
   changeActiveGenre(genre:string): void {
     if (this.activeGenre === genre) this.activeGenre = '';
      else this.activeGenre = genre;
+    this.currentPage = 1; 
   };
   changeActiveDirector(director:string): void {
     if (this.activeDirector === director) this.activeDirector = '';
      else this.activeDirector = director;
+    this.currentPage = 1; 
   };
   changeActiveActor(actor:string): void {
     if (this.activeActor === actor) this.activeActor = '';
      else this.activeActor = actor;
+  this.currentPage = 1;   
   }
   
 

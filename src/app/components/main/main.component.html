@@ -2,7 +2,7 @@
     <ul *ngIf="!isGridMode" class="movie__list font-mono">
         <li 
             class="movie__item relative border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex flex-col justify-center items-center md:flex-row"
-            *ngFor="let movie of (moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor) | paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"
+            *ngFor="let movie of moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor | paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"
         >
             <div *ngIf="!movie.watched" (click)="checkWatched(movie)" class="check__item absolute p-1 top-0 right-6 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300">
                 <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M27.704,8.397c-0.394-0.391-1.034-0.391-1.428,0  L11.988,22.59l-6.282-6.193c-0.394-0.391-1.034-0.391-1.428,0c-0.394,0.391-0.394,1.024,0,1.414l6.999,6.899  c0.39,0.386,1.039,0.386,1.429,0L27.704,9.811C28.099,9.421,28.099,8.787,27.704,8.397C27.31,8.006,28.099,8.787,27.704,8.397z" fill="#121313" fill-rule="evenodd" id="Check"/><g/><g/><g/><g/><g/><g/></svg>
@@ -72,7 +72,7 @@
     <ul *ngIf="isGridMode" class="movie__list font-mono flex flex-wrap justify-center">
         <li 
             class="movie__grid border border-2 border-gray-300 rounded-xl my-4 mx-2 px-2 pt-10 pb-2 w-68 text-center relative"
-            *ngFor="let movie of (moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor); index as index"
+            *ngFor="let movie of (moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor) | paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"
         >
             <div *ngIf="!movie.watched" (click)="checkWatched(movie)" class="check__item absolute p-1 top-0 right-6 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300">
                 <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M27.704,8.397c-0.394-0.391-1.034-0.391-1.428,0  L11.988,22.59l-6.282-6.193c-0.394-0.391-1.034-0.391-1.428,0c-0.394,0.391-0.394,1.024,0,1.414l6.999,6.899  c0.39,0.386,1.039,0.386,1.429,0L27.704,9.811C28.099,9.421,28.099,8.787,27.704,8.397C27.31,8.006,28.099,8.787,27.704,8.397z" fill="#121313" fill-rule="evenodd" id="Check"/><g/><g/><g/><g/><g/><g/></svg>
