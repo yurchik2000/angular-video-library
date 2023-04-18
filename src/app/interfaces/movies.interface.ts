@@ -36,6 +36,7 @@ export interface IMovie {
     title: string,
     year: number,
     imdbRating: number,
+    myRating: number,
     plot: string,
     poster: string,
     director: Array<string>,

@@ -42,6 +42,7 @@ export class SearchComponent {
         title: '',
         year: 0,
         imdbRating: 0,
+        myRating: 0, 
         plot: '',
         director: [],
         poster: '',

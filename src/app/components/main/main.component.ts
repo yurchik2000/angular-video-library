@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ToastrService } from 'ngx-toastr';
+import { RatingChangeEvent } from 'angular-star-rating';
 
 
 @Component({
@@ -28,17 +29,21 @@ export class MainComponent {
   public activeGenre = '';
   public activeDirector = '';
   public activeActor = '';
-  public currentPage = 1;  
+  public currentPage = 1; 
+  public onRatingChangeResult?: RatingChangeEvent;   
+  
 
   constructor(
     private movieService: MoviesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,    
+    // private onRatingChangeResult: RatingChangeEvent
   ) {}
 
   ngOnInit() {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-    }
+    };
+    // this.setMyRating();
     this.getAllMovies();    
     this.updateSearch();
     this.updateMode();
@@ -48,7 +53,7 @@ export class MainComponent {
   getAllMovies(): void {
     for( let i=0; i < this.moviesIdList.length; i++ ) {           
       if (!this.moviesList.find(element => element.id === this.moviesIdList[i])) {      
-        this.getOneMovie(this.moviesIdList[i]);        
+        this.getOneMovie(this.moviesIdList[i]); 
     }
   }
 }
@@ -59,6 +64,7 @@ export class MainComponent {
       title: '',
       year: 0,
       imdbRating: 0,
+      myRating: 0,
       plot: '',
       director: [],
       poster: '',
@@ -136,8 +142,19 @@ export class MainComponent {
     if (this.activeActor === actor) this.activeActor = '';
      else this.activeActor = actor;
   this.currentPage = 1;   
+  };
+  setMyRating(): void {
+    for( let i=0; i < this.moviesList.length; i++ ) {           
+      if (!this.moviesList[i].myRating) this.moviesList[i].myRating = 0;
   }
-  
+  };
 
+  onRatingChange = ($event: RatingChangeEvent, id:string) => {
+    // console.log(id, 'onRatingUpdated $event: ', $event);
+    this.onRatingChangeResult = $event;
+    let index = this.moviesList.findIndex(movie => movie.id === id);    
+    this.moviesList[index].myRating = Number(this.onRatingChangeResult.rating);
+    this.saveToLocalStorage(this.moviesList);
+  };
 
 }

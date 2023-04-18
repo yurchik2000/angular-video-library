@@ -15,6 +15,8 @@ import { FilterbydirectorPipe } from './pipes/filterbydirector.pipe';
 import { SortbyactorPipe } from './pipes/sortbyactor.pipe';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
+import { StarRatingModule } from 'angular-star-rating';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
     SortPipe,
     FilterPipe,
     FilterbydirectorPipe,
-    SortbyactorPipe
+    SortbyactorPipe,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +40,7 @@ import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
     NgxPaginationModule,
     ToastrModule,
     ToastNoAnimationModule.forRoot(),
+    StarRatingModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
