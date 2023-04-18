@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { IMovieResponce, ISearchResponce, ISearchListMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
@@ -19,7 +20,8 @@ export class HeaderComponent {
 
   constructor(
     private movieService: MoviesService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,    
   ) {}
 
   ngOnInit() {
@@ -42,8 +44,12 @@ export class HeaderComponent {
           this.router.navigate(['/search']);
           this.movieImdbTitle = '';
           this.movieService.changeSearchMovieTitle.next(true);
-        }        
+        } else {
+          this.toastr.warning('There is no any film with such word in the title');
+        }
       })
+    } else {
+      if (title.length <= 3) this.toastr.info('Type more then 3 symbols');
     }    
   };
   showAddMovieInput(): void {
