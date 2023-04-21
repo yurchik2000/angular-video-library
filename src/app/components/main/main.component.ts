@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Subject } from 'rxjs';
 import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ToastrService } from 'ngx-toastr';
@@ -15,14 +14,15 @@ import { RatingChangeEvent } from 'angular-star-rating';
 export class MainComponent {
 
   public moviesList: Array<IMovie> = [];
-  public moviesIdList = [
-    'tt6060964', 
-    'tt0441909',
-    'tt9770150',      
-    'tt0109830', 
-    'tt5827916',
-    'tt13833688'
-  ];
+  // public moviesIdList = [
+  //   'tt6060964', 
+  //   'tt0441909',
+  //   'tt9770150',      
+  //   'tt0109830', 
+  //   'tt5827916',
+  //   'tt13833688'
+  // ];
+  public moviesIdList: Array <string> = [];    
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
   public sortDirection = this.movieService.sortDirection;  
@@ -41,7 +41,14 @@ export class MainComponent {
   ngOnInit() {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-    } else this.getAllMovies();        
+    } else this.getAllMovies();
+    if (localStorage.getItem('currentUser')) {
+      const listObj = localStorage.getItem('currentUser') as string;
+      const list = JSON.parse(listObj);
+      this.moviesIdList = list;
+      console.log(list.myMovieId);      
+      this.getAllMovies();
+    };
     this.updateSearch();
     this.updateMode();
     this.updateSortDirection();

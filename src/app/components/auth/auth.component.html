@@ -1,7 +1,21 @@
-<div class="auth__page container mx-auto rounded ">
-    <form  class="auth__inner flex flex-col my-2 w-60 mx-auto text-lg" [formGroup]="authForm" (ngSubmit)="signIn()">        
+<div class="auth__page container mx-auto max-w-7xl rounded text-center">
+    <form  class="auth__inner flex flex-col my-2 w-60 mx-auto text-lg" [formGroup]="authForm">        
         <input formControlName="email" type="email" class="input__email my-2 py-2 px-4 rounded-md bg-gray-100 outline-gray-200" placeholder="Email">
         <input formControlName="password" type="password" class="input__paaword my-2 py-2 px-4 rounded-md bg-gray-100 outline-gray-200" placeholder="Password">
-        <button [disabled]="authForm.invalid" type="submit" class="signin__btn py-2 px-4 rounded-md bg-gray-600 text-white ">Sign In</button>
+        <button 
+            *ngIf="!isLogin" 
+            [disabled]="authForm.invalid" 
+            type="button"
+            (click)="signIn()"
+            class="signin__btn py-2 px-4 rounded-md bg-gray-600 text-white"
+        >Sign In</button>
+        <button 
+            *ngIf="isLogin" 
+            [disabled]="authForm.invalid" 
+            type="button" 
+            (click)="registerUser()"
+            class="signin__btn py-2 px-4 rounded-md bg-gray-600 text-white "
+        >Register</button>
     </form>
+    <a class="cursor-pointer" (click)="changeIsLogin()">{{ !isLogin ? 'Dont have account?' : 'Have an account?' }}</a>
 </div>
