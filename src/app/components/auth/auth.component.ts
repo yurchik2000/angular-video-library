@@ -44,8 +44,7 @@ export class AuthComponent {
     })
   }
   signIn(): void {
-    const { email, password } = this.authForm.value;    
-    console.log(this.authForm.value);
+    const { email, password } = this.authForm.value;        
     this.login(email, password)
       .then (() => {
         this.toastr.success('User successfully login');
@@ -63,11 +62,10 @@ export class AuthComponent {
   }
   
   async login(email: string, password: string): Promise<void> {
-    const credential = await signInWithEmailAndPassword(this.auth, email, password);    
-    console.log(credential.user.uid);
+    const credential = await signInWithEmailAndPassword(this.auth, email, password);        
     this.loginSubscription = docData(doc(this.afs, 'users', credential.user.uid)).subscribe(user => {
       const currentUser = { ...user, uid: credential.user.uid, email: email };
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));      
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
       this.router.navigate(['']);
     },
     (error) => {

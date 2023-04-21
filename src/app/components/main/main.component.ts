@@ -46,7 +46,7 @@ export class MainComponent {
       const listObj = localStorage.getItem('currentUser') as string;
       const list = JSON.parse(listObj);
       this.moviesIdList = list.myMovieId;
-      console.log(list.myMovieId);
+      // console.log(list.myMovieId);
       this.getAllMovies();
     };
     this.updateSearch();

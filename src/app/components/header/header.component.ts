@@ -77,11 +77,11 @@ export class HeaderComponent {
       this.isActiveUser = false;
      }
   };
-  updateActiveUser(): void {
-    this.movieService.changeActiveUser.subscribe( () => {                       
+  updateActiveUser(): void {    
+    this.movieService.changeActiveUser.subscribe( () => {                             
       this.activeUserName = (this.movieService.activeUser?.email || '').charAt(0).toUpperCase();      
       if (this.activeUserName) this.isActiveUser = true
-        else this.isActiveUser = false
+        else this.isActiveUser = false;
     })
   };
 
