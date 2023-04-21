@@ -35,16 +35,13 @@ export class MainComponent {
 
   constructor(
     private movieService: MoviesService,
-    private toastr: ToastrService,    
-    // private onRatingChangeResult: RatingChangeEvent
+    private toastr: ToastrService,        
   ) {}
 
   ngOnInit() {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-    };
-    // this.setMyRating();
-    this.getAllMovies();    
+    } else this.getAllMovies();        
     this.updateSearch();
     this.updateMode();
     this.updateSortDirection();

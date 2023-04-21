@@ -1,0 +1,7 @@
+<div class="auth__page container mx-auto rounded ">
+    <form  class="auth__inner flex flex-col my-2 w-60 mx-auto text-lg" [formGroup]="authForm" (ngSubmit)="signIn()">        
+        <input formControlName="email" type="email" class="input__email my-2 py-2 px-4 rounded-md bg-gray-100 outline-gray-200" placeholder="Email">
+        <input formControlName="password" type="password" class="input__paaword my-2 py-2 px-4 rounded-md bg-gray-100 outline-gray-200" placeholder="Password">
+        <button [disabled]="authForm.invalid" type="submit" class="signin__btn py-2 px-4 rounded-md bg-gray-600 text-white ">Sign In</button>
+    </form>
+</div>

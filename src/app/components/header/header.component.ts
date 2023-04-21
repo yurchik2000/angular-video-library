@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { IMovieResponce, ISearchResponce, ISearchListMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -17,6 +16,8 @@ export class HeaderComponent {
   public isShowAddMovie = false;  
   public isDescending = true;  
   public isGridMode = this.movieService.isGridMode;
+  public isActiveUser = false;
+  public activeUserName = '';
 
   constructor(
     private movieService: MoviesService,
@@ -25,7 +26,8 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit() {
-    
+    this.checkActiveUser();    
+    this.updateActiveUser();
   }
 
   updateInput(): void {
@@ -64,6 +66,21 @@ export class HeaderComponent {
     this.isDescending = !this.isDescending;    
     this.movieService.sortDirection = this.isDescending;    
     this.movieService.changeSortDirection.next(true);    
+  };
+  checkActiveUser(): void {
+    if (localStorage.getItem('currentUser')) { 
+      this.isActiveUser = true;
+      this.activeUserName = 'A';
+    }  
+     else {
+      this.isActiveUser = false;
+     }
+  };
+  updateActiveUser(): void {
+    this.movieService.changeActiveUser.subscribe( () => {           
+      this.isActiveUser = true;
+      this.activeUserName = 'B';      
+    })
   };
 
 

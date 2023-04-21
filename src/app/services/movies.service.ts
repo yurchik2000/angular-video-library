@@ -17,7 +17,8 @@ export class MoviesService {
   public changeSearchMovieTitle = new Subject<boolean>();
   public changeSortDirection = new Subject<boolean>();
   public changeGridMode = new Subject<boolean>();
-  public isGridMode = false;
+  public changeActiveUser = new Subject<boolean>();
+  public isGridMode = false;  
   public sortDirection = true;
 
   constructor(

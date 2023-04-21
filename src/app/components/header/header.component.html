@@ -1,7 +1,7 @@
 <header
   class="header container mx-auto bg-violet-400 font-mono relative rounded max-w-7xl sticky top-0 z-30"
 >
-  <nav class="flex items-center">
+  <nav class="flex justify-between items-center">
     <div *ngIf="!isShowAddMovie" class="input__wrapper p-2 flex items-center">
       <input
         class="search__video p-2 pr-8 rounded-xl outline-transparent w-56"
@@ -319,36 +319,11 @@
         />
       </svg>
     </div>
-  </nav>
-  <div class="new__line absolute top-0 left-0 hidden">
-    <div class="input__wrapper p-2 bg-white-100 flex items-center">
-      <input
-        class="search__video p-2 pr-8 rounded-xl outline-transparent w-56"
-        type="text"
-        placeholder="Search IMDb"
-      />
-      <button type="button" class="-ml-8">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          version="1.1"
-          id="Capa_1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 513.749 513.749"
-          style="enable-background: new 0 0 513.749 513.749"
-          xml:space="preserve"
-          width="26"
-          height="26"
-        >
-          <g>
-            <path
-              fill="#d1d5db"
-              d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,90.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z"
-            />
-          </g>
-        </svg>
-      </button>
+    <div class="login p-2">
+      <a *ngIf="!isActiveUser" [routerLink]="[ '/auth' ]" class="login__link">Login</a>
+      <div *ngIf="isActiveUser" class="active__user rounded-full bg-amber-300 px-4 py-1 font-bold text-lg cursor-pointer">
+        {{activeUserName}}
+      </div>
     </div>
-  </div>
+  </nav>    
 </header>
