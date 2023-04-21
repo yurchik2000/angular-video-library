@@ -2,15 +2,17 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { AuthComponent } from './components/auth/auth.component';
-import { SearchPipe } from './pipes/search.pipe';
 import { SearchComponent } from './components/search/search.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { FooterComponent } from './components/footer/footer.component';
+
+import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterbydirectorPipe } from './pipes/filterbydirector.pipe';
@@ -18,7 +20,8 @@ import { SortbyactorPipe } from './pipes/sortbyactor.pipe';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
 import { StarRatingModule } from 'angular-star-rating';
-import { FooterComponent } from './components/footer/footer.component';
+
+
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 
@@ -39,7 +42,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     FilterbydirectorPipe,
     SortbyactorPipe,
     FooterComponent,
-    AuthComponent
+    AuthComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

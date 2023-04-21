@@ -57,3 +57,9 @@ export interface ISearchListMovie {
     Year: number,
     imdbID: string
 }
+
+export interface IUser {
+    poster: string,
+    name: string,
+    email: string
+}

@@ -321,9 +321,12 @@
     </div>
     <div class="login p-2">
       <a *ngIf="!isActiveUser" [routerLink]="[ '/auth' ]" class="login__link">Login</a>
-      <div *ngIf="isActiveUser" class="active__user rounded-full bg-amber-300 px-4 py-1 font-bold text-lg cursor-pointer">
+      <a *ngIf="isActiveUser" 
+         class="active__user rounded-full bg-amber-300 px-4 py-1 font-bold text-lg cursor-pointer"
+         [routerLink]="[ '/profile' ]"
+      >
         {{activeUserName}}
-      </div>
+      </a>
     </div>
   </nav>    
 </header>

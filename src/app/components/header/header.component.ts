@@ -26,7 +26,7 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit() {
-    this.checkActiveUser();    
+    this.checkActiveUser();        
     this.updateActiveUser();
   }
 
@@ -70,16 +70,18 @@ export class HeaderComponent {
   checkActiveUser(): void {
     if (localStorage.getItem('currentUser')) { 
       this.isActiveUser = true;
-      this.activeUserName = 'A';
+      const userEmail = JSON.parse(localStorage.getItem('currentUser') || '').email;      
+      this.activeUserName = userEmail[0].toUpperCase();
     }  
      else {
       this.isActiveUser = false;
      }
   };
   updateActiveUser(): void {
-    this.movieService.changeActiveUser.subscribe( () => {           
-      this.isActiveUser = true;
-      this.activeUserName = 'B';      
+    this.movieService.changeActiveUser.subscribe( () => {                       
+      this.activeUserName = (this.movieService.activeUser?.email || '').charAt(0).toUpperCase();      
+      if (this.activeUserName) this.isActiveUser = true
+        else this.isActiveUser = false
     })
   };
 

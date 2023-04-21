@@ -44,7 +44,12 @@ export class AuthComponent {
     console.log(this.authForm.value);
     this.login(email, password)
       .then (() => {
-        console.log('login done');
+        console.log('login done');                
+        this.movieService.activeUser = {
+          name: '',
+          email: email,
+          poster: ''
+        }
         this.changeActiveUser();
       })
       .catch ( error => {
@@ -65,9 +70,8 @@ export class AuthComponent {
     )
   }
 
-  changeActiveUser(): void {        
-    this.movieService.changeActiveUser.next(true);    
-    console.log(1234)
+  changeActiveUser(): void {            
+    this.movieService.changeActiveUser.next(true); 
   };
 
 

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IMovieResponce, ISearchListMovie, ISearchResponce } from '../interfaces/movies.interface';
+import { IMovieResponce, ISearchListMovie, ISearchResponce, IUser } from '../interfaces/movies.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,7 @@ export class MoviesService {
   public changeActiveUser = new Subject<boolean>();
   public isGridMode = false;  
   public sortDirection = true;
+  public activeUser?: IUser;
 
   constructor(
     private http: HttpClient
