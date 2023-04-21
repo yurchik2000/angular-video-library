@@ -45,8 +45,8 @@ export class MainComponent {
     if (localStorage.getItem('currentUser')) {
       const listObj = localStorage.getItem('currentUser') as string;
       const list = JSON.parse(listObj);
-      this.moviesIdList = list;
-      console.log(list.myMovieId);      
+      this.moviesIdList = list.myMovieId;
+      console.log(list.myMovieId);
       this.getAllMovies();
     };
     this.updateSearch();
@@ -54,10 +54,10 @@ export class MainComponent {
     this.updateSortDirection();
   }
 
-  getAllMovies(): void {
+  getAllMovies(): void {    
     for( let i=0; i < this.moviesIdList.length; i++ ) {           
       if (!this.moviesList.find(element => element.id === this.moviesIdList[i])) {      
-        this.getOneMovie(this.moviesIdList[i]); 
+        this.getOneMovie(this.moviesIdList[i]);        
     }
   }
 }
