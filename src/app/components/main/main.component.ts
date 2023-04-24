@@ -43,7 +43,7 @@ export class MainComponent {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
     } else this.getAllMovies();
     if (localStorage.getItem('currentUser')) {
-      const listObj = localStorage.getItem('currentUser') as string;
+      const listObj = localStorage.getItem('currentUser') as string;      
       const list = JSON.parse(listObj);
       this.moviesIdList = list.myMovieId;
       // console.log(list.myMovieId);
@@ -52,7 +52,7 @@ export class MainComponent {
     this.updateSearch();
     this.updateMode();
     this.updateSortDirection();
-  }
+  }  
 
   getAllMovies(): void {    
     for( let i=0; i < this.moviesIdList.length; i++ ) {           
@@ -60,7 +60,7 @@ export class MainComponent {
         this.getOneMovie(this.moviesIdList[i]);        
     }
   }
-}
+  }
 
   getOneMovie(movieId: string): void {        
     let movie: IMovie = {

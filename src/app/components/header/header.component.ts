@@ -30,9 +30,6 @@ export class HeaderComponent {
     this.updateActiveUser();
   }
 
-  updateInput(): void {
-
-  } 
   searchByTitle(): void {    
     this.movieService.inputMovieTitle = this.movieTitle;
     this.movieService.changeMovieTitle.next(true);        

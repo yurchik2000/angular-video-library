@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Auth, UserCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, docData, setDoc } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { doc } from '@firebase/firestore';
@@ -107,6 +107,8 @@ export class AuthComponent {
     setDoc(doc(this.afs, 'users', credential.user.uid), user);
     console.log(credential);    
   }
+
+  
 
 
 }
