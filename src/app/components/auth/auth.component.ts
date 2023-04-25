@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { Firestore, docData, setDoc } from '@angular/fire/firestore';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { doc } from '@firebase/firestore';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -66,6 +66,11 @@ export class AuthComponent {
     this.loginSubscription = docData(doc(this.afs, 'users', credential.user.uid)).subscribe(user => {
       const currentUser = { ...user, uid: credential.user.uid, email: email };
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      
+      
+
+
+
       this.router.navigate(['']);
     },
     (error) => {
@@ -107,8 +112,6 @@ export class AuthComponent {
     setDoc(doc(this.afs, 'users', credential.user.uid), user);
     console.log(credential);    
   }
-
-  
 
 
 }

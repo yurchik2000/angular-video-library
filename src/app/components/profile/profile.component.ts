@@ -21,7 +21,7 @@ export class ProfileComponent {
   ) {}
 
   logOut(): void {        
-    this.saveDataToFireStore();
+    // this.saveDataToFireStore();
     localStorage.removeItem('currentUser');    
     this.movieService.activeUser = {
       name: '',
@@ -37,65 +37,63 @@ export class ProfileComponent {
     this.movieService.changeActiveUser.next(true); 
   };
 
-  synchronization(): void {
-    this.getDataFromFireStore();
-    this.saveDataToFireStore();
-  };
-  saveDataToFireStore() {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '');        
-    const list = JSON.parse(localStorage.getItem('movies') || '');
-    const moviesListId = list.map( (item:IMovie) => (item.id));    
-    console.log(user.email); 
-    user.myMovieId = moviesListId;        
-    console.log(user.myMovieId);
-    setDoc(doc(this.afs, 'users', user.uid), user);         
-  }
+  // synchronization(): void {
+  //   this.();
+  //   this.saveDataToFireStore();
+  // };
+  // saveDataToFireStore() {
+  //   const user = JSON.parse(localStorage.getItem('currentUser') || '');        
+  //   const list = JSON.parse(localStorage.getItem('movies') || '');
+  //   const moviesListId = list.map( (item:IMovie) => (item.id));        
+  //   user.myMovieId = moviesListId;            
+  //   setDoc(doc(this.afs, 'users', user.uid), user);         
+  // }
 
-  getDataFromFireStore() {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '');        
-    const list = JSON.parse(localStorage.getItem('movies') || '');
-    const myData = docData(doc(this.afs, 'users', user.uid)).subscribe(user => {      
-      const fireStoreList = user['myMovieId'];
-      for( let i=0; i < fireStoreList.length; i++ ) {           
-        if (!list.find( (element:IMovie) => element.id === fireStoreList[i])) {      
-                let movie: IMovie = {
-                  id: '',
-                  title: '',
-                  year: 0,
-                  imdbRating: 0,
-                  myRating: 0,
-                  plot: '',
-                  director: [],
-                  poster: '',
-                  genres: [],
-                  actors: [],
-                  watched: false 
-                };       
-                this.movieService.getOneMovie(fireStoreList[i]).subscribe(data => {
-                  console.log(data);
-                  movie.id = fireStoreList[i];
-                  movie.title = data.Title;      
-                  movie.year = data.Year;
-                  movie.imdbRating = Number(data.imdbRating);
-                  movie.plot = data.Plot;
-                  movie.poster = data.Poster;
-                  movie.director = data.Director.split(',');
-                  movie.director.forEach(item => item.trim());
-                  movie.genres = data.Genre.split(', ');
-                  movie.actors = data.Actors.split(',');
-                  console.log(movie);
-                  list.push(movie);        
-                  localStorage.setItem('movies', JSON.stringify(list))
-                })                          
-      }}
-    });                
+  // getDataFromFireStore() {
+  //   const user = JSON.parse(localStorage.getItem('currentUser') || '');        
+  //   const list = JSON.parse(localStorage.getItem('movies') || '');
+  //   const myData = docData(doc(this.afs, 'users', user.uid)).subscribe(user => {      
+  //     const fireStoreList = user['myMovieId'];
+  //     for( let i=0; i < fireStoreList.length; i++ ) {           
+  //       if (!list.find( (element:IMovie) => element.id === fireStoreList[i])) {      
+  //               let movie: IMovie = {
+  //                 id: '',
+  //                 title: '',
+  //                 year: 0,
+  //                 imdbRating: 0,
+  //                 myRating: 0,
+  //                 plot: '',
+  //                 director: [],
+  //                 poster: '',
+  //                 genres: [],
+  //                 actors: [],
+  //                 watched: false 
+  //               };       
+  //               this.movieService.getOneMovie(fireStoreList[i]).subscribe(data => {
+  //                 console.log(3, data);
+  //                 movie.id = fireStoreList[i];
+  //                 movie.title = data.Title;      
+  //                 movie.year = data.Year;
+  //                 movie.imdbRating = Number(data.imdbRating);
+  //                 movie.plot = data.Plot;
+  //                 movie.poster = data.Poster;
+  //                 movie.director = data.Director.split(',');
+  //                 movie.director.forEach(item => item.trim());
+  //                 movie.genres = data.Genre.split(', ');
+  //                 movie.actors = data.Actors.split(',');
+  //                 console.log(movie);
+  //                 list.push(movie);        
+  //                 localStorage.setItem('movies', JSON.stringify(list))
+  //               })                          
+  //     }}
+  //   });                
 
     // const list = JSON.parse(localStorage.getItem('movies') || '');
     // const moviesListId = list.map( (item:IMovie) => (item.id));        
     // user.myMovieId = moviesListId;        
     // console.log(user.myMovieId);
     // setDoc(doc(this.afs, 'users', user.uid), user);         
-  }
+  // }
   
 
 }

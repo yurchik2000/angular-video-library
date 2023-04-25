@@ -3,6 +3,8 @@ import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ToastrService } from 'ngx-toastr';
 import { RatingChangeEvent } from 'angular-star-rating';
+import { Firestore, setDoc, docData } from '@angular/fire/firestore';
+import { doc } from '@firebase/firestore';
 
 
 @Component({
@@ -36,28 +38,38 @@ export class MainComponent {
   constructor(
     private movieService: MoviesService,
     private toastr: ToastrService,        
+    private afs: Firestore,
   ) {}
 
   ngOnInit() {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-    } else this.getAllMovies();
+    } 
+
     if (localStorage.getItem('currentUser')) {
-      const listObj = localStorage.getItem('currentUser') as string;      
-      const list = JSON.parse(listObj);
-      this.moviesIdList = list.myMovieId;
-      // console.log(list.myMovieId);
-      this.getAllMovies();
+      const userObj = localStorage.getItem('currentUser') as string;      
+      const user = JSON.parse(userObj);      
+
+      docData(doc(this.afs, 'users', user.uid)).subscribe(user => {
+        this.getAllMovies(user['myMovieId']);
+        // localStorage.setItem('currentUser', JSON.stringify(user));
+      });
+            
     };
+
     this.updateSearch();
     this.updateMode();
     this.updateSortDirection();
   }  
 
-  getAllMovies(): void {    
-    for( let i=0; i < this.moviesIdList.length; i++ ) {           
-      if (!this.moviesList.find(element => element.id === this.moviesIdList[i])) {      
-        this.getOneMovie(this.moviesIdList[i]);        
+  ngOnDestroy() {    
+    this.saveDataToFireStore();    
+  }
+
+  getAllMovies(userIdlist: Array<string>): void {    
+    for( let i=0; i < userIdlist.length; i++ ) {           
+      if (!this.moviesList.find(element => element.id === userIdlist[i])) {      
+        this.getOneMovie(userIdlist[i]);        
     }
   }
   }
@@ -77,7 +89,7 @@ export class MainComponent {
       watched: false 
     };       
       this.movieService.getOneMovie(movieId).subscribe(data => {
-        console.log(data);
+        console.log(2, data);
         movie.id = movieId;
         movie.title = data.Title;      
         movie.year = data.Year;
@@ -160,5 +172,13 @@ export class MainComponent {
     this.moviesList[index].myRating = Number(this.onRatingChangeResult.rating);
     this.saveToLocalStorage(this.moviesList);
   };
+
+  saveDataToFireStore() {
+    const user = JSON.parse(localStorage.getItem('currentUser') || '');        
+    const userIdList = this.moviesList.map ( (movie:IMovie) => movie.id);    
+    user.myMovieId = userIdList;
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    setDoc(doc(this.afs, 'users', user.uid), user);             
+  }
 
 }
