@@ -29,8 +29,7 @@ export class ProfileComponent {
       poster: ''
     };
     this.changeActiveUser();
-    this.router.navigate(['']);    
-    
+    this.router.navigate(['']);        
   }
 
   changeActiveUser(): void {                

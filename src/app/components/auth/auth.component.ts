@@ -43,6 +43,7 @@ export class AuthComponent {
       password: [null, [Validators.required]]
     })
   }
+  
   signIn(): void {
     const { email, password } = this.authForm.value;        
     this.login(email, password)
@@ -65,12 +66,7 @@ export class AuthComponent {
     const credential = await signInWithEmailAndPassword(this.auth, email, password);        
     this.loginSubscription = docData(doc(this.afs, 'users', credential.user.uid)).subscribe(user => {
       const currentUser = { ...user, uid: credential.user.uid, email: email };
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      
-      
-
-
-
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));    
       this.router.navigate(['']);
     },
     (error) => {
@@ -78,11 +74,9 @@ export class AuthComponent {
     }
     )
   }
-
   changeActiveUser(): void {            
     this.movieService.changeActiveUser.next(true); 
   };
-
   changeIsLogin(): void {
     this.isLogin = !this.isLogin;
   }
