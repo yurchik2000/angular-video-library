@@ -34,7 +34,6 @@ export class MainComponent {
   public currentPage = 1; 
   public onRatingChangeResult?: RatingChangeEvent;   
   
-
   constructor(
     private movieService: MoviesService,
     private toastr: ToastrService,        
@@ -63,7 +62,7 @@ export class MainComponent {
   }  
 
   ngOnDestroy() {    
-    this.saveDataToFireStore();    
+    // this.saveDataToFireStore();    
   }
 
   getAllMovies(userIdlist: Array<string>): void {    
