@@ -8,7 +8,7 @@ export class FilterPipe implements PipeTransform {
 
   transform(moviesArray: IMovie[], field: string): IMovie[] {
     if (!moviesArray) return [];
-    if (!field) return moviesArray;        
+    if (!field) return moviesArray;            
     return moviesArray.filter(movie => movie.genres.includes(field));
   }
 

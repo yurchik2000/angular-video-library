@@ -95,10 +95,13 @@ export class MainComponent {
         movie.imdbRating = Number(data.imdbRating);
         movie.plot = data.Plot;
         movie.poster = data.Poster;
-        movie.director = data.Director.split(',');
-        movie.director.forEach(item => item.trim());
+        if (data.Director === 'N/A') movie.director = []
+           else {
+            movie.director = data.Director.split(', ');
+            movie.director.forEach(item => item.trim());          
+           }          
         movie.genres = data.Genre.split(', ');
-        movie.actors = data.Actors.split(',');
+        movie.actors = data.Actors.split(', ');        
         this.moviesList.push(movie);        
         this.saveToLocalStorage(this.moviesList);
       })      
