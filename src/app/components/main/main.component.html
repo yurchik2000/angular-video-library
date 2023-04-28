@@ -65,7 +65,8 @@
                         </li>                        
                     </ul>
                 </div>
-                <p class="plot text-center md:text-left lg:text-xl">{{movie.plot}}</p>
+                <p class="plot text-center md:text-left lg:text-xl mb-2">{{movie.plot}}</p>
+                <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link text-center hover:text-violet-900">More details on IMDb</a>
             </div>                
         </li>
     </ul>
