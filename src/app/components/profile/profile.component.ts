@@ -20,8 +20,12 @@ export class ProfileComponent {
     private afs: Firestore,
   ) {}
 
+  ngOnInit() {
+    this.saveDataToFireStore();
+  }
+
   logOut(): void {        
-    // this.saveDataToFireStore();
+    this.saveDataToFireStore();
     localStorage.removeItem('currentUser');    
     this.movieService.activeUser = {
       name: '',
@@ -40,13 +44,13 @@ export class ProfileComponent {
   //   this.();
   //   this.saveDataToFireStore();
   // };
-  // saveDataToFireStore() {
-  //   const user = JSON.parse(localStorage.getItem('currentUser') || '');        
-  //   const list = JSON.parse(localStorage.getItem('movies') || '');
-  //   const moviesListId = list.map( (item:IMovie) => (item.id));        
-  //   user.myMovieId = moviesListId;            
-  //   setDoc(doc(this.afs, 'users', user.uid), user);         
-  // }
+  saveDataToFireStore() {
+    const user = JSON.parse(localStorage.getItem('currentUser') || '');        
+    const list = JSON.parse(localStorage.getItem('movies') || '');
+    const moviesListId = list.map( (item:IMovie) => (item.id));        
+    user.myMovieId = moviesListId;            
+    setDoc(doc(this.afs, 'users', user.uid), user);             
+  }
 
   // getDataFromFireStore() {
   //   const user = JSON.parse(localStorage.getItem('currentUser') || '');        
