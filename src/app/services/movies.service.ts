@@ -13,11 +13,13 @@ export class MoviesService {
   private apiKey = environment.API_KEY;
   public inputMovieTitle = "";
   public searchMoviesList: Array<ISearchListMovie> = [];
+
   public changeMovieTitle = new Subject<boolean>();
   public changeSearchMovieTitle = new Subject<boolean>();
   public changeSortDirection = new Subject<boolean>();
   public changeGridMode = new Subject<boolean>();
   public changeActiveUser = new Subject<boolean>();
+  
   public isGridMode = false;  
   public sortDirection = true;
   public activeUser?: IUser;

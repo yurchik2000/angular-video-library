@@ -37,7 +37,7 @@ export class MainComponent {
   constructor(
     private movieService: MoviesService,
     private toastr: ToastrService,        
-    private afs: Firestore,
+    private afs: Firestore,    
   ) {}
 
   ngOnInit() {

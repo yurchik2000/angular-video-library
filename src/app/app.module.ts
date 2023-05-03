@@ -28,6 +28,7 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { MovieInfoComponent } from './components/movie-info/movie-info.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
     SortbyactorPipe,
     FooterComponent,
     AuthComponent,
-    ProfileComponent
+    ProfileComponent,
+    MovieInfoComponent
   ],
   imports: [
     BrowserModule,
