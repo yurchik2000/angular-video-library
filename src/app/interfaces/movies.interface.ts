@@ -1,48 +1,61 @@
 export interface IMovieResponce {
     Actors: string,
-    awards: string,
+    Awards: string,
     boxOffice: string,
-    country: string,
+    Country: string,
     date: Date,
     Director: string,
     Genre: string,
-    language: string,
-    raitingMetscore: number,
+    Language: string,    
     Plot: string,
     Poster: string,
     production: string,
-    rated: string,
-    raitings: Array<IRating>,
+    Rated: string,
+    Ratings: Array<IRating>,
     released: Date,
     response: boolean,
-    runtime: string,
+    Runtime: string,
     Title: string,
-    type: string,
-    website: string,
-    writer: string,
+    Type: string,
+    Website: string,
+    Writer: string,
     Year: number,
     imdbId: string,
     imdbRating: number,
     imdbVotes: number,
+    totalSeasons: string
 }
 
 export interface IRating {
-    source: string,
-    value: string
+    Source: string,
+    Value: string
 }
 
 export interface IMovie {
     id: string,
     title: string,
     year: number,
-    imdbRating: number,
+    imdbRating: number,    
     myRating: number,
+    rtRating: string,
     plot: string,
     poster: string,
     director: Array<string>,
     genres: Array<string>,
     actors: Array<string>,
-    watched: boolean
+    writer: Array<string>,
+    rated: string,
+    watched: boolean,
+    favourite: boolean,
+    dateAdding: Date,
+    country: Array<string>,
+    awards: string,
+    type: string,
+    tags: Array<string>,
+    archive: boolean,
+    runTime: string,
+    totalSeasons: string
+
 }
 
 export interface ISearchResponce {

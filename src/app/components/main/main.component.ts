@@ -80,12 +80,24 @@ export class MainComponent {
       year: 0,
       imdbRating: 0,
       myRating: 0,
+      rtRating: '',
       plot: '',
       director: [],
       poster: '',
       genres: [],
       actors: [],
-      watched: false 
+      writer: [],
+      rated: '',
+      watched: false,
+      favourite: false,
+      dateAdding: new Date(),
+      country: [],
+      awards: '',
+      type: '',
+      tags: [],
+      archive: false,
+      runTime: '',
+      totalSeasons: ''
     };       
       this.movieService.getOneMovie(movieId).subscribe(data => {
         console.log(2, data);

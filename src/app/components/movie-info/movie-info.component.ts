@@ -13,18 +13,29 @@ export class MovieInfoComponent {
 
   public movie: IMovie = {
     id: '',
-    title: '',
-    year: 0,
-    imdbRating: 0,
-    myRating: 0,
-    plot: '',
-    director: [],
-    poster: '',
-    genres: [],
-    actors: [],
-    watched: false 
+      title: '',
+      year: 0,
+      imdbRating: 0,
+      myRating: 0,
+      rtRating: '',
+      plot: '',
+      director: [],
+      poster: '',
+      genres: [],
+      actors: [],
+      writer: [],
+      rated: '',
+      watched: false,
+      favourite: false,
+      dateAdding: new Date(),
+      country: [],
+      awards: '',
+      type: '',
+      tags: [],
+      archive: false,
+      runTime: '',
+      totalSeasons: ''
   };       
-
   public moviesList: Array<IMovie> = [];
   public onRatingChangeResult?: RatingChangeEvent;   
 
@@ -71,8 +82,8 @@ export class MovieInfoComponent {
     const id = this.activedRoute.snapshot.paramMap.get('id');   
     const index =  this.moviesList.findIndex( movie => { return id === movie.id})
     console.log(id, index)
-    this.movie = this.moviesList[index];
-    
+    this.movie = this.moviesList[index];    
+    console.log(this.movie)
   }
 
 
