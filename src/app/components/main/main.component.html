@@ -69,7 +69,7 @@
                     </ul>
                 </div>
                 <p class="plot text-center md:text-left lg:text-xl mb-2">{{movie.plot}}</p>
-                <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link md:text-left text-center hover:text-violet-900">More details on IMDb</a>
+                <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link md:text-left text-center hover:text-violet-900 w-52">More details on IMDb</a>
             </div>                
         </li>
     </ul>
@@ -90,9 +90,9 @@
             <div class="delete__item absolute p-1 top-0 right-0 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300" (click)="deleteMovie(movie.id)">
                 <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" id="Close"/><g/><g/><g/><g/><g/><g/></svg>
             </div>
-            <div class="img__inner">
+            <a [routerLink]="['/', movie.id]" class="img__inner">
                 <img src="{{movie.poster}}" alt="{{movie.title}}">
-            </div>        
+            </a>        
             <h5 class="text-lg font-bold w-64 mt-1 leading-tight mx-auto">{{movie.title}}</h5>
             <p class="text-sm">{{movie.year}}</p>        
             <!-- <p class="absolute bottom-1 right-1 text-xs">{{movie.id}}</p> -->
