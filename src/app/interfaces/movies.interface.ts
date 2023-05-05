@@ -54,8 +54,7 @@ export interface IMovie {
     tags: Array<string>,
     archive: boolean,
     runTime: string,
-    totalSeasons: string
-
+    totalSeasons: string,    
 }
 
 export interface ISearchResponce {
