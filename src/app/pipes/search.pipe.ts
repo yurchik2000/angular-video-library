@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IMovie } from '../interfaces/movies.interface';
 
 @Pipe({
-  name: 'search'
+  name: 'search',
+  pure: false
 })
 export class SearchPipe implements PipeTransform {
 

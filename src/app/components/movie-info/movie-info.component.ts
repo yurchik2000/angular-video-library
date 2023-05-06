@@ -71,7 +71,7 @@ export class MovieInfoComponent {
   };
 
   deleteMovie(id:string): void {
-    console.log(id, this.moviesList);
+    // console.log(id, this.moviesList);
     let index = this.moviesList.findIndex(movie => movie.id === id);
     this.moviesList.splice(index, 1);
     this.saveToLocalStorage(this.moviesList);
@@ -81,7 +81,7 @@ export class MovieInfoComponent {
   loadMovie(): void {
     const id = this.activedRoute.snapshot.paramMap.get('id');   
     const index =  this.moviesList.findIndex( movie => { return id === movie.id})
-    console.log(id, index)
+    // console.log(id, index)
     this.movie = this.moviesList[index];    
     console.log(this.movie)
   }

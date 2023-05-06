@@ -65,18 +65,18 @@ export class SearchComponent {
         this.movieService.getOneMovie(movieId).subscribe(data => {
           console.log(data);
           movie.id = movieId;
-          movie.title = data.Title;      
+          movie.title = data.Title;
           movie.year = data.Year;
           movie.imdbRating = Number(data.imdbRating);
           if (movie.rtRating[1]) movie.rtRating = data.Ratings[1].Value;
-          movie.plot = data.Plot;
-          movie.poster = data.Poster;
+          movie.plot = data.Plot;          
+          movie.poster = data.Poster;          
           if (data.Director === 'N/A') movie.director = []
            else {
             movie.director = data.Director.split(', ');
             movie.director.forEach(item => item.trim());          
            };
-           if (data.Writer === 'N/A') movie.writer = []
+          if (data.Writer === 'N/A') movie.writer = []
            else {
             movie.writer = data.Writer.split(', ');
             movie.writer.forEach(item => item.trim());          

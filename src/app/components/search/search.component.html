@@ -16,7 +16,8 @@
             </svg>
         </button>
         <div class="img__inner">
-            <img src="{{movie.Poster}}" alt="{{movie.Title}}">
+            <img *ngIf="movie.Poster != 'N/A'"  src="{{movie.Poster}}" alt="{{movie.Title}}">
+            <img *ngIf="movie.Poster == 'N/A'"  src="assets/images/unknown.png" alt="{{movie.Title}}">
         </div>        
         <h5 class="text-lg font-bold">{{movie.Title}}</h5>
         <p class="text-sm">{{movie.Year}}</p>        
