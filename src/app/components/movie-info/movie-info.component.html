@@ -70,7 +70,7 @@
                 <div class="movie__info--inner flex text-lg">
                     <p *ngIf="movie.type === 'series'" class="date font-bold">TV {{movie.type}} *&nbsp;</p>
                     <p class="date font-bold">{{movie.year}} *&nbsp;</p>
-                    <p class="date font-bold">{{movie.rated}} *&nbsp;</p>
+                    <p *ngIf="movie.rated" class="date font-bold">{{movie.rated}} *&nbsp;</p>
                     <p class="date font-bold">{{movie.runTime}}</p>
                 </div>
             </div>
@@ -145,7 +145,7 @@
                     </span> 
                 </p>
                 <p *ngIf="movie.totalSeasons" class="awards text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2 font-bold ">Total seasons: <span class="font-normal">{{movie.totalSeasons}}</span></p>
-                <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link sm:text-left text-center hover:text-violet-900">More details on IMDb</a>
+                <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link sm:text-left text-center hover:text-violet-900 underline">More details on IMDb</a>
             </div>                
             </div>
         </div>

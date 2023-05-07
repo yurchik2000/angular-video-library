@@ -89,5 +89,11 @@ export class HeaderComponent {
     })
   };
 
+  clearInput(): void {
+    this.movieTitle = '';
+    this.movieService.inputMovieTitle = '';    
+    this.movieService.changeMovieTitle.next(true);    
+  }
+
 
 }

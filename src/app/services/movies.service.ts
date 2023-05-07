@@ -100,7 +100,10 @@ export class MoviesService {
             movie.runTime = data.Runtime;            
            }                     
           if (data.totalSeasons) movie.totalSeasons = data.totalSeasons;                      
-          movie.rated = data.Rated;
+          if (data.Rated === 'N/A') movie.rated = ''
+           else {
+            movie.rated = data.Rated;
+           }                               
     return movie
   }
 
