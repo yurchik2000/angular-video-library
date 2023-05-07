@@ -23,7 +23,7 @@ export class MainComponent {
   public activeGenre = '';
   public activeDirector = '';
   public activeActor = '';
-  public currentPage = 1; 
+  public currentPage = this.movieService.currentPageGlobal; 
   public onRatingChangeResult?: RatingChangeEvent;   
   
   constructor(
@@ -35,7 +35,7 @@ export class MainComponent {
   ngOnInit() {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-    } 
+    }     
 
     if (localStorage.getItem('currentUser')) {
       const userObj = localStorage.getItem('currentUser') as string;      
@@ -150,6 +150,7 @@ export class MainComponent {
 
   clearInput(): void {    
     this.movieService.inputMovieTitle = '';
+    this.movieService.currentPageGlobal = this.currentPage;
     this.movieService.changeMovieTitle.next(true);
   }
 

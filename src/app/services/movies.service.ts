@@ -23,6 +23,7 @@ export class MoviesService {
   public isGridMode = false;  
   public sortDirection = true;
   public activeUser?: IUser;
+  public currentPageGlobal: number = 1;
 
   constructor(
     private http: HttpClient
