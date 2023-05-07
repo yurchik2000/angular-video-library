@@ -61,9 +61,6 @@ export class MainComponent {
     this.updateSortDirection();
   }  
 
-  ngOnDestroy() {    
-    // this.saveDataToFireStore();    
-  }
 
   getAllMovies(userIdlist: Array<string>): void {    
     for( let i=0; i < userIdlist.length; i++ ) {           
@@ -150,12 +147,17 @@ export class MainComponent {
     }
   }
 
-  updateSearch(): void {
-    this.movieService.changeMovieTitle.subscribe( () => {      
+  updateSearch(): void {    
+    this.movieService.changeMovieTitle.subscribe( () => {            
       this.movieTitle = this.movieService.inputMovieTitle;
       this.currentPage = 1;
     })
   };
+
+  clearInput(): void {    
+    this.movieService.inputMovieTitle = '';
+    this.movieService.changeMovieTitle.next(true);
+  }
 
   updateMode(): void {    
     this.movieService.changeGridMode.subscribe( () => {           

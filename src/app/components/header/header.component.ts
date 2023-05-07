@@ -11,7 +11,7 @@ import { MoviesService } from 'src/app/services/movies.service';
 
 export class HeaderComponent {
 
-  public movieTitle: string = "";
+  public movieTitle: string = this.movieService.inputMovieTitle;
   public movieImdbTitle: string = "";
   public isShowAddMovie = false;  
   public isDescending = true;  
@@ -28,6 +28,7 @@ export class HeaderComponent {
   ngOnInit() {
     this.checkActiveUser();        
     this.updateActiveUser();
+    this.updateSearch()
   }
 
   searchByTitle(): void {    
@@ -79,6 +80,12 @@ export class HeaderComponent {
       this.activeUserName = (this.movieService.activeUser?.email || '').charAt(0).toUpperCase();      
       if (this.activeUserName) this.isActiveUser = true
         else this.isActiveUser = false;
+    })
+  };
+
+  updateSearch(): void {    
+    this.movieService.changeMovieTitle.subscribe( () => {            
+      this.movieTitle = this.movieService.inputMovieTitle;      
     })
   };
 

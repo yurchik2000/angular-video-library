@@ -34,7 +34,7 @@
                 </ul>
             </div>                
 
-            <a [routerLink]="['/', movie.id]" class="img__inner w-full md:w-1/4 mx-2">
+            <a [routerLink]="['/', movie.id]" class="img__inner w-full md:w-1/4 mx-2" (click)="clearInput()">
                 <img class="w-full" src={{movie.poster}} alt="img">
             </a>                
 

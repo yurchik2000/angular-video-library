@@ -21,11 +21,11 @@ export class ProfileComponent {
   ) {}
 
   ngOnInit() {
-    this.saveDataToFireStore();
+    if (localStorage.getItem('movies')) this.saveDataToFireStore();
   }
 
   logOut(): void {        
-    this.saveDataToFireStore();
+    if (localStorage.getItem('movies')) this.saveDataToFireStore();
     localStorage.removeItem('currentUser');    
     this.movieService.activeUser = {
       name: '',

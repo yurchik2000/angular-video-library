@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RatingChangeEvent } from 'angular-star-rating';
 import { ToastrService } from 'ngx-toastr';
 import { IMovie } from 'src/app/interfaces/movies.interface';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-movie-info',
@@ -41,16 +42,16 @@ export class MovieInfoComponent {
 
   constructor(
     private toastr: ToastrService,        
-    private activedRoute: ActivatedRoute,
+    private activedRoute: ActivatedRoute,    
+    private movieService: MoviesService,
   ) {}
 
   ngOnInit() {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
     }
-    this.loadMovie();
+    this.loadMovie();    
   }
-
 
   checkWatched(movie: IMovie): void {
     movie.watched = !movie.watched;
@@ -85,6 +86,4 @@ export class MovieInfoComponent {
     this.movie = this.moviesList[index];    
     console.log(this.movie)
   }
-
-
 }

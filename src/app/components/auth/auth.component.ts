@@ -89,21 +89,26 @@ export class AuthComponent {
         this.authForm.reset();
       })
       .catch(error => {
+
         this.toastr.error(error.code);
+        console.log('error', error)
       });        
   }
   async emailSignUp(email: string, password: string): Promise<void> {
     const credential = await createUserWithEmailAndPassword(this.auth, email, password);        
-    const list = JSON.parse(localStorage.getItem('movies') || '');
-    const moviesListId = list.map( (item:IMovie) => (item.id));    
-    const user = {
-      email: credential.user.email,
-      poster: '',
-      name: '',
-      myMovieId: moviesListId,      
-    };
-    console.log(user);
-    setDoc(doc(this.afs, 'users', credential.user.uid), user);
+    let moviesListId: Array<string> = [];
+    if (localStorage.getItem('movies')) {
+      const list = JSON.parse(localStorage.getItem('movies') || '');
+      moviesListId = list.map( (item:IMovie) => (item.id));    
+    }
+      const user = {
+        email: credential.user.email,
+        poster: '',
+        name: '',
+        myMovieId: moviesListId,      
+      };
+      console.log(user);
+      setDoc(doc(this.afs, 'users', credential.user.uid), user);    
     console.log(credential);    
   }
 
