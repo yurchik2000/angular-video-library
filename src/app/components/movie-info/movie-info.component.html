@@ -113,7 +113,7 @@
                     </span> 
                 </h2>
                 <h2 
-                    *ngIf="movie.writer.length"
+                    *ngIf="movie.writer"
                     class="movie__title text-center sm:text-left text-xl lg:text-2xl font-bold my-2 border-b-2 border-solid border-gray-300 pb-2 text-violet-900 "
                 >Writers:
                     <span 
@@ -144,7 +144,7 @@
                         {{ (index>0) ? " * " + country : country }}
                     </span> 
                 </p>
-                <p *ngIf="movie.totalSeasons.length" class="awards text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2 font-bold ">Total seasons: <span class="font-normal">{{movie.totalSeasons}}</span></p>
+                <p *ngIf="movie.totalSeasons" class="awards text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2 font-bold ">Total seasons: <span class="font-normal">{{movie.totalSeasons}}</span></p>
                 <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link sm:text-left text-center hover:text-violet-900">More details on IMDb</a>
             </div>                
             </div>
