@@ -2,9 +2,12 @@
   class="header container mx-auto bg-violet-400 font-mono relative rounded max-w-7xl sticky top-0 z-30"
 >
   <nav class="flex justify-between items-center">
+    <div class="logo__inner">
+      <img src="assets/images/favicon.ico" alt="logo" class="logo h-14 cursor-pointer pl-1 min-w-min" [routerLink]="[ '/' ]">
+    </div>
     <div *ngIf="!isShowAddMovie" class="input__wrapper p-2 flex items-center">
       <input
-        class="search__video p-2 pr-8 rounded-xl outline-transparent w-56"
+        class="search__video p-2 pr-8 rounded-xl outline-transparent w-44 sm:w-56"
         type="text"
         placeholder="Search on page"
         [(ngModel)]="movieTitle"

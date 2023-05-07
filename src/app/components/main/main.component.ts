@@ -16,14 +16,6 @@ import { doc } from '@firebase/firestore';
 export class MainComponent {
 
   public moviesList: Array<IMovie> = [];
-  // public moviesIdList = [
-  //   'tt6060964', 
-  //   'tt0441909',
-  //   'tt9770150',      
-  //   'tt0109830', 
-  //   'tt5827916',
-  //   'tt13833688'
-  // ];
   public moviesIdList: Array <string> = [];    
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
@@ -69,8 +61,7 @@ export class MainComponent {
   }
   }
 
-  getOneMovie(movieId: string): void {        
-    
+  getOneMovie(movieId: string): void {            
     // let movie: IMovie = {
     //   id: '',
     //   title: '',
