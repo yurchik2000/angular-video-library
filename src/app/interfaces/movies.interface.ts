@@ -21,7 +21,7 @@ export interface IMovieResponce {
     Writer: string,
     Year: number,
     imdbId: string,
-    imdbRating: number,
+    imdbRating: string,
     imdbVotes: number,
     totalSeasons: string
 }

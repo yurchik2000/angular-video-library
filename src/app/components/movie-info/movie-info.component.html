@@ -18,7 +18,7 @@
                 <h2 class="movie__title text-3xl lg:text-4xl text-center md:text-left font-bold mt-6 mb-4 border-b-2 border-solid border-gray-300 pb-2 text-violet-900">{{movie.title}}</h2>
                 <div class="date__rating-inner w-full flex justify-between text-xl mb-4 md:flex-wrap ">
                     <p class="date font-bold">{{movie.year}}</p>
-                    <p class="rating">IMDb rating:&nbsp;<span class="font-bold">{{movie.imdbRating | number: "1.1"}}</span></p>
+                    <p *ngIf="movie.imdbRating" class="rating">IMDb rating:&nbsp;<span class="font-bold">{{movie.imdbRating | number: "1.1"}}</span></p>
                 </div>
                 <ul class="genre__list flex mx-auto mb-2 md:flex-wrap lg:text-xl">
                     <li 
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="top__right--inner flex text-center my-auto">
-                <div class="imdbRating__inner flex-col mx-2">
+                <div *ngIf="movie.imdbRating" class="imdbRating__inner flex-col mx-2">
                     <p class="rating__title">IMDb Rating</p>
                     <p class="rating__data text-2xl font-bold text-violet-900">{{movie.imdbRating}}</p>
                 </div>
@@ -135,7 +135,7 @@
                     </span> 
                 </h2>                
                 <p class="plot text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2">{{movie.plot}}</p>
-                <p class="awards text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2 font-bold ">Awards: <span class="font-normal">{{movie.awards}}</span></p>
+                <p *ngIf="movie.awards" class="awards text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2 font-bold ">Awards: <span class="font-normal">{{movie.awards}}</span></p>
                 <p class="country text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2 font-bold">Country of origin: 
                     <span 
                         *ngFor="let country of movie.country; index as index" 

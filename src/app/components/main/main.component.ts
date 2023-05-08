@@ -141,6 +141,14 @@ export class MainComponent {
     }
   }
 
+  checkFavourite(movie: IMovie): void {
+    movie.favourite = !movie.favourite;
+    this.saveToLocalStorage(this.moviesList);    
+    // if (movie.favourite) this.toastr.info('Add to watched list'); else {
+    //   this.toastr.info('Remove from watched list');
+    // }
+  }
+
   updateSearch(): void {    
     this.movieService.changeMovieTitle.subscribe( () => {            
       this.movieTitle = this.movieService.inputMovieTitle;
@@ -202,6 +210,12 @@ export class MainComponent {
     this.moviesList[index].myRating = Number(this.onRatingChangeResult.rating);
     this.saveToLocalStorage(this.moviesList);
   };
+
+  zeroRating(id:string): void {
+    let index = this.moviesList.findIndex(movie => movie.id === id);    
+    this.moviesList[index].myRating = 0;
+    this.saveToLocalStorage(this.moviesList);
+  }
 
   saveDataToFireStore() {
     const user = JSON.parse(localStorage.getItem('currentUser') || '');        

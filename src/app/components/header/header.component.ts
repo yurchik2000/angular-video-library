@@ -82,18 +82,15 @@ export class HeaderComponent {
         else this.isActiveUser = false;
     })
   };
-
   updateSearch(): void {    
     this.movieService.changeMovieTitle.subscribe( () => {            
       this.movieTitle = this.movieService.inputMovieTitle;      
     })
   };
-
   clearInput(): void {
     this.movieTitle = '';
     this.movieService.inputMovieTitle = '';    
     this.movieService.changeMovieTitle.next(true);    
   }
-
 
 }

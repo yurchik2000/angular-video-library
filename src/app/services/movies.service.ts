@@ -88,7 +88,7 @@ export class MoviesService {
            }           
           movie.genres = data.Genre.split(', ');
           movie.actors = data.Actors.split(', ');        
-          movie.awards = data.Awards;
+          if (data.Awards != 'N/A') movie.awards = data.Awards;          
           if (data.Country === 'N/A') movie.country = []
            else {
             movie.country = data.Country.split(', ');

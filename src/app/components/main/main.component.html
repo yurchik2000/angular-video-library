@@ -4,6 +4,12 @@
             class="movie__item relative border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex flex-col justify-center items-center md:flex-row"
             *ngFor="let movie of moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor | paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"
         >
+            <div *ngIf="!movie.favourite" (click)="checkFavourite(movie)" class="check__item absolute p-1 top-0 right-12 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ded9d9"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div *ngIf="movie.favourite"  (click)="checkFavourite(movie)" class="doublecheck__item absolute p-1 top-0 right-12 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300">                
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#e84f4f"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>            
             <div *ngIf="!movie.watched" (click)="checkWatched(movie)" class="check__item absolute p-1 top-0 right-6 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300">
                 <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M27.704,8.397c-0.394-0.391-1.034-0.391-1.428,0  L11.988,22.59l-6.282-6.193c-0.394-0.391-1.034-0.391-1.428,0c-0.394,0.391-0.394,1.024,0,1.414l6.999,6.899  c0.39,0.386,1.039,0.386,1.429,0L27.704,9.811C28.099,9.421,28.099,8.787,27.704,8.397C27.31,8.006,28.099,8.787,27.704,8.397z" fill="#121313" fill-rule="evenodd" id="Check"/><g/><g/><g/><g/><g/><g/></svg>
             </div>
@@ -14,13 +20,15 @@
                 <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" id="Close"/><g/><g/><g/><g/><g/><g/></svg>
             </div>
             <div class="item__left w-full md:w-1/4 md:ml-2 md:mr-4">
+                
                 <div class="stars__inner absolute top-3 left-3">
+                    <div class="rating__zero w-3 h-5 -left-2 top-0 absolute" (click)="zeroRating(movie.id)"></div>
                     <star-rating [starType]="'svg'" [rating]="movie.myRating" (ratingChange)="onRatingChange($event, movie.id)"></star-rating>                    
                 </div>
                 <h2 class="movie__title text-3xl lg:text-4xl text-center md:text-left font-bold mt-6 mb-4 border-b-2 border-solid border-gray-300 pb-2 text-violet-900">{{movie.title}}</h2>
                 <div class="date__rating-inner w-full flex justify-between text-xl mb-4 md:flex-wrap ">
                     <p class="date font-bold">{{movie.year}}</p>
-                    <p class="rating">IMDb rating:&nbsp;<span class="font-bold">{{movie.imdbRating | number: "1.1"}}</span></p>
+                    <p *ngIf="movie.imdbRating" class="rating">IMDb rating:&nbsp;<span class="font-bold">{{movie.imdbRating | number: "1.1"}}</span></p>
                 </div>
                 <ul class="genre__list flex mx-auto mb-2 md:flex-wrap lg:text-xl">
                     <li 
