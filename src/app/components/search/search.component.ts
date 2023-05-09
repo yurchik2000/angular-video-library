@@ -74,7 +74,7 @@ export class SearchComponent {
           // movie.rated = data.Rated;
           let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
           movie.id = movieId;
-          console.log(1, movie)
+          console.log(1, movie)          
           this.moviesList.push(movie);        
           this.saveToLocalStorage(this.moviesList);
           this.toastr.success('New film successfully added');

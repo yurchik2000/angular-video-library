@@ -33,7 +33,7 @@ export class MoviesService {
   }
 
   getOneMovie(movieId: string): Observable<IMovieResponce> {
-    return this.http.get<IMovieResponce>(`${this.url}?apikey=${this.apiKey}&i=${movieId}`)
+    return this.http.get<IMovieResponce>(`${this.url}?apikey=${this.apiKey}&i=${movieId}&plot=full`)
   }
   getMoviesList(title: string): Observable<ISearchResponce> {
     return this.http.get<ISearchResponce>(`${this.url}?apikey=${this.apiKey}&s=${title}`)
@@ -74,7 +74,7 @@ export class MoviesService {
           movie.year = data.Year;
           movie.imdbRating = Number(data.imdbRating);
           if (movie.rtRating[1]) movie.rtRating = data.Ratings[1].Value;
-          movie.plot = data.Plot;          
+          movie.plot = data.Plot;           
           movie.poster = data.Poster;          
           if (data.Director === 'N/A') movie.director = []
            else {

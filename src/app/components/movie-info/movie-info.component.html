@@ -77,7 +77,7 @@
             <div class="top__right--inner flex text-center my-auto">
                 <div *ngIf="movie.imdbRating" class="imdbRating__inner flex-col mx-2">
                     <p class="rating__title">IMDb Rating</p>
-                    <p class="rating__data text-2xl font-bold text-violet-900">{{movie.imdbRating}}</p>
+                    <p class="rating__data text-2xl font-bold text-violet-900">{{movie.imdbRating | number: "1.1"}}</p>
                 </div>
                 <div class="myRating__inner flex-col mx-2">
                     <p class="rating__title">My Rating</p>

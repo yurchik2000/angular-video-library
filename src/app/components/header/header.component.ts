@@ -93,4 +93,5 @@ export class HeaderComponent {
     this.movieService.changeMovieTitle.next(true);    
   }
 
+
 }
