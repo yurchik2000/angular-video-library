@@ -41,8 +41,8 @@ export class MainComponent {
       const userObj = localStorage.getItem('currentUser') as string;      
       const user = JSON.parse(userObj);      
 
-      docData(doc(this.afs, 'users', user.uid)).subscribe(user => {
-        this.getAllMovies(user['myMovieId']);
+      docData(doc(this.afs, 'users', user.uid)).subscribe(user => {        
+          this.getAllMovies(user['myMovieId'])                        
         // localStorage.setItem('currentUser', JSON.stringify(user));
       });
             
@@ -56,74 +56,17 @@ export class MainComponent {
   getAllMovies(userIdlist: Array<string>): void {    
     for( let i=0; i < userIdlist.length; i++ ) {           
       if (!this.moviesList.find(element => element.id === userIdlist[i])) {      
-        this.getOneMovie(userIdlist[i]);        
+        this.getOneMovie(userIdlist[i]);
     }
   }
   }
 
-  getOneMovie(movieId: string): void {            
-    // let movie: IMovie = {
-    //   id: '',
-    //   title: '',
-    //   year: 0,
-    //   imdbRating: 0,
-    //   myRating: 0,
-    //   rtRating: '',
-    //   plot: '',
-    //   director: [],
-    //   poster: '',
-    //   genres: [],
-    //   actors: [],
-    //   writer: [],
-    //   rated: '',
-    //   watched: false,
-    //   favourite: false,
-    //   dateAdding: new Date(),
-    //   country: [],
-    //   awards: '',
-    //   type: '',
-    //   tags: [],
-    //   archive: false,
-    //   runTime: '',
-    //   totalSeasons: ''
-    // };       
-    this.movieService.getOneMovie(movieId).subscribe(data => {
+  getOneMovie(movieId: string): void {                
+    this.movieService.getOneMovie(movieId).subscribe(
+      (data) => {
         let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
         movie.id = movieId;
-        console.log(2, movie)
-        // console.log(2, data);
-        // movie.id = movieId;
-        // movie.title = data.Title;      
-        // movie.year = data.Year;
-        // movie.imdbRating = Number(data.imdbRating);
-        // if (movie.rtRating[1]) movie.rtRating = data.Ratings[1].Value;
-        // movie.plot = data.Plot;
-        // movie.poster = data.Poster;
-        // if (data.Director === 'N/A') movie.director = []
-        //    else {
-        //     movie.director = data.Director.split(', ');
-        //     movie.director.forEach(item => item.trim());          
-        //    }          
-        // if (data.Writer === 'N/A') movie.writer = []
-        //    else {
-        //     movie.writer = data.Writer.split(', ');
-        //     movie.writer.forEach(item => item.trim());          
-        //    };
-        // movie.genres = data.Genre.split(', ');
-        // movie.actors = data.Actors.split(', ');        
-        // movie.awards = data.Awards;
-        // if (data.Country === 'N/A') movie.country = []
-        //  else {
-        //   movie.country = data.Country.split(', ');
-        //   movie.country.forEach(item => item.trim());          
-        //  }                     
-        // movie.type = data.Type;
-        // if (data.Runtime === 'N/A') movie.runTime = ''
-        //  else {
-        //   movie.runTime = data.Runtime;            
-        //  }                     
-        // if (data.totalSeasons) movie.totalSeasons = data.totalSeasons;                      
-        // movie.rated = data.Rated,        
+        console.log(2, movie)        
         this.moviesList.push(movie);        
         this.saveToLocalStorage(this.moviesList);
       })      

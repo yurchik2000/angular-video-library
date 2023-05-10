@@ -57,6 +57,7 @@ export class AuthComponent {
         this.changeActiveUser();
       })
       .catch ( error => {
+        console.log('error', error)
         this.toastr.error(error.code);        
       })
     this.authForm.reset();

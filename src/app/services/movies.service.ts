@@ -33,7 +33,7 @@ export class MoviesService {
   }
 
   getOneMovie(movieId: string): Observable<IMovieResponce> {
-    return this.http.get<IMovieResponce>(`${this.url}?apikey=${this.apiKey}&i=${movieId}&plot=full`)
+    return this.http.get<IMovieResponce>(`${this.url}?apikey=${this.apiKey}&i=${movieId}&plot=full`)    
   }
   getMoviesList(title: string): Observable<ISearchResponce> {
     return this.http.get<ISearchResponce>(`${this.url}?apikey=${this.apiKey}&s=${title}`)
@@ -108,3 +108,7 @@ export class MoviesService {
   }
 
 }
+function catchEror(arg0: (error: any) => void): import("rxjs").OperatorFunction<IMovieResponce, IMovieResponce> {
+  throw new Error('Function not implemented.');
+}
+
