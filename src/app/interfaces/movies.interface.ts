@@ -73,6 +73,7 @@ export interface ISearchListMovie {
 export interface IUser {
     poster: string,
     name: string,
-    email: string
+    email: string,
+    moviesId: Array<string>
 }
 

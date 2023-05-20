@@ -3,7 +3,7 @@ import { Auth } from '@angular/fire/auth';
 import { Firestore, setDoc, docData } from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
 import { Router } from '@angular/router';
-import { IMovie } from 'src/app/interfaces/movies.interface';
+import { IMovie, IUser } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -13,15 +13,22 @@ import { MoviesService } from 'src/app/services/movies.service';
 })
 export class ProfileComponent {
 
+  public activeUser: IUser = {
+    poster: '',
+    name: '',
+    email: '',
+    moviesId: []
+  }
+
   constructor(
     private router: Router,
-    private movieService: MoviesService,
-    private auth: Auth,
+    private movieService: MoviesService,    
     private afs: Firestore,
   ) {}
 
   ngOnInit() {
     if (localStorage.getItem('movies')) this.saveDataToFireStore();
+    if (localStorage.getItem('currentUser')) this.getActiveUser()
   }
 
   logOut(): void {        
@@ -30,7 +37,8 @@ export class ProfileComponent {
     this.movieService.activeUser = {
       name: '',
       email: '',
-      poster: ''
+      poster: '',
+      moviesId: []
     };
     this.changeActiveUser();
     this.router.navigate(['']);        
@@ -46,6 +54,14 @@ export class ProfileComponent {
     const moviesListId = list.map( (item:IMovie) => (item.id));        
     user.myMovieId = moviesListId;            
     setDoc(doc(this.afs, 'users', user.uid), user);             
-  }  
+  }
 
+  getActiveUser(): void {
+    if (localStorage.getItem('currentUser')) {      
+      this.activeUser = JSON.parse(localStorage.getItem('currentUser') || '');        
+    }
+  }
+  editProfile(): void {
+    
+  }
 }

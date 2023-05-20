@@ -23,11 +23,12 @@ import { StarRatingModule } from 'angular-star-rating';
 
 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+
+
+import { environment } from '../environments/environment';
 import { MovieInfoComponent } from './components/movie-info/movie-info.component';
 
 

@@ -52,7 +52,8 @@ export class AuthComponent {
         this.movieService.activeUser = {
           name: '',
           email: email,
-          poster: ''
+          poster: '',
+          moviesId: []
         }
         this.changeActiveUser();
       })
@@ -66,6 +67,7 @@ export class AuthComponent {
   async login(email: string, password: string): Promise<void> {
     const credential = await signInWithEmailAndPassword(this.auth, email, password);        
     this.loginSubscription = docData(doc(this.afs, 'users', credential.user.uid)).subscribe(user => {
+      console.log(1, user);
       const currentUser = { ...user, uid: credential.user.uid, email: email };
       localStorage.setItem('currentUser', JSON.stringify(currentUser));    
       this.router.navigate(['']);

@@ -13,31 +13,6 @@ import { MoviesService } from 'src/app/services/movies.service';
 export class MovieInfoComponent {
 
   public movie: IMovie = this.movieService.initNewMovie();
-  // public movie: IMovie = {
-  //   id: '',
-  //     title: '',
-  //     year: 0,
-  //     imdbRating: 0,
-  //     myRating: 0,
-  //     rtRating: '',
-  //     plot: '',
-  //     director: [],
-  //     poster: '',
-  //     genres: [],
-  //     actors: [],
-  //     writer: [],
-  //     rated: '',
-  //     watched: false,
-  //     favourite: false,
-  //     dateAdding: new Date(),
-  //     country: [],
-  //     awards: '',
-  //     type: '',
-  //     tags: [],
-  //     archive: false,
-  //     runTime: '',
-  //     totalSeasons: ''
-  // };       
   public moviesList: Array<IMovie> = [];
   public onRatingChangeResult?: RatingChangeEvent;   
 

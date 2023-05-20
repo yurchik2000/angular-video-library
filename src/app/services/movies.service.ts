@@ -108,7 +108,7 @@ export class MoviesService {
   }
 
 }
-function catchEror(arg0: (error: any) => void): import("rxjs").OperatorFunction<IMovieResponce, IMovieResponce> {
-  throw new Error('Function not implemented.');
-}
+// function catchEror(arg0: (error: any) => void): import("rxjs").OperatorFunction<IMovieResponce, IMovieResponce> {
+//   throw new Error('Function not implemented.');
+// }
 
