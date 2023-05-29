@@ -30,6 +30,9 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
 import { environment } from '../environments/environment';
 import { MovieInfoComponent } from './components/movie-info/movie-info.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedModule } from './shared/shared.module';
+import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
 
 
 @NgModule({
@@ -46,7 +49,8 @@ import { MovieInfoComponent } from './components/movie-info/movie-info.component
     FooterComponent,
     AuthComponent,
     ProfileComponent,
-    MovieInfoComponent
+    MovieInfoComponent,
+    ProfileDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,9 @@ import { MovieInfoComponent } from './components/movie-info/movie-info.component
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideStorage(() => getStorage()),
-    provideFirestore(() => getFirestore()) 
+    provideFirestore(() => getFirestore()),
+    BrowserAnimationsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

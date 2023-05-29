@@ -53,7 +53,8 @@ export class AuthComponent {
           name: '',
           email: email,
           poster: '',
-          moviesId: []
+          moviesId: [],
+          uid: ''
         }
         this.changeActiveUser();
       })

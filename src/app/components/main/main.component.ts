@@ -17,6 +17,7 @@ export class MainComponent {
 
   public moviesList: Array<IMovie> = [];
   public moviesIdList: Array <string> = [];    
+  public sharedIdList: Array <string> = [];
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
   public sortDirection = this.movieService.sortDirection;  
@@ -34,7 +35,7 @@ export class MainComponent {
 
   ngOnInit() {
     if (localStorage.getItem('movies')) {
-      this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
+      this.moviesList = JSON.parse(localStorage.getItem('movies') || '');      
     }     
 
     if (localStorage.getItem('currentUser')) {
@@ -45,7 +46,9 @@ export class MainComponent {
           this.getAllMovies(user['myMovieId'])                        
         // localStorage.setItem('currentUser', JSON.stringify(user));
       });
-            
+      this.sharedIdList = this.moviesList
+        .filter( (movie: IMovie) => movie.favourite)
+        .map( (movie: IMovie ) => movie.id )
     };
 
     this.updateSearch();
@@ -86,7 +89,11 @@ export class MainComponent {
 
   checkFavourite(movie: IMovie): void {
     movie.favourite = !movie.favourite;
-    this.saveToLocalStorage(this.moviesList);    
+    this.saveToLocalStorage(this.moviesList);
+    this.sharedIdList = this.moviesList
+        .filter( (movie: IMovie) => movie.favourite)
+        .map( (movie: IMovie ) => movie.id )
+    console.log(this.sharedIdList);            
     // if (movie.favourite) this.toastr.info('Add to watched list'); else {
     //   this.toastr.info('Remove from watched list');
     // }

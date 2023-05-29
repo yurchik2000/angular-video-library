@@ -74,6 +74,7 @@ export interface IUser {
     poster: string,
     name: string,
     email: string,
-    moviesId: Array<string>
+    moviesId: Array<string>,
+    uid: string
 }
 

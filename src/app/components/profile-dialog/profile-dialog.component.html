@@ -1,0 +1,17 @@
+<div class="profile__dialog container p-2">
+    <h3 class="mb-4 font-bold text-2xl">Edit Profile</h3>    
+    <form [formGroup]="profileForm" class="flex flex-col">
+        <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput type="string" formControlName="name">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>E-mail</mat-label>
+            <input matInput type="email" formControlName="email" readonly="true">
+          </mat-form-field>
+          <div class="button__inner flex justify-around">
+            <button (click)="saveUserToFirestore()" mat-raised-button color="primary" class="hover:opacity-80">Save</button>
+            <button (click)="closeProfileDialog()" mat-raised-button color="warn" class="hover:opacity-80">Cancel</button>
+          </div>
+    </form>
+</div>
