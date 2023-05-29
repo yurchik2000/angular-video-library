@@ -40,11 +40,11 @@ export class MainComponent {
 
     if (localStorage.getItem('currentUser')) {
       const userObj = localStorage.getItem('currentUser') as string;      
-      const user = JSON.parse(userObj);      
+      const user = JSON.parse(userObj);
 
-      docData(doc(this.afs, 'users', user.uid)).subscribe(user => {        
-          this.getAllMovies(user['myMovieId'])                        
-        // localStorage.setItem('currentUser', JSON.stringify(user));
+      docData(doc(this.afs, 'users', user.uid)).subscribe(user => {
+          this.getAllMovies(user['myMovieId']);          
+          localStorage.setItem('currentUser', JSON.stringify(user));
       });
       this.sharedIdList = this.moviesList
         .filter( (movie: IMovie) => movie.favourite)
