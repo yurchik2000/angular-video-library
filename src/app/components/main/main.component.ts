@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RatingChangeEvent } from 'angular-star-rating';
 import { Firestore, setDoc, docData } from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class MainComponent {
   public activeActor = '';
   public currentPage = this.movieService.currentPageGlobal; 
   public onRatingChangeResult?: RatingChangeEvent;   
+  public counter: number = 0;
+  public getDataSubscription?: Subscription;  
   
   constructor(
     private movieService: MoviesService,
@@ -33,19 +36,24 @@ export class MainComponent {
     private afs: Firestore,    
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {        
+    
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '');      
     }     
 
     if (localStorage.getItem('currentUser')) {
+      console.log('counter', this.counter);
       const userObj = localStorage.getItem('currentUser') as string;      
       const user = JSON.parse(userObj);
-
-      docData(doc(this.afs, 'users', user.uid)).subscribe(user => {
-          this.getAllMovies(user['myMovieId']);          
+      console.log('hello', user, user.uid);
+      
+      this.getDataSubscription = docData(doc(this.afs, 'users', user.uid)).subscribe(user => {
+          this.getAllMovies(user['myMovieId']); 
+          console.log('docdata', user);
           localStorage.setItem('currentUser', JSON.stringify(user));
       });
+
       this.sharedIdList = this.moviesList
         .filter( (movie: IMovie) => movie.favourite)
         .map( (movie: IMovie ) => movie.id )
@@ -55,6 +63,10 @@ export class MainComponent {
     this.updateMode();
     this.updateSortDirection();
   }  
+
+  ngOnDestroy() {
+    this.getDataSubscription?.unsubscribe();
+  }
 
   getAllMovies(userIdlist: Array<string>): void {    
     for( let i=0; i < userIdlist.length; i++ ) {           
@@ -169,10 +181,12 @@ export class MainComponent {
 
   saveDataToFireStore() {
     const user = JSON.parse(localStorage.getItem('currentUser') || '');        
-    const userIdList = this.moviesList.map ( (movie:IMovie) => movie.id);    
-    user.myMovieId = userIdList;
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    setDoc(doc(this.afs, 'users', user.uid), user);             
+    if (user) {
+      const userIdList = this.moviesList.map ( (movie:IMovie) => movie.id);    
+      user.myMovieId = userIdList;
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      setDoc(doc(this.afs, 'users', user.uid), user);             
+    }    
   }
 
 }

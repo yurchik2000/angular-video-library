@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ToastrService } from 'ngx-toastr';
-import { IMovie } from 'src/app/interfaces/movies.interface';
+import { IMovie, IUser } from 'src/app/interfaces/movies.interface';
 
 @Component({
   selector: 'app-auth',
@@ -48,15 +48,15 @@ export class AuthComponent {
     const { email, password } = this.authForm.value;        
     this.login(email, password)
       .then (() => {
-        this.toastr.success('User successfully login');
-        this.movieService.activeUser = {
-          name: '',
-          email: email,
-          poster: '',
-          moviesId: [],
-          uid: ''
-        }
-        this.changeActiveUser();
+        this.toastr.success('User successfully login');                        
+        // this.movieService.activeUser = {
+        //   name: '',
+        //   email: email,
+        //   poster: '',
+        //   moviesId: [],
+        //   uid: ''
+        // }
+        // this.changeActiveUser();
       })
       .catch ( error => {
         console.log('error', error)
@@ -67,10 +67,12 @@ export class AuthComponent {
   
   async login(email: string, password: string): Promise<void> {
     const credential = await signInWithEmailAndPassword(this.auth, email, password);        
-    this.loginSubscription = docData(doc(this.afs, 'users', credential.user.uid)).subscribe(user => {
-      console.log(1, user);
-      const currentUser = { ...user, uid: credential.user.uid, email: email };
-      localStorage.setItem('currentUser', JSON.stringify(currentUser));    
+    this.loginSubscription = docData(doc(this.afs, 'users', credential.user.uid)).subscribe(user => {      
+      const currentUser = { ...user, uid:credential.user.uid};                  
+      console.log('currentUser', currentUser)
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));                
+      this.movieService.activeUser = JSON.parse(localStorage.getItem('currentUser') as string);            
+      this.changeActiveUser();
       this.router.navigate(['']);
     },
     (error) => {
@@ -109,7 +111,8 @@ export class AuthComponent {
         email: credential.user.email,
         poster: '',
         name: '',
-        myMovieId: moviesListId,      
+        myMovieId: moviesListId,
+        uid: credential.user.uid
       };
       console.log(user);
       setDoc(doc(this.afs, 'users', credential.user.uid), user);    

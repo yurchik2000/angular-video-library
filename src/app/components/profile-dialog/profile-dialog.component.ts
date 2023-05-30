@@ -41,12 +41,12 @@ export class ProfileDialogComponent {
 
   saveUserToFirestore(): void {
     const { email, name } = this.profileForm.value;
-    console.log(email, name);
+    // console.log('save data', email, name);
     const user: IUser = JSON.parse(localStorage.getItem('currentUser') as string);
     user.name = name;
-    console.log(user);    
+    // console.log(user);    
     localStorage.setItem('currentUser', JSON.stringify(user));
-    setDoc(doc(this.afs, 'users', 'JV6kBpvGZyepJF88EeVG96XY1Yf1'), user);    
+    setDoc(doc(this.afs, 'users', user.uid), user);    
     this.dialogRef.close();
   }
 

@@ -38,7 +38,8 @@ export class ProfileComponent {
 
   logOut(): void {        
     if (localStorage.getItem('movies')) this.saveDataToFireStore();
-    localStorage.removeItem('currentUser');    
+    localStorage.removeItem('currentUser');   
+    console.log('item removed');
     this.movieService.activeUser = {
       name: '',
       email: '',
@@ -64,7 +65,8 @@ export class ProfileComponent {
 
   getActiveUser(): void {
     if (localStorage.getItem('currentUser')) {      
-      this.activeUser = JSON.parse(localStorage.getItem('currentUser') || '');        
+      this.activeUser = JSON.parse(localStorage.getItem('currentUser') || '');
+      console.log(this.activeUser)            
     }
   }
   editProfile(): void {
