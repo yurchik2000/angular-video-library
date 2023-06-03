@@ -4,6 +4,7 @@ import { Firestore, setDoc, collection, collectionData, docData, addDoc, doc } f
 import { Subscription } from 'rxjs';
 import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-friend-info',
@@ -22,6 +23,7 @@ export class FriendInfoComponent {
     private activedRoute: ActivatedRoute,    
     private afs: Firestore,
     private movieService: MoviesService,
+    private toastr: ToastrService,        
   ) {}
 
   ngOnInit() {
@@ -66,11 +68,15 @@ export class FriendInfoComponent {
     let currentUser = JSON.parse(localStorage.getItem('currentUser') as string);    
     const currentUserList = currentUser.myMovieId;    
     const index = currentUserList.indexOf(movieId);    
+    console.log(index);
     if (index <0) {
       currentUser.myMovieId.push(movieId);
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
       setDoc(doc(this.afs, 'users', currentUser.uid), currentUser);                 
+      this.toastr.success('New movie successfully added')
     } else {
       console.log('This movie is already in your list')
+      this.toastr.info('This movie is already in your list');
     }
     
   }

@@ -64,7 +64,9 @@ import { FriendInfoComponent } from './components/friend-info/friend-info.compon
     NgxPaginationModule,
     ToastrModule,
     ReactiveFormsModule,
-    ToastNoAnimationModule.forRoot(),
+    ToastNoAnimationModule.forRoot({
+      timeOut: 1000,
+    }),
     StarRatingModule.forRoot(),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),

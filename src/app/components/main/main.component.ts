@@ -149,7 +149,15 @@ export class MainComponent {
   deleteMovie(id:string): void {
     console.log(id, this.moviesList);
     let index = this.moviesList.findIndex(movie => movie.id === id);
-    this.moviesList.splice(index, 1);
+    this.moviesList.splice(index, 1);    
+
+    const user = JSON.parse(localStorage.getItem('currentUser') || '');
+    const userMovieList = user.myMovieId;
+    index = userMovieList.indexOf(id);
+    userMovieList.splice(index, 1);
+    user.myMovieId = userMovieList;
+    localStorage.setItem('currentUser', JSON.stringify(user));
+
     this.saveToLocalStorage(this.moviesList);
     this.toastr.warning('This film successfully deleted from your list');        
   };
