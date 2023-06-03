@@ -106,7 +106,7 @@ export class MainComponent {
     console.log(this.sharedIdList);            
     if (localStorage.getItem('currentUser')) {
       const currentUser = JSON.parse(localStorage.getItem('currentUser') as string);
-      setDoc(doc(this.afs, 'sharedMovies', currentUser.email), {moviesId: this.sharedIdList});             
+      setDoc(doc(this.afs, 'sharedMovies', currentUser.email), {moviesId: this.sharedIdList, userName: currentUser.name});             
     }  
 
     

@@ -15,6 +15,8 @@ export class FriendInfoComponent {
   public getDataSubscription?: Subscription;  
   public friendsMoviesIdList: Array<string> = [];
   public friendsMoviesList: Array<IMovie> = [];
+  public friendsName: string = '';
+  public friendsEmail: string = '';
 
   constructor(
     private activedRoute: ActivatedRoute,    
@@ -38,6 +40,8 @@ export class FriendInfoComponent {
     this.getDataSubscription = docData(doc(this.afs, 'sharedMovies', email)).subscribe(data => {            
       if (data) {
         this.friendsMoviesIdList = data['moviesId'];
+        this.friendsName = data['userName'];
+        this.friendsEmail = email;
         for (let i=0; i<this.friendsMoviesIdList.length; i++) {
           this.getOneMovie(this.friendsMoviesIdList[i])
         }
