@@ -5,6 +5,18 @@
             *ngFor="let movie of friendsMoviesList; index as index"
         >                        
             <div class="item__left w-full md:w-1/4 md:ml-2 md:mr-4 pt-1">                                
+                <button 
+                    class="add__btn absolute top-1 font-lg right-2"
+                    (click)="addNewMovie(movie.id)"
+                >
+                    <svg width="20" height="20" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 137.144 137.144" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 137.144 137.144">
+                        <g>
+                        <g>
+                            <path d="M75.429,34.286H61.715v27.429H34.286v13.714h27.429v27.43h13.714v-27.43h27.429V61.715H75.429V34.286z M109.715,0H27.429    C12.28,0,0,12.281,0,27.429v82.286c0,15.149,12.28,27.429,27.429,27.429h82.286c15.149,0,27.429-12.28,27.429-27.429V27.429    C137.144,12.281,124.864,0,109.715,0z M123.43,102.858c0,11.361-9.21,20.572-20.571,20.572H34.286    c-11.361,0-20.571-9.21-20.571-20.572V34.286c0-11.361,9.21-20.572,20.571-20.572h68.573c11.361,0,20.571,9.21,20.571,20.572    V102.858z"/>
+                        </g>
+                        </g>
+                    </svg>
+                </button>
                 <h2 class="movie__title text-3xl lg:text-4xl text-center md:text-left font-bold mt-6 mb-4 border-b-2 border-solid border-gray-300 pb-2 text-violet-900">{{movie.title}}</h2>
                 <div class="date__rating-inner w-full flex justify-between text-xl mb-4 md:flex-wrap ">
                     <p class="date font-bold">{{movie.year}}</p>

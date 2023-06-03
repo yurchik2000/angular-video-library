@@ -58,4 +58,17 @@ export class FriendInfoComponent {
       })      
   }
 
+  addNewMovie(movieId: string): void {
+    let currentUser = JSON.parse(localStorage.getItem('currentUser') as string);    
+    const currentUserList = currentUser.myMovieId;    
+    const index = currentUserList.indexOf(movieId);    
+    if (index <0) {
+      currentUser.myMovieId.push(movieId);
+      setDoc(doc(this.afs, 'users', currentUser.uid), currentUser);                 
+    } else {
+      console.log('This movie is already in your list')
+    }
+    
+  }
+
 }
