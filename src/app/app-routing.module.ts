@@ -5,6 +5,7 @@ import { SearchComponent } from './components/search/search.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MovieInfoComponent } from './components/movie-info/movie-info.component';
+import { FriendInfoComponent } from './components/friend-info/friend-info.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: "search", component: SearchComponent},
   { path: "auth", component: AuthComponent},
   { path: "profile", component: ProfileComponent},
+  { path: "profile/:email", component: FriendInfoComponent},
   { path: ":id", component: MovieInfoComponent},
 ];
 

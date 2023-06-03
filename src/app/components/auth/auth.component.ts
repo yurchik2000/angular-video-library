@@ -112,7 +112,8 @@ export class AuthComponent {
         poster: '',
         name: '',
         myMovieId: moviesListId,
-        uid: credential.user.uid
+        uid: credential.user.uid,
+        friendsList: []
       };
       console.log(user);
       setDoc(doc(this.afs, 'users', credential.user.uid), user);    

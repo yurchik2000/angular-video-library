@@ -26,8 +26,7 @@ export class MainComponent {
   public activeDirector = '';
   public activeActor = '';
   public currentPage = this.movieService.currentPageGlobal; 
-  public onRatingChangeResult?: RatingChangeEvent;   
-  public counter: number = 0;
+  public onRatingChangeResult?: RatingChangeEvent;     
   public getDataSubscription?: Subscription;  
   
   constructor(
@@ -42,15 +41,12 @@ export class MainComponent {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '');      
     }     
 
-    if (localStorage.getItem('currentUser')) {
-      console.log('counter', this.counter);
+    if (localStorage.getItem('currentUser')) {      
       const userObj = localStorage.getItem('currentUser') as string;      
-      const user = JSON.parse(userObj);
-      console.log('hello', user, user.uid);
-      
-      this.getDataSubscription = docData(doc(this.afs, 'users', user.uid)).subscribe(user => {
-          this.getAllMovies(user['myMovieId']); 
-          console.log('docdata', user);
+      const user1 = JSON.parse(userObj);            
+      this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {
+          this.getAllMovies(user['myMovieId']);                     
+          user['friendsList'] = user1['friendsList'];
           localStorage.setItem('currentUser', JSON.stringify(user));
       });
 
@@ -61,7 +57,7 @@ export class MainComponent {
 
     this.updateSearch();
     this.updateMode();
-    this.updateSortDirection();
+    this.updateSortDirection();    
   }  
 
   ngOnDestroy() {
@@ -106,6 +102,12 @@ export class MainComponent {
         .filter( (movie: IMovie) => movie.favourite)
         .map( (movie: IMovie ) => movie.id )
     console.log(this.sharedIdList);            
+    if (localStorage.getItem('currentUser')) {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') as string);
+      setDoc(doc(this.afs, 'sharedMovies', currentUser.email), {moviesId: this.sharedIdList});             
+    }  
+
+    
     // if (movie.favourite) this.toastr.info('Add to watched list'); else {
     //   this.toastr.info('Remove from watched list');
     // }
@@ -188,5 +190,7 @@ export class MainComponent {
       setDoc(doc(this.afs, 'users', user.uid), user);             
     }    
   }
+
+  
 
 }

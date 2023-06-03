@@ -75,6 +75,7 @@ export interface IUser {
     name: string,
     email: string,
     moviesId: Array<string>,
+    friendsList: Array<string>,
     uid: string
 }
 

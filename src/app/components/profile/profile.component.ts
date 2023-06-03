@@ -6,6 +6,8 @@ import { IMovie, IUser } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { MatDialog } from '@angular/material/dialog'
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
+import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -19,33 +21,47 @@ export class ProfileComponent {
     name: '',
     email: '',
     moviesId: [],
-    uid: ''
-  }
+    uid: '',
+    friendsList: []
+  }  
   public usersList: Array<string> = [];
+  public friendsList: Array<string> = [];
   public isShowUsers = false;
+  public isShowAddFriend = false;
+  public friendEmail: string = '';
+  public getDataSubscription?: Subscription;  
 
   constructor(
     private router: Router,
     private movieService: MoviesService,    
     private afs: Firestore,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
     if (localStorage.getItem('movies')) this.saveDataToFireStore();
     if (localStorage.getItem('currentUser')) this.getActiveUser();
+    // this.getSharedMovies();
+  }
+
+  ngOnDestroy() {
+    // this.getDataSubscription?.unsubscribe();    
   }
 
   logOut(): void {        
     if (localStorage.getItem('movies')) this.saveDataToFireStore();
+    const user = JSON.parse(localStorage.getItem('currentUser') || '');        
+    setDoc(doc(this.afs, 'users', user.uid), user);             
     localStorage.removeItem('currentUser');   
-    console.log('item removed');
+    
     this.movieService.activeUser = {
       name: '',
       email: '',
       poster: '',
       moviesId: [],
-      uid: ''
+      uid: '',
+      friendsList: []
     };
     this.changeActiveUser();
     this.router.navigate(['']);        
@@ -66,7 +82,8 @@ export class ProfileComponent {
   getActiveUser(): void {
     if (localStorage.getItem('currentUser')) {      
       this.activeUser = JSON.parse(localStorage.getItem('currentUser') || '');
-      console.log(this.activeUser)            
+      this.friendsList = this.activeUser.friendsList;
+      // console.log(this.activeUser)            
     }
   }
   editProfile(): void {
@@ -79,7 +96,7 @@ export class ProfileComponent {
     const collectionInstance = collection(this.afs, 'users');
     collectionData(collectionInstance).subscribe(user => {      
       this.usersList = user.map(item => item['email']);
-      console.log(this.usersList);            
+      // console.log(this.usersList);            
     })
   };
 
@@ -87,10 +104,11 @@ export class ProfileComponent {
     const collectionInstance = collection(this.afs, 'users');
     addDoc(collectionInstance, data)
      .then( ()=> {
-      console.log('Data saved');
+      // console.log('Data saved');
+      this.toastr.info('Data saved')
      })
      .catch( (err: any) => {
-      console.log(err);      
+      this.toastr.error(err)
      })
   }
 
@@ -106,5 +124,57 @@ export class ProfileComponent {
       if (localStorage.getItem('currentUser')) this.getActiveUser();            
     })
   }
+
+  addFriend(): void {
+    this.isShowAddFriend = !this.isShowAddFriend;
+  }
+
+  searchFriend(): void {
+    const number = this.friendsList.indexOf(this.friendEmail);    
+    if (this.friendEmail === this.activeUser.email) {
+      this.toastr.info('you can not be friend for yourself')
+      return
+    }
+    console.log('friendsList', this.friendsList);
+    if (number >=0 ) {            
+      this.toastr.info('This user already in your list')
+    } else {
+      const collectionInstance = collection(this.afs, 'users');
+      collectionData(collectionInstance).subscribe(user => {      
+        if (this.friendEmail) {
+          this.usersList = user.map(item => item['email']);
+          console.log(this.usersList);            
+          const order = this.usersList.indexOf(this.friendEmail);
+          if (order >=0) {         
+            this.toastr.success('New friend successfully added');
+            this.friendsList.push(this.friendEmail);
+            this.activeUser.friendsList = this.friendsList;
+            console.log(2, this.activeUser)
+            localStorage.setItem('currentUser', JSON.stringify(this.activeUser));
+            this.friendEmail = ''
+            this.isShowAddFriend = !this.isShowAddFriend;
+            console.log(this.friendsList)
+          } else {        
+          this.toastr.info('No such user');        
+      }
+        }        
+    })
+    }    
+  }
+
+  deleteFriend(email:string): void {    
+    const number = this.friendsList.indexOf(email);    
+    console.log(1, number);    
+    this.friendsList.splice(number, 1);
+    this.activeUser.friendsList = this.friendsList;
+    localStorage.setItem('currentUser', JSON.stringify(this.activeUser));
+  }
+  
+
+  // getSharedMovies(): void {    
+  //   this.getDataSubscription = docData(doc(this.afs, 'sharedMovies', 'test5@gmail.com')).subscribe(data => {
+  //     console.log(data);
+  // });
+  // }
 
 }
