@@ -16,6 +16,7 @@ import { SearchPipe } from './pipes/search.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterbydirectorPipe } from './pipes/filterbydirector.pipe';
+import { FilterbyfavouritePipe } from './pipes/filterbyfavourite.pipe';
 import { SortbyactorPipe } from './pipes/sortbyactor.pipe';
 import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { ToastNoAnimationModule, ToastrModule } from 'ngx-toastr';
@@ -45,14 +46,15 @@ import { FriendInfoComponent } from './components/friend-info/friend-info.compon
     SearchComponent,
     SortPipe,
     FilterPipe,
-    FilterbydirectorPipe,
+    FilterbydirectorPipe,    
     SortbyactorPipe,
     FooterComponent,
     AuthComponent,
     ProfileComponent,
     MovieInfoComponent,
     ProfileDialogComponent,
-    FriendInfoComponent
+    FriendInfoComponent,
+    FilterbyfavouritePipe
   ],
   imports: [
     BrowserModule,

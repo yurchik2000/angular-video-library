@@ -19,9 +19,11 @@ export class MoviesService {
   public changeSortDirection = new Subject<boolean>();
   public changeGridMode = new Subject<boolean>();
   public changeActiveUser = new Subject<boolean>();
+  public changeShowFavourite = new Subject<boolean>;
   
   public isGridMode = false;  
   public sortDirection = true;
+  public showFavourite = false;
   public activeUser?: IUser;
   public currentPageGlobal: number = 1;
 

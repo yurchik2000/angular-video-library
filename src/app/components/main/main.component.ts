@@ -21,6 +21,7 @@ export class MainComponent {
   public sharedIdList: Array <string> = [];
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
+  public isShowFavourite = this.movieService.showFavourite;
   public sortDirection = this.movieService.sortDirection;  
   public activeGenre = '';
   public activeDirector = '';
@@ -58,6 +59,7 @@ export class MainComponent {
     this.updateSearch();
     this.updateMode();
     this.updateSortDirection();    
+    this.updateShowFavourite();
   }  
 
   ngOnDestroy() {
@@ -135,6 +137,12 @@ export class MainComponent {
   updateSortDirection(): void {
     this.movieService.changeSortDirection.subscribe( () => {           
       this.sortDirection = this.movieService.sortDirection;            
+    })
+  };
+
+  updateShowFavourite(): void {
+    this.movieService.changeShowFavourite.subscribe( () => {           
+      this.isShowFavourite = this.movieService.showFavourite;            
     })
   };
 

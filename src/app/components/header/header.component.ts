@@ -18,6 +18,7 @@ export class HeaderComponent {
   public isGridMode = this.movieService.isGridMode;
   public isActiveUser = false;
   public activeUserName = '';
+  public isShowFavourite = false;
 
   constructor(
     private movieService: MoviesService,
@@ -64,7 +65,7 @@ export class HeaderComponent {
     this.isDescending = !this.isDescending;    
     this.movieService.sortDirection = this.isDescending;    
     this.movieService.changeSortDirection.next(true);    
-  };
+  };  
   checkActiveUser(): void {
     if (localStorage.getItem('currentUser')) { 
       this.isActiveUser = true;
@@ -91,6 +92,11 @@ export class HeaderComponent {
     this.movieTitle = '';
     this.movieService.inputMovieTitle = '';    
     this.movieService.changeMovieTitle.next(true);    
+  }
+  checkFavourite(): void {    
+    this.isShowFavourite = !this.isShowFavourite;    
+    this.movieService.showFavourite = this.isShowFavourite;    
+    this.movieService.changeShowFavourite.next(true);    
   }
 
 
