@@ -35,12 +35,15 @@ export class FriendInfoComponent {
   }
 
   getSharedMovies(email:string): void {    
-    this.getDataSubscription = docData(doc(this.afs, 'sharedMovies', email)).subscribe(data => {
-      this.friendsMoviesIdList = data['moviesId'];
-      for (let i=0; i<this.friendsMoviesIdList.length; i++) {
-        this.getOneMovie(this.friendsMoviesIdList[i])
-      }
+    this.getDataSubscription = docData(doc(this.afs, 'sharedMovies', email)).subscribe(data => {            
+      if (data) {
+        this.friendsMoviesIdList = data['moviesId'];
+        for (let i=0; i<this.friendsMoviesIdList.length; i++) {
+          this.getOneMovie(this.friendsMoviesIdList[i])
+        }
+      } else {
 
+      }      
       // console.log(this.friendsMoviesIdList);
   });
   }
