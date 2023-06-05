@@ -18,6 +18,7 @@ export class FriendInfoComponent {
   public friendsMoviesList: Array<IMovie> = [];
   public friendsName: string = '';
   public friendsEmail: string = '';
+  private moviesList: Array<IMovie> = [];
 
   constructor(
     private activedRoute: ActivatedRoute,    
@@ -59,6 +60,11 @@ export class FriendInfoComponent {
       (data) => {
         let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
         movie.id = movieId;
+        if (localStorage.getItem('movies')) {
+          this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
+        };    
+        this.moviesList.push(movie);        
+        localStorage.setItem('movies', JSON.stringify(this.moviesList))
         // console.log(2, movie)        
         this.friendsMoviesList.push(movie);                
       })      
@@ -69,7 +75,7 @@ export class FriendInfoComponent {
     const currentUserList = currentUser.myMovieId;    
     const index = currentUserList.indexOf(movieId);    
     console.log(index);
-    if (index <0) {
+    if (index < 0) {
       currentUser.myMovieId.push(movieId);
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
       setDoc(doc(this.afs, 'users', currentUser.uid), currentUser);                 
