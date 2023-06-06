@@ -59,13 +59,7 @@ export class FriendInfoComponent {
     this.movieService.getOneMovie(movieId).subscribe(
       (data) => {
         let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
-        movie.id = movieId;
-        if (localStorage.getItem('movies')) {
-          this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-        };    
-        this.moviesList.push(movie);        
-        localStorage.setItem('movies', JSON.stringify(this.moviesList))
-        // console.log(2, movie)        
+        movie.id = movieId;        
         this.friendsMoviesList.push(movie);                
       })      
   }
@@ -79,7 +73,13 @@ export class FriendInfoComponent {
       currentUser.myMovieId.push(movieId);
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
       setDoc(doc(this.afs, 'users', currentUser.uid), currentUser);                 
-      this.toastr.success('New movie successfully added')
+      this.toastr.success('New movie successfully added');
+      // if (localStorage.getItem('movies')) {
+        //   this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
+        // };    
+        // this.moviesList.push(movie);        
+        // localStorage.setItem('movies', JSON.stringify(this.moviesList))
+        // console.log(2, movie)        
     } else {
       console.log('This movie is already in your list')
       this.toastr.info('This movie is already in your list');
