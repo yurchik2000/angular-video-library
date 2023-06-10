@@ -109,7 +109,12 @@ export class MoviesService {
     return movie
   }
 
+  translate(text: string): Observable<any> {    
+    return this.http.get(`https://api.mymemory.translated.net/get?q=${text}!&langpair=en|uk`)    
+  }
 }
+
+
 // function catchEror(arg0: (error: any) => void): import("rxjs").OperatorFunction<IMovieResponce, IMovieResponce> {
 //   throw new Error('Function not implemented.');
 // }

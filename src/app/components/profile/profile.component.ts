@@ -36,7 +36,8 @@ export class ProfileComponent {
     private movieService: MoviesService,    
     private afs: Firestore,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+
   ) {}
 
   ngOnInit() {
@@ -169,6 +170,9 @@ export class ProfileComponent {
     this.activeUser.friendsList = this.friendsList;
     localStorage.setItem('currentUser', JSON.stringify(this.activeUser));
   }
+
+  
+  }
   
 
   // getSharedMovies(): void {    
@@ -177,4 +181,3 @@ export class ProfileComponent {
   // });
   // }
 
-}

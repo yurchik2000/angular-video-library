@@ -98,7 +98,7 @@ export class MainComponent {
     this.saveToLocalStorage(this.moviesList);    
     if (movie.watched) this.toastr.info('Add to watched list'); else {
       this.toastr.info('Remove from watched list');
-    }
+    }    
   }
 
   checkFavourite(movie: IMovie): void {
@@ -210,6 +210,12 @@ export class MainComponent {
   //     setDoc(doc(this.afs, 'users', user.uid), user);             
   //   }    
   // }
+
+  showTranslate(text:string): void {        
+    this.movieService.translate(text).subscribe( (data:any) => {
+      console.log(data.responseData.translatedText);      
+    })
+  }
   
 
 }

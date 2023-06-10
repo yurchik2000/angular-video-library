@@ -109,7 +109,7 @@ export class AuthComponent {
     }
       const user = {
         email: credential.user.email,
-        poster: '',
+        poster: 'gs://myvideo-b2178.appspot.com/images/unknown.svg',
         name: '',
         myMovieId: moviesListId,
         uid: credential.user.uid,

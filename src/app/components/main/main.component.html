@@ -76,10 +76,13 @@
                         </li>                        
                     </ul>
                 </div>
-                <p 
-                    class="plot text-center md:text-left lg:text-xl mb-2">
+
+                <p                     
+                    class="plot text-center md:text-left lg:text-xl mb-2"                    
+                >                    
                     {{movie.plot | slice: 0:231}}<span *ngIf="movie.plot.length>231" >...</span>
                 </p>
+
                 <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link mx-auto md:mx-0 hover:text-violet-900 w-52 hover:underline">More details on IMDb</a>
             </div>                
         </li>

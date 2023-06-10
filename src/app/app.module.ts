@@ -38,6 +38,7 @@ import { FriendInfoComponent } from './components/friend-info/friend-info.compon
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

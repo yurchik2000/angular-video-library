@@ -3,8 +3,8 @@
         <h2 class="user__name pb-2 font-bold">Name: <span class="font-normal">{{activeUser.name}}</span></h2>
         <p class="user__email pb-2 font-bold">E-mail: <span class="font-normal">{{activeUser.email}}</span></p>
         <div class="img__inner pb-2">
-            <img *ngIf="activeUser.poster"  src="{{activeUser.poster}}" alt="{{activeUser.name}}" class="h-52">
-            <img *ngIf="!activeUser.poster"  src="assets/images/unknown.svg" alt="{{activeUser.name}}" class="h-52">
+            <img *ngIf="activeUser.poster"  src="{{activeUser.poster}}" alt="{{activeUser.name}}" class="h-52 max-w-xs">
+            <img *ngIf="!activeUser.poster"  src="assets/images/unknown.svg" alt="{{activeUser.name}}" class="h-52 max-w-xs">
         </div>
         
         <button             
