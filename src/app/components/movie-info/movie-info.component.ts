@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RatingChangeEvent } from 'angular-star-rating';
 import { ToastrService } from 'ngx-toastr';
 import { IMovie } from 'src/app/interfaces/movies.interface';
@@ -20,6 +20,7 @@ export class MovieInfoComponent {
     private toastr: ToastrService,        
     private activedRoute: ActivatedRoute,    
     private movieService: MoviesService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -58,8 +59,14 @@ export class MovieInfoComponent {
   loadMovie(): void {
     const id = this.activedRoute.snapshot.paramMap.get('id');   
     const index =  this.moviesList.findIndex( movie => { return id === movie.id})
-    // console.log(id, index)
-    this.movie = this.moviesList[index];    
-    console.log(this.movie)
+    if (index >= 0) 
+    {
+      console.log(id, index)
+      this.movie = this.moviesList[index];    
+      console.log(this.movie)
+    } else {
+      console.log('NO SUCH PAGE');
+      this.router.navigate(['/']);
+    }
   }
 }
