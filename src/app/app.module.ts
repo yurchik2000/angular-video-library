@@ -35,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
 import { FriendInfoComponent } from './components/friend-info/friend-info.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { FriendInfoComponent } from './components/friend-info/friend-info.compon
     MovieInfoComponent,
     ProfileDialogComponent,
     FriendInfoComponent,
-    FilterbyfavouritePipe
+    FilterbyfavouritePipe,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
