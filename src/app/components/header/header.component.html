@@ -41,16 +41,17 @@
       class="input__wrapper p-2 bg-white-100 flex items-center"
     >
       <input
-        class="search__video-imdb p-2 pr-8 rounded-xl outline-transparent w-40"
+        class="search__video-imdb p-2 pr-8 rounded-xl outline-transparent w-40 sm:w-56"
         type="text"
         placeholder="Search IMDb"
         [(ngModel)]="movieImdbTitle"
-        (keyup.enter)="searchOnImdb(movieImdbTitle)"
+        (keyup.enter)="searchOnImdb(movieImdbTitle)"        
       />
       <button
         type="button"
         class="-ml-8"
         (click)="searchOnImdb(movieImdbTitle)"
+        
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -78,6 +79,7 @@
     <div
       class="add__film-btn ml-2 sm:ml-4 h-10 p-0 cursor-pointer bg-amber-300 rounded-md hover:shadow-lg transition-all duration-300 align-top flex flex-col justify-center border border-2"
       (click)="showAddMovieInput()"
+      matTooltip="Change search mode"
       [ngClass]="{
         'bg-amber-500': isShowAddMovie,
         'bg-amber-300': !isShowAddMovie,

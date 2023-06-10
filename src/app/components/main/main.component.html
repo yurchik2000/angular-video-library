@@ -86,7 +86,7 @@
     </ul>
     <ul *ngIf="isGridMode" class="movie__list font-mono flex flex-wrap justify-center">
         <li 
-            class="movie__grid border border-2 border-gray-300 rounded-xl my-4 mx-2 px-2 pt-10 pb-2 w-68 text-center relative"
+            class="movie__grid border border-2 border-gray-300 rounded-xl my-4 mx-2 px-2 pt-10 pb-2 w-64 text-center relative"
             *ngFor="let movie of (moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor) |filterbyfavourite:isShowFavourite |paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"
         >
             <div *ngIf="!movie.favourite" (click)="checkFavourite(movie)" class="check__item absolute p-1 top-0 right-12 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300">
