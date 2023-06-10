@@ -61,11 +61,10 @@ export class MovieInfoComponent {
     const index =  this.moviesList.findIndex( movie => { return id === movie.id})
     if (index >= 0) 
     {
-      console.log(id, index)
+      // console.log(id, index)
       this.movie = this.moviesList[index];    
       console.log(this.movie)
-    } else {
-      console.log('NO SUCH PAGE');
+    } else {      
       this.router.navigate(['/']);
     }
   }

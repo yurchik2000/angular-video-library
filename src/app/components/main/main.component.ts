@@ -53,7 +53,11 @@ export class MainComponent {
 
       this.sharedIdList = this.moviesList
         .filter( (movie: IMovie) => movie.favourite)
-        .map( (movie: IMovie ) => movie.id )
+        .map( (movie: IMovie ) => movie.id );
+      if (localStorage.getItem('currentUser')) {
+          const currentUser = JSON.parse(localStorage.getItem('currentUser') as string);
+          setDoc(doc(this.afs, 'sharedMovies', currentUser.email), {moviesId: this.sharedIdList, userName: currentUser.name});             
+      }  
     };
 
     this.updateSearch();
@@ -197,16 +201,15 @@ export class MainComponent {
     this.saveToLocalStorage(this.moviesList);
   }
 
-  saveDataToFireStore() {
-    const user = JSON.parse(localStorage.getItem('currentUser') || '');        
-    if (user) {
-      const userIdList = this.moviesList.map ( (movie:IMovie) => movie.id);    
-      user.myMovieId = userIdList;
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      setDoc(doc(this.afs, 'users', user.uid), user);             
-    }    
-  }
-
+  // saveDataToFireStore() {
+  //   const user = JSON.parse(localStorage.getItem('currentUser') || '');        
+  //   if (user) {
+  //     const userIdList = this.moviesList.map ( (movie:IMovie) => movie.id);    
+  //     user.myMovieId = userIdList;
+  //     localStorage.setItem('currentUser', JSON.stringify(user));
+  //     setDoc(doc(this.afs, 'users', user.uid), user);             
+  //   }    
+  // }
   
 
 }

@@ -65,21 +65,27 @@ export class FriendInfoComponent {
   }
 
   addNewMovie(movieId: string): void {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser') as string);    
+    let currentUser = JSON.parse(localStorage.getItem('currentUser') as string);
     const currentUserList = currentUser.myMovieId;    
     const index = currentUserList.indexOf(movieId);    
     console.log(index);
     if (index < 0) {
       currentUser.myMovieId.push(movieId);
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      setDoc(doc(this.afs, 'users', currentUser.uid), currentUser);                 
-      this.toastr.success('New movie successfully added');
-      // if (localStorage.getItem('movies')) {
-        //   this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-        // };    
-        // this.moviesList.push(movie);        
-        // localStorage.setItem('movies', JSON.stringify(this.moviesList))
-        // console.log(2, movie)        
+      setDoc(doc(this.afs, 'users', currentUser.uid), currentUser);     
+
+      this.movieService.getOneMovie(movieId).subscribe(
+      (data) => {
+        let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
+        movie.id = movieId;
+        console.log(2, movie);
+        if (localStorage.getItem('movies')) {
+          this.moviesList = JSON.parse(localStorage.getItem('movies') as string);
+        }        
+        this.moviesList.push(movie);        
+        localStorage.setItem('movies', JSON.stringify(this.moviesList))
+      })        
+      this.toastr.success('New movie successfully added');            
     } else {
       console.log('This movie is already in your list')
       this.toastr.info('This movie is already in your list');
