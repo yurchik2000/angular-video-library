@@ -120,7 +120,8 @@ export class ProfileComponent {
     this.dialog.open(ProfileDialogComponent, {
       backdropClass: 'dialog-back',
       panelClass: 'profile-dialog',
-      autoFocus: false
+      autoFocus: false,
+      // height: '500px'      
     }).afterClosed().subscribe(result => {
       if (localStorage.getItem('currentUser')) this.getActiveUser();            
     })

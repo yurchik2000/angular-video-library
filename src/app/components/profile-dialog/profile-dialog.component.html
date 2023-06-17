@@ -1,4 +1,4 @@
-<div class="profile__dialog container p-2">
+<mat-dialog-content class="profile__dialog container p-2">
     <h3 class="mb-4 font-bold text-2xl">Edit Profile</h3>    
     <form [formGroup]="profileForm" class="flex flex-col">
         <mat-form-field appearance="fill">
@@ -15,21 +15,36 @@
             <input type="file" formControlName="imagePath" (change)="upload($event)">            
           </mat-form-field> -->
 
-          <div 
-            
+          <!-- <div             
             class="flex flex-col mb-4"
           >
-            <p>Avatar</p>            
+          <p>Avatar</p>            
             <input type="file" (change)="upload($event)">            
           </div>
           <div *ngIf="isUploaded" class="mb-4 h-44 max-w-xs" >
-            <img [src]="valueByControl('imagePath')" alt="" class="w-fit max-h-44">
-            <!-- <button type="button" class="btn btn-danger" (click)="deleteImage()">delete</button> -->
-          </div>
+            <img [src]="valueByControl('imagePath')" alt="" class="w-fit max-h-44">            
+          </div> -->
+          
+
+          <input type="file" (change)="fileChangeEvent($event)" />
+          <div class="image__inner w-44 mb-2">
+            <image-cropper            
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="4 / 4"
+            [resizeToWidth]="300"
+            format="png"
+            (imageCropped)="imageCropped($event)"            
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+            output="base64"
+          ></image-cropper>
+          </div>                    
+
               
           <div class="button__inner flex justify-around">
             <button (click)="saveUserToFirestore()" mat-raised-button color="primary" class="hover:opacity-80">Save</button>
             <button (click)="closeProfileDialog()" mat-raised-button color="warn" class="hover:opacity-80">Cancel</button>
           </div>
     </form>
-</div>
+</mat-dialog-content>

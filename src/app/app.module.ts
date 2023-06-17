@@ -36,6 +36,7 @@ import { SharedModule } from './shared/shared.module';
 import { ProfileDialogComponent } from './components/profile-dialog/profile-dialog.component';
 import { FriendInfoComponent } from './components/friend-info/friend-info.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 
 
@@ -76,7 +77,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]
