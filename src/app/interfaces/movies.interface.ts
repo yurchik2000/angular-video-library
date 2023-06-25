@@ -79,3 +79,14 @@ export interface IUser {
     uid: string
 }
 
+export interface IMyMovie {
+    id: string,    
+    myRating: number,
+    watched: boolean,
+    favourite: boolean,
+    dateAdding: Date,
+    tags: Array<string>,
+    archive: boolean,
+    comment: string
+}
+

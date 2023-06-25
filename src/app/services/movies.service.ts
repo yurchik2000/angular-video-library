@@ -27,6 +27,8 @@ export class MoviesService {
   public activeUser?: IUser;
   public currentPageGlobal: number = 1;
 
+  public isFirstStart: boolean = true;
+
   constructor(
     private http: HttpClient
   ) { }

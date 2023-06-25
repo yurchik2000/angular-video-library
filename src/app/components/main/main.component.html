@@ -26,7 +26,7 @@
                     <star-rating [starType]="'svg'" [rating]="movie.myRating" (ratingChange)="onRatingChange($event, movie.id)"></star-rating>                    
                 </div>
                 <h2 class="movie__title text-3xl lg:text-4xl text-center md:text-left font-bold mt-6 mb-4 border-b-2 border-solid border-gray-300 pb-2 text-violet-900">{{movie.title}}</h2>
-                <div class="date__rating-inner w-full flex justify-between text-xl mb-4 md:flex-wrap ">
+                <div class="date__rating-inner w-full flex justify-between text-xl mb-2 md:flex-wrap ">
                     <p class="date font-bold">{{movie.year}}</p>
                     <p *ngIf="movie.imdbRating" class="rating">IMDb rating:&nbsp;<span class="font-bold">{{movie.imdbRating | number: "1.1"}}</span></p>
                 </div>
@@ -113,7 +113,7 @@
             <a [routerLink]="['/', movie.id]" class="img__inner">
                 <img src="{{movie.poster}}" alt="{{movie.title}}">
             </a>        
-            <h5 class="text-lg font-bold w-64 mt-1 leading-tight mx-auto">{{movie.title}}</h5>
+            <h5 class="text-lg font-bold mt-1 leading-tight mx-auto">{{movie.title}}</h5>
             <p class="text-sm">{{movie.year}}</p>        
             <!-- <p class="absolute bottom-1 right-1 text-xs">{{movie.id}}</p> -->
         </li>

@@ -75,8 +75,20 @@ export class ProfileComponent {
   saveDataToFireStore() {
     const user = JSON.parse(localStorage.getItem('currentUser') || '');        
     const list = JSON.parse(localStorage.getItem('movies') || '');
-    const moviesListId = list.map( (item:IMovie) => (item.id));        
-    user.myMovieId = moviesListId;            
+
+    // const moviesListId = list.map( (item:IMovie) => (item.id));
+    const moviesListId = list.map( (item:IMovie) => ({
+      id: item.id,
+      favourite: item.favourite,
+      myRating: item.myRating,
+      tags: item.tags,      
+      watched: item.watched,          
+    }));    
+    console.log(21, moviesListId);
+    user.myMovieId = moviesListId;
+    if (user) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    }
     setDoc(doc(this.afs, 'users', user.uid), user);             
   }
 
@@ -97,7 +109,7 @@ export class ProfileComponent {
     const collectionInstance = collection(this.afs, 'users');
     collectionData(collectionInstance).subscribe(user => {      
       this.usersList = user.map(item => item['email']);
-      // console.log(this.usersList);            
+      console.log('gerUserFromFirestore ',this.usersList);            
     })
   };
 
@@ -171,14 +183,6 @@ export class ProfileComponent {
     this.activeUser.friendsList = this.friendsList;
     localStorage.setItem('currentUser', JSON.stringify(this.activeUser));
   }
-
   
   }
   
-
-  // getSharedMovies(): void {    
-  //   this.getDataSubscription = docData(doc(this.afs, 'sharedMovies', 'test5@gmail.com')).subscribe(data => {
-  //     console.log(data);
-  // });
-  // }
-

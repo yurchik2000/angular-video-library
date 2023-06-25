@@ -8,23 +8,7 @@
           <mat-form-field appearance="fill">
             <mat-label>E-mail</mat-label>
             <input matInput type="email" formControlName="email" readonly="true">
-          </mat-form-field>
-
-          <!-- <mat-form-field appearance="fill">
-            <mat-label>Avatar</mat-label>            
-            <input type="file" formControlName="imagePath" (change)="upload($event)">            
-          </mat-form-field> -->
-
-          <!-- <div             
-            class="flex flex-col mb-4"
-          >
-          <p>Avatar</p>            
-            <input type="file" (change)="upload($event)">            
-          </div>
-          <div *ngIf="isUploaded" class="mb-4 h-44 max-w-xs" >
-            <img [src]="valueByControl('imagePath')" alt="" class="w-fit max-h-44">            
-          </div> -->
-          
+          </mat-form-field>                    
 
           <input type="file" (change)="fileChangeEvent($event)" />
           <div class="image__inner w-44 mb-2">
@@ -40,7 +24,6 @@
             output="base64"
           ></image-cropper>
           </div>                    
-
               
           <div class="button__inner flex justify-around">
             <button (click)="saveUserToFirestore()" mat-raised-button color="primary" class="hover:opacity-80">Save</button>

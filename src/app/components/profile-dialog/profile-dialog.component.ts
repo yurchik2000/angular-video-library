@@ -26,8 +26,7 @@ export class ProfileDialogComponent {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ProfileDialogComponent>,
     private afs: Firestore,
-    private imageService: ImageService,
-    private sanitizer: DomSanitizer    
+    private imageService: ImageService,    
   ) {}
 
   ngOnInit() {
@@ -69,44 +68,8 @@ export class ProfileDialogComponent {
       .catch (error => {
         console.error('error', error)        
       })
-    
   }
-
-  // upload(event: any) : void {
-
-    // const file = event.target.files[0];
-    // console.log(1, file);
-    
-    // const productImageToUpload = new File([base64ToFile(this.croppedImage)], file.name, {lastModified: file.lastModified, type: file.type});
-    // this.imageService.uploadFile('images/avatars', file.name, productImageToUpload)    
-
-    // this.imageService.uploadFile('images/avatars', file.name, productImageToUpload)
-    //   .then(data => {
-    //     console.log('datas ',data);
-    //     this.profileForm.patchValue({
-    //       imagePath: data
-    //     })
-    //     console.log('success');
-    //     this.isUploaded = true;
-    //   })
-    //   .catch (error => {
-    //     console.error('error', error)        
-    //   })
-    // }
-
-    // deleteImage(): void {
-    //   this.imageService.deleteUploadFile(this.valueByControl('imagePath')).then(() => {
-    //     console.log('File deleted');
-    //     this.isUploaded = false;        
-    //     this.profileForm.patchValue({
-    //       imagePath: null
-    //     })
-    //     const user: IUser = JSON.parse(localStorage.getItem('currentUser') as string);        
-    //     user.poster = '';    
-    //     localStorage.setItem('currentUser', JSON.stringify(user));        
-    //   })
-    // }
-
+      
     valueByControl(control: string): string {
       return this.profileForm.get(control)?.value;
     }
@@ -115,20 +78,11 @@ export class ProfileDialogComponent {
       this.imageChangedEvent = event;      
       this.file = event.target.files[0];
     }
-    imageCropped(event: ImageCroppedEvent) {
-      // console.log(3, event);      
-      this.croppedImage = event.base64;
-      // console.log(this.croppedImage)
-      // var originalimageFile = this.imageChangedEvent.target.files[0];
-      // if(originalimageFile){
-      //   var productImageToUpload = new File([base64ToFile(this.croppedImage)], originalimageFile.name, {lastModified: originalimageFile.lastModified, type: originalimageFile.type});
-      //   this.imageService.uploadFile('images/avatars', 'test.png', productImageToUpload)
-      // }
-                        
+    imageCropped(event: ImageCroppedEvent) {      
+      this.croppedImage = event.base64;                              
       // event.blob can be used to upload the cropped image
     }
     imageLoaded(image: LoadedImage) {      
-
         // show cropper
     }
     cropperReady() {
@@ -136,7 +90,6 @@ export class ProfileDialogComponent {
     }
     loadImageFailed() {
         // show message
-    }
-      
+    }      
 
 }

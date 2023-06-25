@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IMovie, ISearchListMovie } from 'src/app/interfaces/movies.interface';
+import { IMovie, IMyMovie, ISearchListMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -35,8 +35,29 @@ export class SearchComponent {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
     };    
     let index = this.moviesList.findIndex(movie => movie.id === movieId);    
-    if (index >=0 ) { this.toastr.info('This film is already in your list');}
-     else {      
+    if (index >=0 ) { 
+      this.toastr.info('This film is already in your list');
+    }
+    else {      
+      console.log(6);
+      if (localStorage.getItem('currentUser')) {
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') as string);      
+        const newMovie: IMyMovie = {
+          id: movieId,                  
+          favourite: false,
+          myRating: 0,
+          tags: [],
+          watched: false,
+          dateAdding: new Date(),          
+          archive: false,
+          comment: ''
+        }
+        console.log(7, newMovie);
+        currentUser.myMovieId.push(newMovie); 
+        console.log(8, currentUser);
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));        
+      }      
+
       this.movieService.getOneMovie(movieId).subscribe(data => {          
           let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
           movie.id = movieId;
@@ -46,7 +67,9 @@ export class SearchComponent {
           this.toastr.success('New film successfully added');
           this.router.navigate(['']);
         })      
-     }    
+      
+    }     
+
   }
 
   saveToLocalStorage(moviesList: IMovie[]) {
