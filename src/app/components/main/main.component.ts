@@ -81,7 +81,11 @@ export class MainComponent {
       if (!this.moviesList.find(element => element.id === userIdlist[i].id)) {
         this.getOneMovie(userIdlist[i]); 
       } else {
-
+        const index = this.moviesList.findIndex( (item:IMovie) => item.id === userIdlist[i].id);
+        this.moviesList[index].favourite = userIdlist[i].favourite;
+        this.moviesList[index].myRating = userIdlist[i].myRating;
+        this.moviesList[index].tags = userIdlist[i].tags;
+        this.moviesList[index].watched = userIdlist[i].watched;
       }
     }
   }
