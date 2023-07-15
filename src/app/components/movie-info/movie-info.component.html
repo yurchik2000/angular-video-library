@@ -122,8 +122,20 @@
       [target]="'_blank'"
       class="imdb__link text-left hover:text-violet-900 underline"
       >More details on IMDb</a
-    >
-  </div>
+    >    
+    <div class="trailer__container mt-2 block md:hidden">
+      <div class="trailer__inner max-w-max mx-auto">
+        <youtube-player 
+          videoId={{trailer}}                
+          suggestedQuality="hd720"                          
+          class="mx-auto"
+          [width]="320"
+          [height]="195"
+      > 
+      </youtube-player>
+      </div>      
+    </div>
+  </div>    
 </div>
 
 <div class="main container mx-auto max-w-7xl font-mono hidden sm:block">
@@ -257,5 +269,19 @@
         </div>
       </div>
     </div>    
-  </div>
+    <div class="trailer__container mt-2 hidden md:block">
+      <div class="trailer__inner max-w-max mx-auto">
+        <youtube-player 
+          videoId={{trailer}}                
+          suggestedQuality="hd720"                          
+          class="mx-auto"
+          [width]="700"
+          [height]="470"
+
+      > 
+      </youtube-player>
+      </div>      
+    </div>    
+
+  </div>    
 </div>

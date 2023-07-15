@@ -15,6 +15,7 @@ export class MovieInfoComponent {
   public movie: IMovie = this.movieService.initNewMovie();
   public moviesList: Array<IMovie> = [];
   public onRatingChangeResult?: RatingChangeEvent;   
+  public trailer: string = "";
 
   constructor(
     private toastr: ToastrService,        
@@ -27,7 +28,7 @@ export class MovieInfoComponent {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
     }
-    this.loadMovie();    
+    this.loadMovie();        
   }
 
   checkWatched(movie: IMovie): void {
@@ -57,13 +58,27 @@ export class MovieInfoComponent {
   };
   
   loadMovie(): void {
-    const id = this.activedRoute.snapshot.paramMap.get('id');   
+    const id = this.activedRoute.snapshot.paramMap.get('id') as string;   
+
+    this.movieService.geMovieTrailer(id).subscribe(
+      (data) => {
+        if (data.trailer) {
+          console.log(2, data);
+          this.trailer = data.trailer.youtube_video_id;
+        }        
+      },
+      (error) => {                              //Error callback
+        console.error('error caught in component ', error)
+      }
+    )
+
+    
     const index =  this.moviesList.findIndex( movie => { return id === movie.id})
     if (index >= 0) 
     {
       // console.log(id, index)
       this.movie = this.moviesList[index];    
-      console.log(this.movie)
+      console.log(this.movie)      
     } else {      
       this.router.navigate(['/']);
     }
