@@ -37,7 +37,7 @@ import { ProfileDialogComponent } from './components/profile-dialog/profile-dial
 import { FriendInfoComponent } from './components/friend-info/friend-info.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { YouTubePlayerModule } from '@angular/youtube-player';
+
 
 
 @NgModule({
@@ -78,9 +78,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     SharedModule,
-    ImageCropperModule,
-    YouTubePlayerModule
-    
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

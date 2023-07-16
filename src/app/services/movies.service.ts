@@ -42,9 +42,6 @@ export class MoviesService {
   getMoviesList(title: string): Observable<ISearchResponce> {
     return this.http.get<ISearchResponce>(`${this.url}?apikey=${this.apiKey}&s=${title}`)
   }
-  geMovieTrailer(movieId: string): Observable<any> {
-    return this.http.get<any>(`https://api.kinocheck.de/movies?imdb_id=${movieId}`)
-  }
   initNewMovie(): IMovie {
     return {
       id: '',
