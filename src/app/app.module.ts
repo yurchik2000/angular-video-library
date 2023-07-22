@@ -37,6 +37,7 @@ import { ProfileDialogComponent } from './components/profile-dialog/profile-dial
 import { FriendInfoComponent } from './components/friend-info/friend-info.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { TranslateDialogComponent } from './components/translate-dialog/translate-dialog.component';
 
 
 
@@ -58,7 +59,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ProfileDialogComponent,
     FriendInfoComponent,
     FilterbyfavouritePipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    TranslateDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -258,11 +258,7 @@ export class MainComponent {
   //   }    
   // }
 
-  showTranslate(text:string): void {        
-    this.movieService.translate(text).subscribe( (data:any) => {
-      console.log(data.responseData.translatedText);      
-    })
-  }
+  
   
 
 }

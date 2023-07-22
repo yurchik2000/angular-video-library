@@ -4,6 +4,8 @@ import { RatingChangeEvent } from 'angular-star-rating';
 import { ToastrService } from 'ngx-toastr';
 import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
+import { MatDialog } from '@angular/material/dialog'
+import { TranslateDialogComponent } from '../translate-dialog/translate-dialog.component';
 
 @Component({
   selector: 'app-movie-info',
@@ -15,12 +17,14 @@ export class MovieInfoComponent {
   public movie: IMovie = this.movieService.initNewMovie();
   public moviesList: Array<IMovie> = [];
   public onRatingChangeResult?: RatingChangeEvent;   
+  private userPlot: string = ""
 
   constructor(
     private toastr: ToastrService,        
     private activedRoute: ActivatedRoute,    
     private movieService: MoviesService,
     private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -68,4 +72,30 @@ export class MovieInfoComponent {
       this.router.navigate(['/']);
     }
   }
+
+  showTranslate(text:string): void {            
+    let text1 = text;
+    if (text.length > 500) text1 = text.slice(0, 499);
+    this.movieService.translate(text1).subscribe( (data:any) => {
+      // console.log(data.responseData.translatedText);      
+      this.userPlot = data.responseData.translatedText;      
+      this.userPlot = this.userPlot.slice(0, -1)
+      if (text.length > 500) {
+        this.userPlot+= this.userPlot + '...'
+      }
+      this.openTranslateWindow()
+    })
+  }
+
+  openTranslateWindow(): void {        
+    // console.log(this.userPlot);
+    this.dialog.open(TranslateDialogComponent, {
+      backdropClass: 'dialog-back',
+      panelClass: 'profile-dialog',
+      autoFocus: false,
+      data: { plot_ukr: this.userPlot },
+      // height: '500px'      
+    })
+  }
+
 }

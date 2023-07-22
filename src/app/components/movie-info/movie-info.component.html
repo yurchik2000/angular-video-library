@@ -1,4 +1,4 @@
-<div class="main container mx-auto max-w-7xl font-mono sm:hidden">
+<div class="main container mx-auto max-w-7xl font-mono sm:hidden phone">
   <div
     class="movie__item relative border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex flex-col text-left"
   >
@@ -39,9 +39,18 @@
         <img class="w-full" src="{{ movie.poster }}" alt="img" />
       </div>
       <div class="content__info w-3/4 text-sm">        
-        <div class="item__right p-2 flex flex-col">
-          <p class="plot text-left">{{ movie.plot | slice: 0:231}}<span *ngIf="movie.plot.length>231" >...</span></p>
-        </div>
+        <div class="item__right p-2 flex flex-col ">
+          <p class="plot text-left">{{ movie.plot | slice: 0:231}}
+              <span *ngIf="movie.plot.length>231" >...</span>
+              <span
+              class="plot__translate text-lg ml-1 cursor-pointer"
+              matTooltip="Translate"
+              (click)="showTranslate(movie.plot)"
+            >T
+          </span>          
+          
+          </p>          
+        </div>        
       </div>
     </div>
     <ul class="genre__list flex flex-wrap justify-around">
@@ -126,7 +135,7 @@
   </div>
 </div>
 
-<div class="main container mx-auto max-w-7xl font-mono hidden sm:block">
+<div class="main container mx-auto max-w-7xl font-mono hidden sm:block desctop">
   <div
     class="movie__item border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex-col"
   >
@@ -217,11 +226,19 @@
               {{ index > 0 ? " * " + actor : actor }}
             </span>
           </h2>
-          <p
-            class="plot text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2"
-          >
-            {{ movie.plot }}
-          </p>
+          <div class="plot__inner relative">
+            <p
+              class="plot text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2"
+            >
+              {{ movie.plot }}
+            </p>
+            <button 
+              class="plot__translate absolute bottom-2 right-0 text-lg"
+              matTooltip="Translate"
+              (click)="showTranslate(movie.plot)"
+            >T
+            </button>          
+          </div>          
           <p
             *ngIf="movie.awards"
             class="awards text-center sm:text-left lg:text-2xl mb-2 border-b-2 border-solid border-gray-300 pb-2 font-bold"
