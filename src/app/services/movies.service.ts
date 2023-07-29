@@ -71,8 +71,8 @@ export class MoviesService {
   };
 
   convertDataToMvoeiInfo(data: IMovieResponce): IMovie {
-    let movie: IMovie = this.initNewMovie();       
-    console.log(data);
+    let movie: IMovie = this.initNewMovie();    
+    console.log(3, data);
           movie.id = data.imdbId;
           movie.title = data.Title;
           movie.year = data.Year;

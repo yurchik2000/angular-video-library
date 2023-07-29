@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { IMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -38,17 +39,40 @@ export class HeaderComponent {
   }
   searchOnImdb(title:string): void {
     if (title.length > 3) {
-      this.movieService.getMoviesList(title).subscribe(data => {                        
-        if (data.totalResults > 0) {          
-          this.movieService.searchMoviesList = data.Search;
-          console.log(this.movieService.searchMoviesList);          
-          this.router.navigate(['/search']);
-          this.movieImdbTitle = '';
-          this.movieService.changeSearchMovieTitle.next(true);
-        } else {
-          this.toastr.warning('There is no any film with such word in the title');
-        }
-      })
+      if (title[0]==='t'&&title[1]==='t') {
+        this.movieService.getOneMovie(title).subscribe(data => {                    
+          if (data.Title) {
+            let temp = {
+              Poster: data.Poster,
+              Title: data.Title,
+              Type: data.Type,
+              Year: data.Year,
+              imdbID: title
+            };
+            this.movieService.searchMoviesList = []; 
+            this.movieService.searchMoviesList.push(temp);            
+            this.router.navigate(['/search']);
+            this.movieImdbTitle = '';
+            this.movieService.changeSearchMovieTitle.next(true);
+          } else { 
+            this.toastr.warning('There is no any film with such IMDb ID');
+          }
+        })
+      }
+      else {
+        this.movieService.getMoviesList(title).subscribe(data => {                        
+          if (data.totalResults > 0) {          
+            this.movieService.searchMoviesList = data.Search;
+            console.log(this.movieService.searchMoviesList);          
+            this.router.navigate(['/search']);
+            this.movieImdbTitle = '';
+            this.movieService.changeSearchMovieTitle.next(true);
+          } else {
+            this.toastr.warning('There is no any film with such word in the title');
+          }
+        })
+      }      
+
     } else {
       if (title.length <= 3) this.toastr.info('Type more then 3 symbols');
     }    
