@@ -84,7 +84,10 @@
                 </p>
 
                 <a [href]="'https://www.imdb.com/title/' + movie.id + '/?ref_=wl_li_tt'" [target]="'_blank'" class="imdb__link mx-auto md:mx-0 hover:text-violet-900 w-52 hover:underline">More details on IMDb</a>
-            </div>                
+            </div>
+            
+            <div *ngIf="movie.type!=='movie'" class="corner absolute bottom-0 right-0 w-0 h-0 border border-solid border-b-[60px] border-b-violet-300 border-l-transparent border-l-[60px] rounded-b-r-xl"></div>
+            <div *ngIf="movie.type!=='movie'" class="corner absolute bottom-1 right-2 text-lg font-bold">TV</div>
         </li>
     </ul>
     <ul *ngIf="isGridMode" class="movie__list font-mono flex flex-wrap justify-center">

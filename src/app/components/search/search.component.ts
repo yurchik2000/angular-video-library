@@ -59,7 +59,6 @@ export class SearchComponent {
       }      
 
       this.movieService.getOneMovie(movieId).subscribe(data => {          
-          console.log(11, data);
           let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
           movie.id = movieId;
           console.log(1, movie)          
@@ -67,7 +66,7 @@ export class SearchComponent {
           this.saveToLocalStorage(this.moviesList);
           this.toastr.success('New film successfully added');
           this.router.navigate(['']);
-        })      
+        })
       
     }     
 
