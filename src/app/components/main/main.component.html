@@ -1,5 +1,8 @@
-<div class="main container mx-auto max-w-7xl ">    
-    <ul *ngIf="!isGridMode" class="movie__list font-mono">
+<div class="main container mx-auto max-w-7xl ">
+    <div class="pagination__inner mt-1">
+        <pagination-controls (pageChange)="currentPage = $event" class="text-right"></pagination-controls>
+    </div>    
+    <ul *ngIf="!isGridMode" class="movie__list font-mono -mt-2">
         <li 
             class="movie__item relative border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex flex-col justify-center items-center md:flex-row"
             *ngFor="let movie of moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor |filterbyfavourite:isShowFavourite |paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"            
@@ -40,7 +43,13 @@
                           }"
                     >{{genre}}</li>                    
                 </ul>
-            </div>                
+                <div 
+                    *ngIf="movie.type!=='movie'"
+                    class="type__inner absolute bottom-3 left-3 rounded-lg py-1 px-2 border border-solid border-1 border-violet-300 bg-violet-300 hidden lg:block "
+                >
+                   {{movie.type}}     
+                </div>                
+            </div>                           
 
             <a [routerLink]="['/', movie.id]" class="img__inner w-full md:w-1/4 mx-2" (click)="clearInput()">
                 <img class="w-full" src={{movie.poster}} alt="img">
@@ -90,7 +99,7 @@
             <div *ngIf="movie.type!=='movie'" class="corner absolute bottom-1 right-2 text-lg font-bold">TV</div>
         </li>
     </ul>
-    <ul *ngIf="isGridMode" class="movie__list font-mono flex flex-wrap justify-center">
+    <ul *ngIf="isGridMode" class="movie__list font-mono flex flex-wrap justify-center -mt-2">
         <li 
             class="movie__grid border border-2 border-gray-300 rounded-xl my-4 mx-2 px-2 pt-10 pb-2 w-64 text-center relative"
             *ngFor="let movie of (moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor) |filterbyfavourite:isShowFavourite |paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"
