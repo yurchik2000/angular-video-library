@@ -90,3 +90,14 @@ export interface IMyMovie {
     comment: string
 }
 
+export interface IShortMovie {
+    title: string,
+    poster: string
+}
+
+export interface IActor {
+    name: string,
+    poster: string,
+    known_for: Array<IShortMovie>
+}
+

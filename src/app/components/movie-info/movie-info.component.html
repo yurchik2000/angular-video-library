@@ -107,6 +107,7 @@
       <span
         *ngFor="let actor of movie.actors; index as index"
         class="cursor-pointer hover:text-teal-700 transition-all duration-300 text-violet-900"
+        (click)="showActorInfo(actor)"
       >
         {{ index > 0 ? " * " + actor : actor }}
       </span>
@@ -222,6 +223,7 @@
             <span
               *ngFor="let actor of movie.actors; index as index"
               class="cursor-pointer hover:text-teal-700 transition-all duration-300 text-violet-900"
+              (click)="showActorInfo(actor)"
             >
               {{ index > 0 ? " * " + actor : actor }}
             </span>

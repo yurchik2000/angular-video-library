@@ -2,7 +2,7 @@
     <div class="pagination__inner mt-1">
         <pagination-controls (pageChange)="currentPage = $event" class="text-right"></pagination-controls>
     </div>    
-    <ul *ngIf="!isGridMode" class="movie__list font-mono -mt-2">
+    <ul *ngIf="!isGridMode" class="movie__list font-mono -mt-2">    
         <li 
             class="movie__item relative border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex flex-col justify-center items-center md:flex-row"
             *ngFor="let movie of moviesList |search:movieTitle |sort:sortDirection |filter:activeGenre |filterbydirector:activeDirector |sortbyactor:activeActor |filterbyfavourite:isShowFavourite |paginate: { itemsPerPage: 10, currentPage: currentPage }; index as index"            
