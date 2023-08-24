@@ -101,3 +101,9 @@ export interface IActor {
     known_for: Array<IShortMovie>
 }
 
+export interface ICast {
+    name: string,
+    character: string,
+    poster: string    
+}
+

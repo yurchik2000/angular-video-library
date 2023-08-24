@@ -23,6 +23,18 @@ export class PersonService {
 
   getPeson(query: string): Observable<any> {
     return this.http.get<any>(`${this.url}search/person?query=${query}`, this.options)
-  }  
+  }
+
+  searchMovieTmdb(query: string): Observable<any> {
+    return this.http.get<any>(`${this.url}search/multi?query=${query}`, this.options)
+  }
+
+  getMovieCast(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}movie/${tmdbId}/credits?query=${tmdbId}`, this.options)
+  }
+
+  getTvCast(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}tv/${tmdbId}/credits?query=${tmdbId}`, this.options)
+  }
 
 }

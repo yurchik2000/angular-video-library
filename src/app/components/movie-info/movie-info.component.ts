@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RatingChangeEvent } from 'angular-star-rating';
 import { ToastrService } from 'ngx-toastr';
-import { IActor, IMovie, IShortMovie } from 'src/app/interfaces/movies.interface';
+import { IActor, ICast, IMovie, IShortMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { MatDialog } from '@angular/material/dialog'
 import { TranslateDialogComponent } from '../translate-dialog/translate-dialog.component';
@@ -19,11 +19,16 @@ export class MovieInfoComponent {
   public movie: IMovie = this.movieService.initNewMovie();
   public moviesList: Array<IMovie> = [];
   public onRatingChangeResult?: RatingChangeEvent;   
+  public movieBack:string = '';
+  public movieTmdbId:string = '';
+  public movieTmdbType: string = '';
   public actor: IActor = {
     name: '',
     poster: '',
     known_for: []
   };
+  public cast: Array<ICast> = [];
+  public isShowCast:boolean = false;
   private userPlot: string = ""
 
   constructor(
@@ -75,7 +80,8 @@ export class MovieInfoComponent {
     {
       // console.log(id, index)
       this.movie = this.moviesList[index];    
-      console.log(this.movie)
+      console.log(this.movie);
+      this.searchMovieTmdb(this.movie.title);
     } else {      
       this.router.navigate(['/']);
     }
@@ -139,6 +145,68 @@ export class MovieInfoComponent {
       }
     )  
     console.log(actor)
+  }
+
+  searchMovieTmdb(title:string): void {
+    this.personService.searchMovieTmdb(title).subscribe(
+     (data) => {
+      if (data.results) {
+        console.log(data.results[0]);
+        this.movieBack = 'https://image.tmdb.org/t/p/w500/' + data.results[0].backdrop_path;
+        this.movieTmdbId = data.results[0].id;
+        this.movieTmdbType = data.results[0].media_type;        
+      }
+     }
+    )
+  }
+
+  getMovieCast(id:string): void {
+    this.personService.getMovieCast(id).subscribe(
+      (data) => {
+        if (data.cast) {
+          console.log(data.cast);
+          data.cast.forEach( (item:any) => {
+            if  (item.popularity > 5) {
+            this.cast.push({
+              name: item.name,
+              character: item.character,
+              poster: `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+            })
+          }
+          })
+          console.log(this.cast);
+        }
+      }
+    )
+  }
+
+  getTvCast(id:string): void {
+    this.personService.getTvCast(id).subscribe(
+      (data) => {
+        if (data.cast) {
+          console.log(data.cast);
+          data.cast.forEach( (item:any) => {            
+            if  (item.popularity > 5) {
+              this.cast.push({
+                name: item.name,
+                character: item.character,
+                poster: `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+              })
+            }            
+          })
+          console.log(this.cast);
+        }
+      }
+    )
+  }
+
+  showTopCast(): void {
+    this.isShowCast = !this.isShowCast;
+    if (this.movieTmdbType === "movie") {
+      this.getMovieCast(this.movieTmdbId);
+    } else {
+      this.getTvCast(this.movieTmdbId);
+    }
   }
 
 }
