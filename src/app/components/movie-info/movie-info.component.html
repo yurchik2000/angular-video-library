@@ -135,7 +135,41 @@
         class="imdb__link text-left hover:text-violet-900 underline"
         >More details on IMDb</a
       >
+
+      <div class="topcast">
+        <h3 class="text-xl font-bold my-2 border-b-2 border-solid border-gray-300 text-violet-900 cursor-pointer pb-2"
+          (click)="showTopCast()"
+        >
+        Show Top Cast ></h3>
+        <ul 
+          class="topcast__list flex flex-wrap"
+          *ngIf="isShowCast"
+        >
+          <li 
+            class="topcast__item p-1"
+            *ngFor="let item of cast; index as index"
+          >
+            <div class="item__inner h-28 max-w-sm flex my-2">
+              <div class="item__img--inner w-28 h-28 bg-cover bg-no-repeat bg-center-top rounded-full mr-3 cursor-pointer"
+                [ngStyle]="{ backgroundImage: 'url(&quot;' + item.poster + '&quot;)' }"
+                (click)="showActorInfo(item.name)"
+              >                                    
+              </div>                
+              <div class="item__content">
+                <div class="item__name text-2xl font-bold mb-1">
+                  {{item.name}}
+                </div>
+                <div class="item__character text-xl">
+                  {{item.character}}
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
     </div>
+    
   </div>
   
   <div class="desctop__wrap">    
@@ -276,7 +310,7 @@
                 [target]="'_blank'"
                 class="imdb__link sm:text-left text-center hover:text-violet-900 underline"
                 >More details on IMDb</a
-              >
+              >              
             </div>
           </div>
         </div>    
@@ -298,8 +332,7 @@
                 <div class="item__img--inner w-40 h-40 bg-cover bg-no-repeat bg-center-top rounded-full mr-3 cursor-pointer"
                   [ngStyle]="{ backgroundImage: 'url(&quot;' + item.poster + '&quot;)' }"
                   (click)="showActorInfo(item.name)"
-                >                  
-                  
+                >                                    
                 </div>                
                 <div class="item__content">
                   <div class="item__name text-2xl font-bold mb-1">
@@ -310,10 +343,9 @@
                   </div>
                 </div>
               </div>
-
             </li>
           </ul>
-        </div>        
+        </div>
 
       </div>      
     </div>    
