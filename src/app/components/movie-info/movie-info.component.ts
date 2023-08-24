@@ -28,7 +28,9 @@ export class MovieInfoComponent {
     known_for: []
   };
   public cast: Array<ICast> = [];
+  public likeThisMovies: Array<IShortMovie> = [];
   public isShowCast:boolean = false;
+  public isShowMoreLikeThis:boolean = false;
   private userPlot: string = ""
 
   constructor(
@@ -119,7 +121,9 @@ export class MovieInfoComponent {
       panelClass: 'profile-dialog',
       autoFocus: false,
       width: 'auto',
-      data: { poster: `https://image.tmdb.org/t/p/w500/${this.actor.poster}` },
+      data: { poster: `https://image.tmdb.org/t/p/w500/${this.actor.poster}`,
+              name: this.actor.name
+     },
       // height: '500px'      
     })
   }
@@ -206,6 +210,62 @@ export class MovieInfoComponent {
       this.getMovieCast(this.movieTmdbId);
     } else {
       this.getTvCast(this.movieTmdbId);
+    }
+  }
+
+  getTvMoreLikeThis(id: string): void {
+    this.personService.getTvMoreLikeThis(id).subscribe(
+      (data) => {        
+        // console.log(data.results);
+        if (data.results) {                    
+          let temp = data.results.sort(function(a:any, b:any) {
+            return b.popularity - a.popularity
+          })
+          // console.log(temp);
+          temp.forEach( (item:any, index:number) => {            
+            if  (index < 5) {
+              this.likeThisMovies.push({
+                title: item.name,                
+                poster: `https://image.tmdb.org/t/p/w500/${item.poster_path}`
+              })
+            }            
+          })
+          console.log(this.likeThisMovies);
+        }
+      }
+    )
+  }
+
+  getMovieMoreLikeThis(id: string): void {
+    this.personService.getMovieMoreLikeThis(id).subscribe(
+      (data) => {        
+        // console.log(data.results);
+        if (data.results) { 
+          let temp = data.results.sort(function(a:any, b:any) {
+            return b.popularity - a.popularity
+          })
+          // console.log(temp);                    
+          data.results.forEach( (item:any, index:number) => {            
+            if  (index < 5) {
+              this.likeThisMovies.push({
+                title: item.title,                
+                poster: `https://image.tmdb.org/t/p/w500/${item.poster_path}`
+              })
+            }            
+          })
+          console.log(this.likeThisMovies);
+        }
+      }
+    )
+  }
+
+  showMoreLikeThis(): void {
+    this.isShowMoreLikeThis = !this.isShowMoreLikeThis;
+    this.likeThisMovies = [];
+    if (this.movieTmdbType === "movie") {
+      this.getMovieMoreLikeThis(this.movieTmdbId)
+    } else {
+      this.getTvMoreLikeThis(this.movieTmdbId)
     }
   }
 

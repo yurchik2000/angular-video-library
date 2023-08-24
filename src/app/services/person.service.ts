@@ -37,4 +37,14 @@ export class PersonService {
     return this.http.get<any>(`${this.url}tv/${tmdbId}/credits?query=${tmdbId}`, this.options)
   }
 
+  getTvMoreLikeThis(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}tv/${tmdbId}/recommendations`, this.options)
+  }
+
+  getMovieMoreLikeThis(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}movie/${tmdbId}/recommendations`, this.options)
+  }
+
+
+
 }

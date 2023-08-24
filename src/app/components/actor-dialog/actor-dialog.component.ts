@@ -11,7 +11,7 @@ export class ActorDialogComponent {
 
   constructor(
     private dialogRef: MatDialogRef<ActorDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {poster: string}
+    @Inject(MAT_DIALOG_DATA) public data: {poster: string, name: string}
   ) {}
 
   closeActorDialog(): void {

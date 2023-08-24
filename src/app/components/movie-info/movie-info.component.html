@@ -2,7 +2,7 @@
 
   <div class="main container mx-auto max-w-7xl font-mono sm:hidden phone">
     <div
-      class="movie__item relative border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex flex-col text-left"
+      class="movie__item relative my-2 mx-1 p-2 w-7/8 flex flex-col text-left"
     >
       <a
         [routerLink]="['/']"
@@ -85,6 +85,7 @@
         <span
           *ngFor="let director of movie.director; index as index"
           class="cursor-pointer hover:text-teal-700 transition-all duration-300 text-violet-900 "
+          (click)="showActorInfo(director)"
         >
           {{ index > 0 ? " * " + director : director }}
         </span>
@@ -136,6 +137,7 @@
         >More details on IMDb</a
       >
 
+      <!-- Show Top Cast -->
       <div class="topcast">
         <h3 class="text-xl font-bold my-2 border-b-2 border-solid border-gray-300 text-violet-900 cursor-pointer pb-2"
           (click)="showTopCast()"
@@ -166,8 +168,26 @@
             </div>
           </li>
         </ul>
-      </div>
+      </div>        
 
+      <!-- More like this section  -->
+      <div class="more__likethis">
+        <h3 class="text-xl font-bold my-2 border-b-2 border-solid border-gray-300 text-violet-900 cursor-pointer pb-2"
+          (click)="showMoreLikeThis()"
+        >
+        More Like This ></h3>
+        <ul 
+          class="morelikethis__list flex flex-wrap justify-center"
+          *ngIf="isShowMoreLikeThis"
+        >
+        <li class="morelikethis__item flex flex-col w-60 m-1 text-center"
+        *ngFor="let movie of likeThisMovies; index as index"
+        >
+          <img class="morelikethis__img-inner mb-1" src="{{movie.poster}}" alt=""  alt="{{movie.title}}">
+          <div class="morelikethis__title">{{movie.title}}</div>
+        </li>
+        </ul>
+      </div>
     </div>
     
   </div>
@@ -176,7 +196,7 @@
     <div class="main container mx-auto max-w-7xl font-mono hidden sm:block desctop"     
     >
       <div
-        class="movie__item border border-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex-col"
+        class="movie__item my-2 mx-1 p-2 w-7/8 flex-col"
       >
         <div class="top__movie-item flex justify-between my-2">
           <div class="top__left-inner flex-col">
@@ -237,6 +257,7 @@
                 <span
                   *ngFor="let director of movie.director; index as index"
                   class="cursor-pointer hover:text-teal-700 transition-all duration-300 text-violet-900"
+                  (click)="showActorInfo(director)"
                 >
                   {{ index > 0 ? " * " + director : director }}
                 </span>
@@ -314,7 +335,8 @@
             </div>
           </div>
         </div>    
-
+        
+        <!-- Top cast section  -->
         <div class="topcast">
           <h3 class="text-3xl font-bold my-4 border-b-2 border-solid border-gray-300 text-violet-900 cursor-pointer pb-2"
             (click)="showTopCast()"
@@ -346,6 +368,26 @@
             </li>
           </ul>
         </div>
+
+        <!-- More like this section  -->
+        <div class="more__likethis mx-auto">
+          <h3 class="text-3xl font-bold my-4 border-b-2 border-solid border-gray-300 text-violet-900 cursor-pointer pb-2"
+            (click)="showMoreLikeThis()"
+          >
+          More Like This ></h3>
+          <ul 
+            class="morelikethis__list flex flex-wrap justify-center"
+            *ngIf="isShowMoreLikeThis"
+          >
+          <li class="morelikethis__item flex flex-col w-60 m-1 text-center"
+          *ngFor="let movie of likeThisMovies; index as index"
+          >
+            <img class="morelikethis__img-inner mb-1" src="{{movie.poster}}" alt=""  alt="{{movie.title}}">
+            <div class="morelikethis__title">{{movie.title}}</div>
+          </li>
+          </ul>
+        </div>
+
 
       </div>      
     </div>    
