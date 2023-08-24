@@ -165,8 +165,8 @@ export class MovieInfoComponent {
       (data) => {
         if (data.cast) {
           console.log(data.cast);
-          data.cast.forEach( (item:any) => {
-            if  (item.popularity > 5) {
+          data.cast.forEach( (item:any, index:number) => {
+            if  (item.popularity > 6 || index < 4) {
             this.cast.push({
               name: item.name,
               character: item.character,
@@ -185,8 +185,8 @@ export class MovieInfoComponent {
       (data) => {
         if (data.cast) {
           console.log(data.cast);
-          data.cast.forEach( (item:any) => {            
-            if  (item.popularity > 5) {
+          data.cast.forEach( (item:any, index:number) => {            
+            if  (item.popularity > 6 || index < 4) {
               this.cast.push({
                 name: item.name,
                 character: item.character,
