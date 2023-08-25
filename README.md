@@ -32,6 +32,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 9.2. Нou can click on the actor's name and get their photos.
 9.3. You can translate plot to Ukrainian by clickin on "T".
 9.4. Theres Top Cast List and list of similar movies or TV show.
+9.5. More like this list are built looking at keywords and genres. 
+9.6. Recommendations list are built by looking at other users who have rated the item and then the rest of everyone's ratings to build more interesting associations"
 
 10. There is also pagination on the top and the bottom.
 11. You can get much more info about movie on original IMDb site.

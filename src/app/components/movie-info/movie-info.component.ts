@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RatingChangeEvent } from 'angular-star-rating';
 import { ToastrService } from 'ngx-toastr';
-import { IActor, ICast, IMovie, IShortMovie } from 'src/app/interfaces/movies.interface';
+import { IActor, ICast, IMovie, IMyMovie, IShortMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { MatDialog } from '@angular/material/dialog'
 import { TranslateDialogComponent } from '../translate-dialog/translate-dialog.component';
@@ -141,7 +141,9 @@ export class MovieInfoComponent {
           data.results[0].known_for.forEach( (item:any) => {            
             this.actor.known_for.push( {
               title: item.original_title, 
-              poster: item.backdrop_path
+              poster: item.backdrop_path,
+              id: item.id,
+              type: item.media_type         
             }              
             )  
           })
@@ -316,11 +318,61 @@ export class MovieInfoComponent {
       if  (index < count) {
         temp2.push({
           title: item.title || item.name,                
-          poster: `https://image.tmdb.org/t/p/w500/${item.poster_path}`
+          poster: `https://image.tmdb.org/t/p/w500/${item.poster_path}`,
+          id: item.id,
+          type: item.media_type || this.movieTmdbType
         })
       }            
     })    
     return temp2;
+  }
+
+  addOneMovie(id:string, type:string): void {
+    this.personService.getImdbId(id, type).subscribe(
+      (data) => {
+        console.log(data);
+        const movieId = data.imdb_id;
+        if (localStorage.getItem('movies')) {
+          this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
+        };    
+        let index = this.moviesList.findIndex(movie => movie.id === movieId);    
+        if (index >=0 ) { 
+          this.toastr.info('This film is already in your list');
+        }
+        else {      
+          console.log(6);
+          if (localStorage.getItem('currentUser')) {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser') as string);      
+            const newMovie: IMyMovie = {
+              id: movieId,
+              favourite: false,
+              myRating: 0,
+              tags: [],
+              watched: false,
+              dateAdding: new Date(),          
+              archive: false,
+              comment: ''
+            }
+            console.log(7, newMovie);
+            currentUser.myMovieId.push(newMovie); 
+            console.log(8, currentUser);
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));        
+          }      
+    
+          this.movieService.getOneMovie(movieId).subscribe(data => {          
+              let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
+              movie.id = movieId;
+              console.log(1, movie)          
+              this.moviesList.push(movie);        
+              this.saveToLocalStorage(this.moviesList);
+              this.toastr.success('New film successfully added');
+              this.router.navigate(['']);
+            })      
+        }
+        
+
+      }
+    )
   }
 
 }

@@ -92,7 +92,9 @@ export interface IMyMovie {
 
 export interface IShortMovie {
     title: string,
-    poster: string
+    poster: string,
+    id: string,
+    type: string
 }
 
 export interface IActor {

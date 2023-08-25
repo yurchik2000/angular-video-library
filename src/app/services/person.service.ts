@@ -53,6 +53,15 @@ export class PersonService {
     return this.http.get<any>(`${this.url}movie/${tmdbId}/similar`, this.options)
   }
 
+  getImdbId(tmdbId: string, type:string): Observable<any> {
+    if (type === 'movie') {
+       return this.http.get<any>(`${this.url}movie/${tmdbId}/external_ids`, this.options)
+    } else {
+       return this.http.get<any>(`${this.url}tv/${tmdbId}/external_ids`, this.options)
+    }
+      
+  }
+
 
 
 }
