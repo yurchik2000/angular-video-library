@@ -26,7 +26,7 @@ export class PersonService {
   }
 
   searchMovieTmdb(query: string): Observable<any> {
-    return this.http.get<any>(`${this.url}search/multi?query=${query}`, this.options)
+    return this.http.get<any>(`${this.url}search/multi?query=${query}&&language=uk-UK`, this.options)
   }
 
   getMovieCast(tmdbId: string): Observable<any> {
@@ -37,12 +37,20 @@ export class PersonService {
     return this.http.get<any>(`${this.url}tv/${tmdbId}/credits?query=${tmdbId}`, this.options)
   }
 
-  getTvMoreLikeThis(tmdbId: string): Observable<any> {
+  getTvRecommendations(tmdbId: string): Observable<any> {
     return this.http.get<any>(`${this.url}tv/${tmdbId}/recommendations`, this.options)
   }
 
-  getMovieMoreLikeThis(tmdbId: string): Observable<any> {
+  getMovieRecommendations(tmdbId: string): Observable<any> {
     return this.http.get<any>(`${this.url}movie/${tmdbId}/recommendations`, this.options)
+  }
+
+  getTvMoreLikeThis(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}tv/${tmdbId}/similar`, this.options)
+  }
+
+  getMovieMoreLikeThis(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}movie/${tmdbId}/similar`, this.options)
   }
 
 

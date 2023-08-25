@@ -22,6 +22,7 @@ export class MovieInfoComponent {
   public movieBack:string = '';
   public movieTmdbId:string = '';
   public movieTmdbType: string = '';
+  public movieUkTitle: string = '';
   public actor: IActor = {
     name: '',
     poster: '',
@@ -29,8 +30,10 @@ export class MovieInfoComponent {
   };
   public cast: Array<ICast> = [];
   public likeThisMovies: Array<IShortMovie> = [];
+  public recommendations: Array<IShortMovie> = [];
   public isShowCast:boolean = false;
   public isShowMoreLikeThis:boolean = false;
+  public isShowRecommendations:boolean = false;
   private userPlot: string = ""
 
   constructor(
@@ -158,7 +161,8 @@ export class MovieInfoComponent {
         console.log(data.results[0]);
         this.movieBack = 'https://image.tmdb.org/t/p/w500/' + data.results[0].backdrop_path;
         this.movieTmdbId = data.results[0].id;
-        this.movieTmdbType = data.results[0].media_type;        
+        this.movieTmdbType = data.results[0].media_type;
+        this.movieUkTitle =  data.results[0].name || data.results[0].title;
       }
      }
     )
@@ -213,46 +217,35 @@ export class MovieInfoComponent {
     }
   }
 
-  getTvMoreLikeThis(id: string): void {
+  getTvMoreLikeThis(id: string, count:number): void {
     this.personService.getTvMoreLikeThis(id).subscribe(
       (data) => {        
-        // console.log(data.results);
-        if (data.results) {                    
-          let temp = data.results.sort(function(a:any, b:any) {
-            return b.popularity - a.popularity
-          })
-          // console.log(temp);
-          temp.forEach( (item:any, index:number) => {            
-            if  (index < 5) {
-              this.likeThisMovies.push({
-                title: item.name,                
-                poster: `https://image.tmdb.org/t/p/w500/${item.poster_path}`
-              })
-            }            
-          })
+        console.log(data.results);      
+        this.likeThisMovies = [];
+        if (data.results) {                   
+          if (!data.results.length) {
+            this.toastr.info('There are no no any movies now');
+          } else {
+            this.likeThisMovies = [...this.sortByPopylarity(data.results, count)]
+          }          
           console.log(this.likeThisMovies);
         }
       }
     )
   }
 
-  getMovieMoreLikeThis(id: string): void {
+  getMovieMoreLikeThis(id: string, count:number): void {
     this.personService.getMovieMoreLikeThis(id).subscribe(
       (data) => {        
         // console.log(data.results);
+        this.likeThisMovies = [];
         if (data.results) { 
-          let temp = data.results.sort(function(a:any, b:any) {
-            return b.popularity - a.popularity
-          })
-          // console.log(temp);                    
-          data.results.forEach( (item:any, index:number) => {            
-            if  (index < 5) {
-              this.likeThisMovies.push({
-                title: item.title,                
-                poster: `https://image.tmdb.org/t/p/w500/${item.poster_path}`
-              })
-            }            
-          })
+          if (!data.results.length) {
+            this.toastr.info('There are no no any movies now');
+          } else {
+            // console.log(this.sortByPopylarity(data.results, 5));
+            this.likeThisMovies = [...this.sortByPopylarity(data.results, count)]
+          }          
           console.log(this.likeThisMovies);
         }
       }
@@ -263,10 +256,72 @@ export class MovieInfoComponent {
     this.isShowMoreLikeThis = !this.isShowMoreLikeThis;
     this.likeThisMovies = [];
     if (this.movieTmdbType === "movie") {
-      this.getMovieMoreLikeThis(this.movieTmdbId)
+      this.getMovieMoreLikeThis(this.movieTmdbId, 5)
     } else {
-      this.getTvMoreLikeThis(this.movieTmdbId)
+      this.getTvMoreLikeThis(this.movieTmdbId, 5)
     }
   }
 
+  showRecommendations(): void {
+    this.isShowRecommendations = !this.isShowRecommendations;
+    this.recommendations = [];
+    if (this.movieTmdbType === "movie") {
+      this.getMovieRecommendations(this.movieTmdbId, 5)
+    } else {
+      this.getTvRecommendations(this.movieTmdbId, 5)
+    }
+  }
+  
+  getTvRecommendations(id: string, count:number): void {
+    this.personService.getTvRecommendations(id).subscribe(
+      (data) => {        
+        console.log(data.results);      
+        this.recommendations = [];
+        if (data.results) {                   
+          if (!data.results.length) {
+            this.toastr.info('There are no no any movies now');
+          } else {
+            this.recommendations = [...this.sortByPopylarity(data.results, count)]
+          }          
+          console.log(this.recommendations);
+        }
+      }
+    )    
+  }
+
+  getMovieRecommendations(id: string, count: number): void {
+    this.personService.getMovieRecommendations(id).subscribe(
+      (data) => {        
+        console.log(data.results);      
+        this.recommendations = [];
+        if (data.results) {                   
+          if (!data.results.length) {
+            this.toastr.info('There are no no any movies now');
+          } else {
+            this.recommendations = [...this.sortByPopylarity(data.results, count)]
+          }          
+          console.log(this.recommendations);
+        }
+      }
+    )    
+  }
+
+  sortByPopylarity(array:any, count:number): Array<IShortMovie> {
+    let temp = array.sort(function(a:any, b:any) {
+      return b.vote_average*b.vote_count- a.vote_average*a.vote_count
+    })
+    console.log(temp);                    
+    let temp2:Array<IShortMovie> = [];
+    temp.forEach( (item:any, index:number) => {            
+      if  (index < count) {
+        temp2.push({
+          title: item.title || item.name,                
+          poster: `https://image.tmdb.org/t/p/w500/${item.poster_path}`
+        })
+      }            
+    })    
+    return temp2;
+  }
+
 }
+
