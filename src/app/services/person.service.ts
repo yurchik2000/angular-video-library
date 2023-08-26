@@ -26,7 +26,7 @@ export class PersonService {
   }
 
   searchMovieTmdb(query: string): Observable<any> {
-    return this.http.get<any>(`${this.url}search/multi?query=${query}&&language=uk-UK`, this.options)
+    return this.http.get<any>(`${this.url}find/${query}?external_source=imdb_id&language=uk-Uk`, this.options)
   }
 
   getMovieCast(tmdbId: string): Observable<any> {

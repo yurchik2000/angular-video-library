@@ -85,8 +85,8 @@ export class MovieInfoComponent {
     {
       // console.log(id, index)
       this.movie = this.moviesList[index];    
-      console.log(this.movie);
-      this.searchMovieTmdb(this.movie.title);
+      console.log(this.movie);      
+      this.searchMovieTmdb(this.movie.id);
     } else {      
       this.router.navigate(['/']);
     }
@@ -156,15 +156,25 @@ export class MovieInfoComponent {
     console.log(actor)
   }
 
-  searchMovieTmdb(title:string): void {
-    this.personService.searchMovieTmdb(title).subscribe(
+  searchMovieTmdb(id:string): void {
+    this.personService.searchMovieTmdb(id).subscribe(
      (data) => {
-      if (data.results) {
-        console.log(data.results[0]);
-        this.movieBack = 'https://image.tmdb.org/t/p/w500/' + data.results[0].backdrop_path;
-        this.movieTmdbId = data.results[0].id;
-        this.movieTmdbType = data.results[0].media_type;
-        this.movieUkTitle =  data.results[0].name || data.results[0].title;
+      console.log(data);
+      if (data.movie_results.length) {
+        console.log(data.movie_results);
+        this.movieBack = 'https://image.tmdb.org/t/p/w500/' + data.movie_results[0].backdrop_path;
+        this.movieTmdbId = data.movie_results[0].id;
+        this.movieTmdbType = data.movie_results[0].media_type;
+        this.movieUkTitle =  data.movie_results[0].title;
+        console.log(this.movieTmdbId, this.movieTmdbType, this.movieUkTitle, this.movieBack)
+      }
+      if (data.tv_results.length) {
+        console.log(data.tv_results);
+        this.movieBack = 'https://image.tmdb.org/t/p/w500/' + data.tv_results[0].backdrop_path;
+        this.movieTmdbId = data.tv_results[0].id;
+        this.movieTmdbType = data.tv_results[0].media_type;
+        this.movieUkTitle =  data.tv_results[0].name;
+        console.log(this.movieTmdbId, this.movieTmdbType, this.movieUkTitle, this.movieBack)
       }
      }
     )
