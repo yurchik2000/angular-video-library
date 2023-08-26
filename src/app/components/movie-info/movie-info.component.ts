@@ -212,6 +212,8 @@ export class MovieInfoComponent {
 
   showTopCast(): void {
     this.isShowCast = !this.isShowCast;
+    this.isShowMoreLikeThis = false;
+    this.isShowRecommendations = false;
     if (this.movieTmdbType === "movie") {
       this.getMovieCast(this.movieTmdbId);
     } else {
@@ -255,6 +257,8 @@ export class MovieInfoComponent {
   }
 
   showMoreLikeThis(): void {
+    this.isShowRecommendations = false;
+    this.isShowCast = false;
     this.isShowMoreLikeThis = !this.isShowMoreLikeThis;
     this.likeThisMovies = [];
     if (this.movieTmdbType === "movie") {
@@ -265,6 +269,8 @@ export class MovieInfoComponent {
   }
 
   showRecommendations(): void {
+    this.isShowCast = false;
+    this.isShowMoreLikeThis = false;
     this.isShowRecommendations = !this.isShowRecommendations;
     this.recommendations = [];
     if (this.movieTmdbType === "movie") {
