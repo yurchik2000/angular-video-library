@@ -185,13 +185,29 @@ export class MovieInfoComponent {
       (data) => {
         if (data.cast) {
           console.log(data.cast);
+          let person = {
+            name: '',
+            character: '',
+            poster: ''
+          }
+          this.cast = [];
           data.cast.forEach( (item:any, index:number) => {
             if  (item.popularity > 6 || index < 4) {
-            this.cast.push({
-              name: item.name,
-              character: item.character,
-              poster: `https://image.tmdb.org/t/p/w500/${item.profile_path}`
-            })
+              person = {
+                name: item.name,
+                character: item.character,
+                poster: `https://image.tmdb.org/t/p/w500/${item.profile_path}`
+              }
+              // if (!item.profile_path) {
+              //   person.poster = `https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg`;
+              // }                            
+              if (!item.profile_path) {
+                person.poster = `assets/images/unknown-man.svg`;
+              }                                    
+              if (!item.profile_path && item.gender === 1) {                
+                person.poster = `assets/images/unknown-woman.svg`;
+              }                            
+              this.cast.push(person);
           }
           })
           console.log(this.cast);
@@ -204,14 +220,30 @@ export class MovieInfoComponent {
     this.personService.getTvCast(id).subscribe(
       (data) => {
         if (data.cast) {
+          this.cast = [];
+          let person = {
+            name: '',
+            character: '',
+            poster: ''
+          }
           console.log(data.cast);
           data.cast.forEach( (item:any, index:number) => {            
             if  (item.popularity > 6 || index < 4) {
-              this.cast.push({
+              person = {
                 name: item.name,
                 character: item.character,
                 poster: `https://image.tmdb.org/t/p/w500/${item.profile_path}`
-              })
+              }
+              // if (!item.profile_path) {
+              //   person.poster = `https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-4-user-grey-d8fe957375e70239d6abdd549fd7568c89281b2179b5f4470e2e12895792dfa5.svg`;
+              // }                            
+              if (!item.profile_path) {
+                person.poster = `assets/images/unknown-man.svg`;
+              }                                    
+              if (!item.profile_path && item.gender === 1) {                
+                person.poster = `assets/images/unknown-woman.svg`;
+              }                            
+              this.cast.push(person);
             }            
           })
           console.log(this.cast);

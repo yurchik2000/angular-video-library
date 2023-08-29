@@ -91,7 +91,7 @@
         </span>
       </h2>
       <h2
-        *ngIf="movie.writer"
+        *ngIf="movie.writer.length"
         class="movie__title text-left text-lg font-bold my-1 "
       >
         Writers:
@@ -220,7 +220,7 @@
                 </span>
               </h2>
               <h2
-                *ngIf="movie.writer"
+                *ngIf="movie.writer.length"
                 class="movie__title text-center sm:text-left text-xl lg:text-2xl font-bold my-2 border-b-2 border-solid border-gray-300 pb-2 "
               >
                 Writers:
