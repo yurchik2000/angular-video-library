@@ -316,7 +316,7 @@
           class="topcast__item p-1 sm:p-2"
           *ngFor="let item of cast; index as index"
         >
-          <div class="item__inner h-28 sm:h-40 sm:w-80 lg:w-96 flex m-2">
+          <div class="item__inner h-28 sm:h-40 sm:w-84 lg:w-96 flex m-2">
             <div class="item__img--inner w-28 h-28 sm:w-40 sm:h-40 bg-cover bg-no-repeat bg-center-top rounded-full mr-3 cursor-pointer"
               [ngStyle]="{ backgroundImage: 'url(&quot;' + item.poster + '&quot;)' }"
               (click)="showActorInfo(item.name)"

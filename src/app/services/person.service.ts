@@ -34,23 +34,23 @@ export class PersonService {
   }
 
   getTvCast(tmdbId: string): Observable<any> {
-    return this.http.get<any>(`${this.url}tv/${tmdbId}/credits?query=${tmdbId}`, this.options)
+    return this.http.get<any>(`${this.url}tv/${tmdbId}/aggregate_credits?query=${tmdbId}`, this.options)
   }
 
   getTvRecommendations(tmdbId: string): Observable<any> {
-    return this.http.get<any>(`${this.url}tv/${tmdbId}/recommendations`, this.options)
+    return this.http.get<any>(`${this.url}tv/${tmdbId}/recommendations?language=en-US&page=1`, this.options)
   }
 
   getMovieRecommendations(tmdbId: string): Observable<any> {
-    return this.http.get<any>(`${this.url}movie/${tmdbId}/recommendations`, this.options)
+    return this.http.get<any>(`${this.url}movie/${tmdbId}/recommendations?language=en-US`, this.options)
   }
 
   getTvMoreLikeThis(tmdbId: string): Observable<any> {
-    return this.http.get<any>(`${this.url}tv/${tmdbId}/similar`, this.options)
+    return this.http.get<any>(`${this.url}tv/${tmdbId}/similar?language=en-US`, this.options)
   }
 
   getMovieMoreLikeThis(tmdbId: string): Observable<any> {
-    return this.http.get<any>(`${this.url}movie/${tmdbId}/similar`, this.options)
+    return this.http.get<any>(`${this.url}movie/${tmdbId}/similar?language=en-US`, this.options)
   }
 
   getImdbId(tmdbId: string, type:string): Observable<any> {

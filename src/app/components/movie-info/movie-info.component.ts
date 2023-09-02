@@ -228,10 +228,10 @@ export class MovieInfoComponent {
           }
           console.log(data.cast);
           data.cast.forEach( (item:any, index:number) => {            
-            if  (item.popularity > 6 || index < 4) {
+            if  ( (item.popularity > 8 && index <15) || index < 5) {
               person = {
                 name: item.name,
-                character: item.character,
+                character: item.roles[0].character,
                 poster: `https://image.tmdb.org/t/p/w500/${item.profile_path}`
               }
               // if (!item.profile_path) {
@@ -283,7 +283,7 @@ export class MovieInfoComponent {
   getMovieMoreLikeThis(id: string, count:number): void {
     this.personService.getMovieMoreLikeThis(id).subscribe(
       (data) => {        
-        // console.log(data.results);
+        console.log(data);
         this.likeThisMovies = [];
         if (data.results) { 
           if (!data.results.length) {
