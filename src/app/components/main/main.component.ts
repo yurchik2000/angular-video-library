@@ -179,7 +179,9 @@ export class MainComponent {
 
   updateShowFavourite(): void {
     this.movieService.changeShowFavourite.subscribe( () => {           
-      this.isShowFavourite = this.movieService.showFavourite;            
+      this.isShowFavourite = this.movieService.showFavourite; 
+      console.log(this.currentPage);      
+      this.currentPage = 1;
     })
   };
 

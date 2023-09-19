@@ -120,7 +120,7 @@ export class HeaderComponent {
   checkFavourite(): void {    
     this.isShowFavourite = !this.isShowFavourite;    
     this.movieService.showFavourite = this.isShowFavourite;    
-    this.movieService.changeShowFavourite.next(true);    
+    this.movieService.changeShowFavourite.next(true);        
   }
 
 
