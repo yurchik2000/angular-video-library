@@ -39,6 +39,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { TranslateDialogComponent } from './components/translate-dialog/translate-dialog.component';
 import { ActorDialogComponent } from './components/actor-dialog/actor-dialog.component';
+import { FirstStartDialogComponent } from './components/first-start-dialog/first-start-dialog.component';
+import { HelpDialogComponent } from './components/help-dialog/help-dialog.component';
 
 
 
@@ -62,7 +64,9 @@ import { ActorDialogComponent } from './components/actor-dialog/actor-dialog.com
     FilterbyfavouritePipe,
     PageNotFoundComponent,
     TranslateDialogComponent,
-    ActorDialogComponent
+    ActorDialogComponent,
+    FirstStartDialogComponent,
+    HelpDialogComponent
   ],
   imports: [
     BrowserModule,

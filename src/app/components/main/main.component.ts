@@ -6,7 +6,9 @@ import { RatingChangeEvent } from 'angular-star-rating';
 import { Firestore, setDoc, docData } from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
 import { Subscription } from 'rxjs';
-
+import { MatDialog } from '@angular/material/dialog'
+import { FirstStartDialogComponent } from '../first-start-dialog/first-start-dialog.component'; 
+import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 
 @Component({
   selector: 'app-main',
@@ -34,7 +36,8 @@ export class MainComponent {
   constructor(
     private movieService: MoviesService,
     private toastr: ToastrService,        
-    private afs: Firestore,    
+    private afs: Firestore,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {        
@@ -65,6 +68,12 @@ export class MainComponent {
           setDoc(doc(this.afs, 'sharedMovies', currentUser.email), {moviesId: this.sharedIdList, userName: currentUser.name});             
       }  
     };
+
+    if (!this.moviesList.length) {
+      this.openFirstStartWindow();
+    }
+
+    
 
     this.updateSearch();
     this.updateMode();
@@ -259,6 +268,23 @@ export class MainComponent {
   //     setDoc(doc(this.afs, 'users', user.uid), user);             
   //   }    
   // }
+
+  openFirstStartWindow(): void {        
+    // console.log(this.userPlot);
+    this.dialog.open(FirstStartDialogComponent, {
+      backdropClass: 'dialog-back',
+      panelClass: 'profile-dialog',
+      autoFocus: false,      
+    })
+  }
+
+  openHelpWindow(): void {            
+    this.dialog.open(HelpDialogComponent, {
+      backdropClass: 'dialog-back',
+      panelClass: 'profile-dialog',
+      autoFocus: false,      
+    })
+  }
 
   
   
