@@ -89,6 +89,20 @@ export interface IMyMovie {
     archive: boolean,
     comment: string
 }
+export interface IArchiveMovie {
+    id: string,
+    title: string,
+    year: number,
+    genres: Array<string>,
+    poster: string,
+    type: string,
+    myRating: number,
+    favourite: boolean,
+    dateAdding: Date,
+    tags: Array<string>,    
+    comment: string
+}
+
 
 export interface IShortMovie {
     title: string,

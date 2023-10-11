@@ -53,15 +53,15 @@ export class SearchComponent {
           comment: ''
         }
         console.log(7, newMovie);
-        currentUser.myMovieId.push(newMovie); 
+        currentUser.myMovieId.push(newMovie);
         console.log(8, currentUser);
         localStorage.setItem('currentUser', JSON.stringify(currentUser));        
       }      
 
       this.movieService.getOneMovie(movieId).subscribe(data => {          
           let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
-          movie.id = movieId;
-          console.log(1, movie)          
+          movie.id = movieId;          
+          console.log(1, movie);
           this.moviesList.push(movie);        
           this.saveToLocalStorage(this.moviesList);
           this.toastr.success('New film successfully added');

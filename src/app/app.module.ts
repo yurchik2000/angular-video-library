@@ -41,6 +41,7 @@ import { TranslateDialogComponent } from './components/translate-dialog/translat
 import { ActorDialogComponent } from './components/actor-dialog/actor-dialog.component';
 import { FirstStartDialogComponent } from './components/first-start-dialog/first-start-dialog.component';
 import { HelpDialogComponent } from './components/help-dialog/help-dialog.component';
+import { ArchiveComponent } from './components/archive/archive.component';
 
 
 
@@ -66,7 +67,8 @@ import { HelpDialogComponent } from './components/help-dialog/help-dialog.compon
     TranslateDialogComponent,
     ActorDialogComponent,
     FirstStartDialogComponent,
-    HelpDialogComponent
+    HelpDialogComponent,
+    ArchiveComponent
   ],
   imports: [
     BrowserModule,

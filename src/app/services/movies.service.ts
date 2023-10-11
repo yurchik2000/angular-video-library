@@ -71,15 +71,16 @@ export class MoviesService {
   };
 
   convertDataToMvoeiInfo(data: IMovieResponce): IMovie {
-    let movie: IMovie = this.initNewMovie();       
-    console.log(data);
+    console.log(33, data);
+    let movie: IMovie = this.initNewMovie();           
           movie.id = data.imdbId;
           movie.title = data.Title;
           movie.year = data.Year;
           movie.imdbRating = Number(data.imdbRating);
           if (movie.rtRating[1]) movie.rtRating = data.Ratings[1].Value;
-          movie.plot = data.Plot;           
-          movie.poster = data.Poster;          
+          movie.plot = data.Plot;                     
+          if (data.Poster === 'N/A') movie.poster = "assets/images/unknown.png" 
+            else movie.poster = data.Poster;                    
           if (data.Director === 'N/A') movie.director = []
            else {
             movie.director = data.Director.split(', ');

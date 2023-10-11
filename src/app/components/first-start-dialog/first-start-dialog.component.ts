@@ -1,6 +1,5 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
@@ -11,8 +10,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class FirstStartDialogComponent {
 
   constructor(
-    private dialogRef: MatDialogRef<FirstStartDialogComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: {poster: string, name: string}
+    private dialogRef: MatDialogRef<FirstStartDialogComponent>,    
   ) {}
 
   closeActorDialog(): void {

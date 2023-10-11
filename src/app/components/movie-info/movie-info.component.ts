@@ -192,7 +192,7 @@ export class MovieInfoComponent {
           }
           this.cast = [];
           data.cast.forEach( (item:any, index:number) => {
-            if  (item.popularity > 6 || index < 4) {
+            if  ( (item.popularity > 6 && index <12) || index < 4) {
               person = {
                 name: item.name,
                 character: item.character,

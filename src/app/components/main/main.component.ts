@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
-import { IMovie, IMyMovie } from 'src/app/interfaces/movies.interface';
+import { IArchiveMovie, IMovie, IMyMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ToastrService } from 'ngx-toastr';
 import { RatingChangeEvent } from 'angular-star-rating';
-import { Firestore, setDoc, docData } from '@angular/fire/firestore';
+import { Firestore, setDoc, docData, updateDoc, getDoc, collection, getDocs } from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog'
 import { FirstStartDialogComponent } from '../first-start-dialog/first-start-dialog.component'; 
-import { HelpDialogComponent } from '../help-dialog/help-dialog.component';
 
 @Component({
   selector: 'app-main',
@@ -22,6 +21,7 @@ export class MainComponent {
   // public myMovieId: Array <IMyMovie> = [];
   public moviesIdList: Array <string> = [];    
   public sharedIdList: Array <string> = [];
+  public archiveMoviesList: Array <IArchiveMovie> = [];
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
   public isShowFavourite = this.movieService.showFavourite;
@@ -120,7 +120,7 @@ export class MainComponent {
     localStorage.setItem('movies', JSON.stringify(moviesList))
   }
 
-  checkWatched(movie: IMovie): void {
+  checkWatched(movie: IMovie) {
     movie.watched = !movie.watched;    
     this.saveToLocalStorage(this.moviesList);    
 
@@ -131,7 +131,57 @@ export class MainComponent {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));      
     }
 
-    if (movie.watched) this.toastr.info('Add to watched list'); else {
+    if (movie.watched) {
+      this.toastr.info('Add to watched list');
+      
+      let aMovie = {
+        id: movie.id,
+        year: movie.year,          
+        title: movie.title,          
+        genres: movie.genres,
+        poster: movie.poster,
+        type: movie.type,
+        myRating: movie.myRating,
+        favourite: movie.favourite,
+        dateAdding: movie.dateAdding,
+        tags: movie.tags,    
+        comment: ''
+      }
+
+      if (localStorage.getItem('currentUser')) {      
+        // const userObj = localStorage.getItem('currentUser') as string;      
+        // const user1 = JSON.parse(userObj);
+      
+
+        // const docSnap = getDoc(doc(this.afs, 'users/archiveList', user1.uid));                        
+        // this.archiveMoviesList.push(aMovie);                              
+        // updateDoc(doc(this.afs, 'users', user1.uid), {archiveList: this.archiveMoviesList});                  
+        // this.archiveMoviesList = user['archiveList'];
+        //   console.log(1, this.archiveMoviesList)
+        //   this.archiveMoviesList.push(aMovie);                      
+        //   console.log(2, this.archiveMoviesList)
+        // getDoc(doc(this.afs, 'users', user1.uid)).subscribe(user => {          
+        
+        //   console.log(1, this.archiveMoviesList)        
+        // });                
+        
+        // setDoc(doc(this.afs, 'users', user1.uid), {archiveList: this.archiveMoviesList});
+        // updateDoc(doc(this.afs, 'users', user1.uid), {archiveList: this.archiveMoviesList});
+
+
+        // console.log(8, user1)
+        // this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {            
+        //     this.archiveMoviesList = user['archiveMovies'];            
+        // });
+          
+        // if (localStorage.getItem('currentUser')) {
+        //     const currentUser = JSON.parse(localStorage.getItem('currentUser') as string);
+        //     setDoc(doc(this.afs, 'users', user1.uid), {moviesId: this.sharedIdList, userName: currentUser.name});
+        // }  
+      };
+
+    }
+    else {
       this.toastr.info('Remove from watched list');
     }    
   }
@@ -152,7 +202,7 @@ export class MainComponent {
       currentUser.myMovieId[index].favourite = movie.favourite;      
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-      setDoc(doc(this.afs, 'sharedMovies', currentUser.email), {moviesId: this.sharedIdList, userName: currentUser.name});             
+      setDoc(doc(this.afs, 'sharedMovies', currentUser.email), {moviesId: this.sharedIdList, userName: currentUser.name});      
     }
 
     
@@ -278,13 +328,6 @@ export class MainComponent {
     })
   }
 
-  openHelpWindow(): void {            
-    this.dialog.open(HelpDialogComponent, {
-      backdropClass: 'dialog-back',
-      panelClass: 'profile-dialog',
-      autoFocus: false,      
-    })
-  }
 
   
   
