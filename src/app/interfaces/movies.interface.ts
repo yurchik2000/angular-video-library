@@ -90,7 +90,7 @@ export interface IMyMovie {
     comment: string
 }
 export interface IArchiveMovie {
-    id: string,
+    id: string,    
     title: string,
     year: number,
     genres: Array<string>,
@@ -98,6 +98,7 @@ export interface IArchiveMovie {
     type: string,
     myRating: number,
     favourite: boolean,
+    watched: boolean,
     dateAdding: Date,
     tags: Array<string>,    
     comment: string

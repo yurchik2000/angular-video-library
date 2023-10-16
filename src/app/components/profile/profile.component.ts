@@ -52,7 +52,7 @@ export class ProfileComponent {
 
   logOut(): void {        
     if (localStorage.getItem('movies')) this.saveDataToFireStore();
-    const user = JSON.parse(localStorage.getItem('currentUser') || '');        
+    const user = JSON.parse(localStorage.getItem('currentUser') || '');
     setDoc(doc(this.afs, 'users', user.uid), user);             
     localStorage.removeItem('currentUser');   
     
@@ -86,6 +86,7 @@ export class ProfileComponent {
     }));    
     console.log(21, moviesListId);
     user.myMovieId = moviesListId;
+    user.archiveList = this.movieService.archiveMoviesList;
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
     }

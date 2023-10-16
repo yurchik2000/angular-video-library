@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IMovie, IMovieResponce, ISearchListMovie, ISearchResponce, IUser } from '../interfaces/movies.interface';
+import { IArchiveMovie, IMovie, IMovieResponce, ISearchListMovie, ISearchResponce, IUser } from '../interfaces/movies.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,7 @@ export class MoviesService {
   private apiKey = environment.API_KEY;
   public inputMovieTitle = "";
   public searchMoviesList: Array<ISearchListMovie> = [];
+  public archiveMoviesList: Array <IArchiveMovie> = [];
 
   public changeMovieTitle = new Subject<boolean>();
   public changeSearchMovieTitle = new Subject<boolean>();
@@ -71,7 +72,7 @@ export class MoviesService {
   };
 
   convertDataToMvoeiInfo(data: IMovieResponce): IMovie {
-    console.log(33, data);
+    // console.log(33, data);
     let movie: IMovie = this.initNewMovie();           
           movie.id = data.imdbId;
           movie.title = data.Title;

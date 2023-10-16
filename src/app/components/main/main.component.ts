@@ -18,10 +18,10 @@ import { FirstStartDialogComponent } from '../first-start-dialog/first-start-dia
 export class MainComponent {
 
   public moviesList: Array<IMovie> = [];
+  // public archiveMoviesList: Array <IArchiveMovie> = [];
   // public myMovieId: Array <IMyMovie> = [];
   public moviesIdList: Array <string> = [];    
-  public sharedIdList: Array <string> = [];
-  public archiveMoviesList: Array <IArchiveMovie> = [];
+  public sharedIdList: Array <string> = [];  
   public movieTitle = "";  
   public isGridMode = this.movieService.isGridMode;  
   public isShowFavourite = this.movieService.showFavourite;
@@ -52,6 +52,8 @@ export class MainComponent {
       // console.log(8, user1)
       this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {
           // console.log(9, user);
+          if (user['archiveList']) this.movieService.archiveMoviesList = user['archiveList'];
+          // console.log('archive', this.movieService.archiveMoviesList);
           this.getAllMovies(user['myMovieId']);                     
           // console.log(10, user);
           user['friendsList'] = user1['friendsList'];
@@ -148,22 +150,7 @@ export class MainComponent {
         comment: ''
       }
 
-      if (localStorage.getItem('currentUser')) {      
-        // const userObj = localStorage.getItem('currentUser') as string;      
-        // const user1 = JSON.parse(userObj);
-      
-
-        // const docSnap = getDoc(doc(this.afs, 'users/archiveList', user1.uid));                        
-        // this.archiveMoviesList.push(aMovie);                              
-        // updateDoc(doc(this.afs, 'users', user1.uid), {archiveList: this.archiveMoviesList});                  
-        // this.archiveMoviesList = user['archiveList'];
-        //   console.log(1, this.archiveMoviesList)
-        //   this.archiveMoviesList.push(aMovie);                      
-        //   console.log(2, this.archiveMoviesList)
-        // getDoc(doc(this.afs, 'users', user1.uid)).subscribe(user => {          
-        
-        //   console.log(1, this.archiveMoviesList)        
-        // });                
+      if (localStorage.getItem('currentUser')) {              
         
         // setDoc(doc(this.afs, 'users', user1.uid), {archiveList: this.archiveMoviesList});
         // updateDoc(doc(this.afs, 'users', user1.uid), {archiveList: this.archiveMoviesList});
@@ -245,15 +232,36 @@ export class MainComponent {
   };
 
   deleteMovie(id:string): void {
-    console.log(id, this.moviesList);
-    let index = this.moviesList.findIndex(movie => movie.id === id);
-    this.moviesList.splice(index, 1);    
-
     const user = JSON.parse(localStorage.getItem('currentUser') || '');
+    console.log(id, this.moviesList);
+    let index = this.moviesList.findIndex(movie => movie.id === id);        
+    let indexArchive = this.movieService.archiveMoviesList.findIndex(movie => movie.id === id); 
+    // console.log(234, this.moviesList, index, indexArchive);
+    if (indexArchive <0 ) {
+      let aMovie:IArchiveMovie = {
+        id: this.moviesList[index].id,        
+        year: this.moviesList[index].year,          
+        title: this.moviesList[index].title,          
+        genres: this.moviesList[index].genres,
+        poster: this.moviesList[index].poster,
+        type: this.moviesList[index].type,
+        myRating: this.moviesList[index].myRating,
+        favourite: this.moviesList[index].favourite,
+        watched: this.moviesList[index].watched,
+        dateAdding: this.moviesList[index].dateAdding,
+        tags: this.moviesList[index].tags,    
+        comment: ''
+      };      
+        this.movieService.archiveMoviesList.push(aMovie);
+        // console.log(235, this.movieService.archiveMoviesList)
+        updateDoc(doc(this.afs, 'users', user.uid), {archiveList: this.movieService.archiveMoviesList});        
+    }
+    this.moviesList.splice(index, 1);
+        
     const userMovieList = user.myMovieId;
     index = userMovieList.indexOf(id);
     userMovieList.splice(index, 1);
-    user.myMovieId = userMovieList;
+    user.myMovieId = userMovieList;    
     localStorage.setItem('currentUser', JSON.stringify(user));
 
     this.saveToLocalStorage(this.moviesList);

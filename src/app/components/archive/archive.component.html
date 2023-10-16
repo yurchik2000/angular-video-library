@@ -1,3 +1,72 @@
 <div class="main container mx-auto max-w-7xl ">
     Archive list
+    <ul>
+        <li class="movie__item relative border-b-2 border-gray-300 rounded-xl my-2 mx-1 p-2 w-7/8 flex items-center"
+            *ngFor="let movie of archiveMoviesList; index as index"
+        >
+            <div 
+                class="restore absolute p-1 top-0 right-20 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300" 
+                (click)="restoreMovie(movie.id)"
+                matTooltip="Restore movie"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    height="24px"
+                    viewBox="0 0 24 24"
+                    width="24px"
+                    fill="#000000"
+                >
+                <path d="M0 0h24v24H0z" fill="none" />
+                <path
+                    d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"
+                />
+                </svg>
+            </div>
+            <div *ngIf="!movie.favourite" class="check__item absolute p-1 top-0 right-12 m-1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ded9d9"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div *ngIf="movie.favourite"  class="doublecheck__item absolute p-1 top-0 right-12 m-1">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#e84f4f"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>                        
+            <div *ngIf="!movie.watched" class="check__item absolute p-1 top-0 right-6 m-1">
+                <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path clip-rule="evenodd" d="M27.704,8.397c-0.394-0.391-1.034-0.391-1.428,0  L11.988,22.59l-6.282-6.193c-0.394-0.391-1.034-0.391-1.428,0c-0.394,0.391-0.394,1.024,0,1.414l6.999,6.899  c0.39,0.386,1.039,0.386,1.429,0L27.704,9.811C28.099,9.421,28.099,8.787,27.704,8.397C27.31,8.006,28.099,8.787,27.704,8.397z" fill="#121313" fill-rule="evenodd" id="Check"/><g/><g/><g/><g/><g/><g/></svg>
+            </div>
+            <div *ngIf="movie.watched"  class="doublecheck__item absolute p-1 top-0 right-6 m-1 ">                
+                <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Double_Check"><polygon fill="none" points="22.722,8.293 22.722,8.293 22.722,8.293  "/><polygon fill="#14b8a6" points="31.704,8.293 31.704,8.293 31.704,8.293  "/><path d="M22.722,8.293L22.722,8.293C22.821,8.391,22.919,8.488,22.722,8.293z" fill="#121313"/><path d="M22.722,8.293L22.722,8.293c-0.395-0.391-1.034-0.391-1.429,0L7.006,22.486l-5.282-5.193   c-0.394-0.391-1.034-0.391-1.428,0c-0.394,0.391-0.394,1.024,0,1.414l5.999,5.899c0.39,0.386,1.039,0.386,1.429,0L22.722,9.707   C23.117,9.317,23.116,8.684,22.722,8.293z" fill="#14b8a6"/><path d="M22.722,8.293L22.722,8.293C22.525,8.098,22.623,8.195,22.722,8.293z" fill="#14b8a6"/><path d="M31.704,8.293L31.704,8.293C31.507,8.098,31.606,8.195,31.704,8.293z" fill="#14b8a6"/><path d="M31.704,8.293L31.704,8.293C31.803,8.391,31.901,8.488,31.704,8.293z" fill="#14b8a6"/><path d="M31.704,8.293L31.704,8.293c-0.395-0.391-1.034-0.391-1.429,0L15.988,22.486l-1.282-1.193   c-0.394-0.391-1.034-0.391-1.428,0c-0.394,0.391-0.394,1.024,0,1.414l1.999,1.899c0.39,0.386,1.039,0.386,1.429,0L31.704,9.707   C32.099,9.317,32.099,8.684,31.704,8.293z" fill="#14b8a6"/></g><g/><g/><g/><g/><g/><g/></svg>
+            </div>
+            <div 
+                class="delete__item absolute p-1 top-0 right-0 m-1 hover:bg-violet-100 cursor-pointer transition-all duration-300" 
+                (click)="deleteMovie(movie.id)"
+                matTooltip="Delete movie"
+            >
+                <svg width="24" height="24" enable-background="new 0 0 32 32"  id="Слой_1" version="1.1" viewBox="0 0 32 32"  xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M17.459,16.014l8.239-8.194c0.395-0.391,0.395-1.024,0-1.414c-0.394-0.391-1.034-0.391-1.428,0  l-8.232,8.187L7.73,6.284c-0.394-0.395-1.034-0.395-1.428,0c-0.394,0.396-0.394,1.037,0,1.432l8.302,8.303l-8.332,8.286  c-0.394,0.391-0.394,1.024,0,1.414c0.394,0.391,1.034,0.391,1.428,0l8.325-8.279l8.275,8.276c0.394,0.395,1.034,0.395,1.428,0  c0.394-0.396,0.394-1.037,0-1.432L17.459,16.014z" fill="#121313" id="Close"/><g/><g/><g/><g/><g/><g/></svg>
+            </div>            
+            <div class="item flex">
+                <div class="img__inner w-24 hover:w-52 transition-all duration-700 mr-2">
+                    <img class="w-full rounded" src={{movie.poster}} alt="img">
+                </div>  
+                <div class="details__inner flex flex-col sm:max-w-none max-w-[70%]">
+                    <h2 class="movie__title text-base sm:text-xl font-bold m-2 border-b-2 border-solid border-gray-300 pb-1 text-violet-900">{{movie.title}}</h2>
+                    <div class="content__inner flex sm:text-lg flex-wrap">
+                        <p *ngIf="movie.type === 'series'" class="date font-bold mb-0 sm:mb-2 mx-2">
+                            {{ movie.type }}
+                          </p>
+                        <p class="date font-bold mb-0 sm:mb-2 mx-2">{{movie.year}}</p>
+                        <div class="stars__inner m-2">                    
+                            <star-rating [starType]="'svg'" [rating]="movie.myRating" ></star-rating>                    
+                        </div>
+                    </div>                    
+                    <ul class="genre__list flex flex-wrap mb-2">
+                        <li 
+                        class="genre__item text-base sm:text-lg mx-2 rounded-lg py-1 px-2 border border-solid border-1 border-gray-300 mb-2"
+                        *ngFor="let genre of movie.genres"                                                                        
+                    >{{genre}}</li>                    
+                    </ul>
+                </div>
+                
+            </div>
+
+
+        </li>
+    </ul>
 </div>
