@@ -74,7 +74,6 @@ export class MainComponent {
     if (!this.moviesList.length) {
       this.openFirstStartWindow();
     }
-
     
 
     this.updateSearch();
@@ -251,8 +250,8 @@ export class MainComponent {
         dateAdding: this.moviesList[index].dateAdding,
         tags: this.moviesList[index].tags,    
         comment: ''
-      };      
-        this.movieService.archiveMoviesList.push(aMovie);
+       };      
+       this.movieService.archiveMoviesList.push(aMovie);
         // console.log(235, this.movieService.archiveMoviesList)
         updateDoc(doc(this.afs, 'users', user.uid), {archiveList: this.movieService.archiveMoviesList});        
     }

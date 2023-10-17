@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Firestore, setDoc, collection, collectionData, docData, addDoc } from '@angular/fire/firestore';
+import { Firestore, setDoc, collection, collectionData, docData, addDoc, updateDoc } from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
 import { Router } from '@angular/router';
 import { IMovie, IUser } from 'src/app/interfaces/movies.interface';
@@ -86,11 +86,13 @@ export class ProfileComponent {
     }));    
     console.log(21, moviesListId);
     user.myMovieId = moviesListId;
-    user.archiveList = this.movieService.archiveMoviesList;
+    if (this.movieService.archiveMoviesList) user.archiveList = this.movieService.archiveMoviesList;
     if (user) {
       localStorage.setItem('currentUser', JSON.stringify(user));
     }
-    setDoc(doc(this.afs, 'users', user.uid), user);             
+    // setDoc(doc(this.afs, 'users', user.uid), {myMovieId: user.myMovieId});             
+    updateDoc(doc(this.afs, 'users', user.uid), {myMovieId: user.myMovieId});
+    //     setDoc(doc(this.afs, 'users', user1.uid), {moviesId: this.sharedIdList, userName: currentUser.name});
   }
 
   getActiveUser(): void {
