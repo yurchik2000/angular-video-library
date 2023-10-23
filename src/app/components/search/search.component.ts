@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { IMovie, IMyMovie, ISearchListMovie } from 'src/app/interfaces/movies.interface';
 import { MoviesService } from 'src/app/services/movies.service';
 import { ToastrService } from 'ngx-toastr';
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +18,8 @@ export class SearchComponent {
   constructor(
     private movieService: MoviesService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private afs: Firestore,
   ) {};
 
   ngOnInit() {
@@ -30,10 +32,11 @@ export class SearchComponent {
     })
   };
 
-  getOneMovie(movieId: string): void {        
+  getOneMovie(movieId: string): void {
     if (localStorage.getItem('movies')) {
       this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
-    };    
+    };
+
     let index = this.moviesList.findIndex(movie => movie.id === movieId);    
     if (index >=0 ) { 
       this.toastr.info('This film is already in your list');
@@ -55,7 +58,10 @@ export class SearchComponent {
         console.log(7, newMovie);
         currentUser.myMovieId.push(newMovie);
         console.log(8, currentUser);
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));        
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));                
+        updateDoc(doc(this.afs, 'users', currentUser.uid), {myMovieId: currentUser.myMovieId});    
+        // this.router.navigate(['']);
+        // this.toastr.success('New film successfully added');
       }      
 
       this.movieService.getOneMovie(movieId).subscribe(data => {          

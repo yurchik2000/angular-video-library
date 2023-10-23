@@ -25,39 +25,42 @@ export class ArchiveComponent {
   ) {}
 
   ngOnInit() {        
+    console.log(236, this.movieService.archiveMoviesList);
     this.archiveMoviesList = this.movieService.archiveMoviesList;
     if (!this.archiveMoviesList.length) {
       if (localStorage.getItem('currentUser')) {
         const userObj = localStorage.getItem('currentUser') as string;      
         const user1 = JSON.parse(userObj);                                
-        this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {            
-            this.movieService.archiveMoviesList = user['archiveList'];
-            console.log('archive', this.movieService.archiveMoviesList);    
-            this.archiveMoviesList = this.movieService.archiveMoviesList;                    
-        });
-        
+        // this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {            
+        //     this.movieService.archiveMoviesList = user['archiveList'];
+        //     console.log('archive', this.movieService.archiveMoviesList);    
+        //     this.archiveMoviesList = this.movieService.archiveMoviesList;                    
+        // });
+        this.archiveMoviesList = user1.archiveList;
         }  
       };      
     }
-
     
     ngOnDestroy() {
-      this.getDataSubscription?.unsubscribe();
+      // this.getDataSubscription?.unsubscribe();
     }
 
     deleteMovie(id:string): void {
       const user = JSON.parse(localStorage.getItem('currentUser') || '');            
-      let indexArchive = this.movieService.archiveMoviesList.findIndex(movie => movie.id === id);          
-      
-      this.archiveMoviesList.splice(indexArchive, 1);
+      let indexArchive = this.archiveMoviesList.findIndex(movie => movie.id === id);
+      console.log(id, indexArchive, this.archiveMoviesList)
+
+      this.archiveMoviesList.splice(indexArchive, 1);      
       this.movieService.archiveMoviesList = this.archiveMoviesList;
-      updateDoc(doc(this.afs, 'users', user.uid), {archiveList: this.movieService.archiveMoviesList});      
+      user.archiveList = this.archiveMoviesList;
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      updateDoc(doc(this.afs, 'users', user.uid), {archiveList: this.movieService.archiveMoviesList});            
       this.toastr.warning('This film successfully deleted from your list');        
     };
 
     restoreMovie(id:string): void {
-      this.deleteMovie(id);
-      this.getOneMovie(id);      
+      // this.deleteMovie(id);
+      // this.getOneMovie(id);      
     }
 
     getOneMovie(movieId: string): void {        
@@ -99,9 +102,6 @@ export class ArchiveComponent {
       }     
   
     }
-  
     
-
-
 
 }

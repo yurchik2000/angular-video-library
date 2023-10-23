@@ -41,7 +41,7 @@ export class ProfileComponent {
   ) {}
 
   ngOnInit() {
-    if (localStorage.getItem('movies')) this.saveDataToFireStore();
+    // if (localStorage.getItem('movies')) this.saveDataToFireStore();
     if (localStorage.getItem('currentUser')) this.getActiveUser();
     // this.getSharedMovies();
   }
