@@ -41,7 +41,8 @@ export class MainComponent {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit() {        
+  ngOnInit() {            
+    console.log('hello', this.movieService.isFirstStart);
 
     if (localStorage.getItem('movies')) {
         this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');
@@ -51,10 +52,11 @@ export class MainComponent {
       console.log(123, this.moviesDataList);
     }
                 
-    if (localStorage.getItem('currentUser') && this.movieService.isFirstStart) {      
+    if (localStorage.getItem('currentUser') && this.movieService.isFirstStart) {
+      console.log('first', this.movieService.isFirstStart);
       
       const userObj = localStorage.getItem('currentUser') as string;      
-      const user1 = JSON.parse(userObj);                              
+      const user1 = JSON.parse(userObj);
       
       this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {
           // console.log(324);          
@@ -67,8 +69,8 @@ export class MainComponent {
           
           this.movieService.isFirstStart = false; 
       });
-
-      for( let i=0; i < user1['myMovieId'].length; i++ ) {                 
+      console.log(user1['myMovieId']);
+      for( let i=0; i < user1['myMovieId'].length; i++ ) {
             if (!this.moviesDataList.find(element => element.id === user1['myMovieId'][i].id)) {
               this.movieService.getOneMovie(user1['myMovieId'][i].id).subscribe(
                 (data) => {
@@ -91,7 +93,7 @@ export class MainComponent {
               this.moviesList.push(this.moviesDataList[index]);
               this.saveToLocalStorage(this.moviesDataList);
             }
-          }                    
+          }
 
       this.sharedIdList = this.moviesList
         .filter( (movie: IMovie) => movie.favourite)
