@@ -95,9 +95,6 @@ export class MainComponent {
               }  
               this.movieService.isFirstStart = false; 
           }
-
-          
-          
           
       });
 
@@ -112,7 +109,7 @@ export class MainComponent {
     };
 
     if (!this.moviesList.length && this.movieService.isFirstStart) {
-      this.openFirstStartWindow();
+      // this.openFirstStartWindow();
     } else {
       // if (localStorage.getItem('movies')) {
       //   this.moviesList = JSON.parse(localStorage.getItem('movies') || '');
