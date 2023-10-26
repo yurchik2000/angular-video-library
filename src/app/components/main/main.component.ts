@@ -65,35 +65,42 @@ export class MainComponent {
           if (user['archiveList']) this.movieService.archiveMoviesList = user['archiveList'];          
           // console.log('archive init', this.movieService.archiveMoviesList);          
           // localStorage.setItem('archiveList', JSON.stringify(this.movieService.archiveMoviesList));
-          user['friendsList'] = user1['friendsList'];                              
-          
-          this.movieService.isFirstStart = false; 
-      });
-      console.log(user1['myMovieId']);
-      for( let i=0; i < user1['myMovieId'].length; i++ ) {
-            if (!this.moviesDataList.find(element => element.id === user1['myMovieId'][i].id)) {
-              this.movieService.getOneMovie(user1['myMovieId'][i].id).subscribe(
-                (data) => {
-                  let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
-                  movie.id = user1['myMovieId'][i].id;                  
-                  movie.favourite = user1['myMovieId'][i].favourite;
-                  movie.myRating = user1['myMovieId'][i].myRating;
-                  movie.tags = user1['myMovieId'][i].tags;
-                  movie.watched = user1['myMovieId'][i].watched;                            
-                  this.moviesList.push(movie);
-                  this.moviesDataList.push(movie);
+          user['friendsList'] = user1['friendsList'];
+
+          if (this.movieService.isFirstStart) {
+            console.log(user['myMovieId']);
+          for( let i=0; i < user['myMovieId'].length; i++ ) {
+                if (!this.moviesDataList.find(element => element.id === user['myMovieId'][i].id)) {
+                  this.movieService.getOneMovie(user['myMovieId'][i].id).subscribe(
+                    (data) => {
+                      let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
+                      movie.id = user['myMovieId'][i].id;                  
+                      movie.favourite = user['myMovieId'][i].favourite;
+                      movie.myRating = user['myMovieId'][i].myRating;
+                      movie.tags = user['myMovieId'][i].tags;
+                      movie.watched = user['myMovieId'][i].watched;                            
+                      this.moviesList.push(movie);
+                      this.moviesDataList.push(movie);
+                      this.saveToLocalStorage(this.moviesDataList);
+                    })      
+                } else {              
+                  const index = this.moviesDataList.findIndex( (item:IMovie) => item.id === user['myMovieId'][i].id);              
+                  this.moviesDataList[index].favourite = user['myMovieId'][i].favourite;
+                  this.moviesDataList[index].myRating = user['myMovieId'][i].myRating;
+                  this.moviesDataList[index].tags = user['myMovieId'][i].tags;
+                  this.moviesDataList[index].watched = user['myMovieId'][i].watched;        
+                  this.moviesList.push(this.moviesDataList[index]);
                   this.saveToLocalStorage(this.moviesDataList);
-                })      
-            } else {              
-              const index = this.moviesDataList.findIndex( (item:IMovie) => item.id === user1['myMovieId'][i].id);              
-              this.moviesDataList[index].favourite = user1['myMovieId'][i].favourite;
-              this.moviesDataList[index].myRating = user1['myMovieId'][i].myRating;
-              this.moviesDataList[index].tags = user1['myMovieId'][i].tags;
-              this.moviesDataList[index].watched = user1['myMovieId'][i].watched;        
-              this.moviesList.push(this.moviesDataList[index]);
-              this.saveToLocalStorage(this.moviesDataList);
-            }
+                }
+              }  
+              this.movieService.isFirstStart = false; 
           }
+
+          
+          
+          
+      });
+
 
       this.sharedIdList = this.moviesList
         .filter( (movie: IMovie) => movie.favourite)
@@ -345,6 +352,7 @@ export class MainComponent {
       const index = currentUser.myMovieId.findIndex( (item:IMyMovie) => item.id === id);
       currentUser.myMovieId[index].myRating = 0;      
       localStorage.setItem('currentUser', JSON.stringify(currentUser));      
+      updateDoc(doc(this.afs, 'users', currentUser.uid), {myMovieId: currentUser.myMovieId}); 
     }
   }
 
