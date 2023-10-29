@@ -45,9 +45,11 @@ export class MainComponent {
     console.log('hello', this.movieService.isFirstStart);
 
     if (localStorage.getItem('movies')) {
-        this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');
-        this.moviesList = [ ...this.moviesDataList ];  
+        this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');        
       }     
+      if (!localStorage.getItem('currentUser')) {
+        this.moviesList = [ ...this.moviesDataList ];  
+      }  
     if (localStorage.getItem('currentUser') && !this.movieService.isFirstStart) {            
       this.moviesList = [ ...this.moviesDataList ];
       console.log(123, this.moviesDataList);
