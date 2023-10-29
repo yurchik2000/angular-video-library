@@ -46,6 +46,7 @@ export class MainComponent {
 
     if (localStorage.getItem('movies')) {
         this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');
+        this.moviesList = [ ...this.moviesDataList ];  
       }     
     if (localStorage.getItem('currentUser') && !this.movieService.isFirstStart) {            
       this.moviesList = [ ...this.moviesDataList ];
@@ -57,6 +58,7 @@ export class MainComponent {
       
       const userObj = localStorage.getItem('currentUser') as string;      
       const user1 = JSON.parse(userObj);
+      this.moviesList = [];
       
       this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {
           // console.log(324);          
