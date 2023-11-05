@@ -58,10 +58,10 @@ export class ProfileComponent {
       this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {          
           localStorage.setItem('currentUser', JSON.stringify(user));
           
-          if (user['archiveList']) this.movieService.archiveMoviesList = user['archiveList'];          
+          if (user['archiveList']) this.movieService.archiveMoviesList = [...user['archiveList']];          
           // console.log('archive init', this.movieService.archiveMoviesList);          
           // localStorage.setItem('archiveList', JSON.stringify(this.movieService.archiveMoviesList));
-          user['friendsList'] = user1['friendsList'];
+          user['friendsList'] = [...user1['friendsList']];
           this.moviesList = [];
 
           // if (this.movieService.isFirstStart) {
