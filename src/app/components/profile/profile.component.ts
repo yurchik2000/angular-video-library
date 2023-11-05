@@ -25,6 +25,8 @@ export class ProfileComponent {
     friendsList: []
   }  
   public usersList: Array<string> = [];
+  public moviesDataList: Array<IMovie> = [];  
+  private moviesList: Array<IMovie> = [];
   public friendsList: Array<string> = [];
   public isShowUsers = false;
   public isShowAddFriend = false;
@@ -43,11 +45,63 @@ export class ProfileComponent {
   ngOnInit() {
     // if (localStorage.getItem('movies')) this.saveDataToFireStore();
     if (localStorage.getItem('currentUser')) this.getActiveUser();
+
+    if (localStorage.getItem('currentUser')) {
+      console.log('second', this.movieService.isFirstStart);
+      
+      const userObj = localStorage.getItem('currentUser') as string;            
+      const user1 = JSON.parse(userObj);
+      console.log(5, user1);
+      if (localStorage.getItem('movies')) {
+        this.moviesDataList = JSON.parse(localStorage.getItem('movies') || ''); }
+      
+      this.getDataSubscription = docData(doc(this.afs, 'users', user1.uid)).subscribe(user => {          
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          
+          if (user['archiveList']) this.movieService.archiveMoviesList = user['archiveList'];          
+          // console.log('archive init', this.movieService.archiveMoviesList);          
+          // localStorage.setItem('archiveList', JSON.stringify(this.movieService.archiveMoviesList));
+          user['friendsList'] = user1['friendsList'];
+          this.moviesList = [];
+
+          // if (this.movieService.isFirstStart) {
+          console.log(user['myMovieId']);
+          for( let i=0; i < user['myMovieId'].length; i++ ) {
+                if (!this.moviesDataList.find(element => element.id === user['myMovieId'][i].id)) {
+                  this.movieService.getOneMovie(user['myMovieId'][i].id).subscribe(
+                    (data) => {
+                      let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
+                      movie.id = user['myMovieId'][i].id;                  
+                      movie.favourite = user['myMovieId'][i].favourite;
+                      movie.myRating = user['myMovieId'][i].myRating;
+                      movie.tags = user['myMovieId'][i].tags;
+                      movie.watched = user['myMovieId'][i].watched;                            
+                      this.moviesList.push(movie);
+                      this.moviesDataList.push(movie);
+                      localStorage.setItem('movies', JSON.stringify(this.moviesList));                      
+                    })      
+                } else {              
+                  const index = this.moviesDataList.findIndex( (item:IMovie) => item.id === user['myMovieId'][i].id);              
+                  this.moviesDataList[index].favourite = user['myMovieId'][i].favourite;
+                  this.moviesDataList[index].myRating = user['myMovieId'][i].myRating;
+                  this.moviesDataList[index].tags = user['myMovieId'][i].tags;
+                  this.moviesDataList[index].watched = user['myMovieId'][i].watched;        
+                  this.moviesList.push(this.moviesDataList[index]);
+                  localStorage.setItem('movies', JSON.stringify(this.moviesList));                  
+                }
+              // }  
+              this.movieService.isFirstStart = false; 
+          }
+          
+      });
+      
+    };
+
     // this.getSharedMovies();
   }
 
   ngOnDestroy() {
-    // this.getDataSubscription?.unsubscribe();    
+    this.getDataSubscription?.unsubscribe();    
   }
 
   logOut(): void {        

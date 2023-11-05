@@ -51,8 +51,8 @@ export class ArchiveComponent {
       console.log(id, indexArchive, this.archiveMoviesList)
 
       this.archiveMoviesList.splice(indexArchive, 1);      
-      this.movieService.archiveMoviesList = this.archiveMoviesList;
-      user.archiveList = this.archiveMoviesList;
+      this.movieService.archiveMoviesList = [...this.archiveMoviesList];
+      user.archiveList = [...this.archiveMoviesList];
       localStorage.setItem('currentUser', JSON.stringify(user));
       updateDoc(doc(this.afs, 'users', user.uid), {archiveList: this.movieService.archiveMoviesList});            
       this.toastr.warning('This film successfully deleted from your list');        
@@ -60,7 +60,45 @@ export class ArchiveComponent {
 
     restoreMovie(id:string): void {
       // this.deleteMovie(id);
-      // this.getOneMovie(id);      
+      // this.getOneMovie(id);
+      if (localStorage.getItem('movies')) {
+        this.moviesList = JSON.parse(localStorage.getItem('movies') || '')
+      };    
+      let index = this.moviesList.findIndex(movie => movie.id === id);    
+      if (index >=0 ) { 
+        this.toastr.info('This film is already in your list');
+      }
+      else {              
+        if (localStorage.getItem('currentUser')) {
+          const currentUser = JSON.parse(localStorage.getItem('currentUser') as string);
+          let indexArchive = this.archiveMoviesList.findIndex(movie => movie.id === id);
+          const newMovie: IMyMovie = {
+            id: id,                  
+            favourite: this.archiveMoviesList[indexArchive].favourite,
+            myRating: this.archiveMoviesList[indexArchive].myRating,
+            tags: [],
+            watched: this.archiveMoviesList[indexArchive].watched,
+            dateAdding: new Date(),
+            archive: false,
+            comment: ''
+          }
+          console.log(7, newMovie);
+          currentUser.myMovieId.push(newMovie);
+          console.log(8, currentUser);
+
+          this.archiveMoviesList.splice(indexArchive, 1);      
+          this.movieService.archiveMoviesList = [...this.archiveMoviesList];
+          currentUser.archiveList = [...this.archiveMoviesList];
+          localStorage.setItem('currentUser', JSON.stringify(currentUser));          
+          updateDoc(doc(this.afs, 'users', currentUser.uid), {archiveList: this.movieService.archiveMoviesList});
+          updateDoc(doc(this.afs, 'users', currentUser.uid), {myMovieId: currentUser.myMovieId});
+          
+
+          // localStorage.setItem('currentUser', JSON.stringify(currentUser));
+          this.router.navigate(['profile']);
+        }        
+
+      }
     }
 
     getOneMovie(movieId: string): void {        

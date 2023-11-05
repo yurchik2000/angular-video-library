@@ -73,7 +73,7 @@ export class AuthComponent {
       localStorage.setItem('currentUser', JSON.stringify(currentUser));                
       this.movieService.activeUser = JSON.parse(localStorage.getItem('currentUser') as string);            
       this.changeActiveUser();
-      this.router.navigate(['']);
+      this.router.navigate(['profile']);
     },
     (error) => {
       this.toastr.error(error.code);

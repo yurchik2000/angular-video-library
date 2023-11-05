@@ -69,6 +69,7 @@ export class SearchComponent {
           movie.id = movieId;          
           console.log(1, movie);
           this.moviesList.push(movie);        
+          console.log(121, this.moviesList)
           this.saveToLocalStorage(this.moviesList);
           this.toastr.success('New film successfully added');
           this.router.navigate(['']);
