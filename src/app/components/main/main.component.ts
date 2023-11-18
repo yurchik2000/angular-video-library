@@ -67,8 +67,8 @@ export class MainComponent {
           console.log(324);          
           localStorage.setItem('currentUser', JSON.stringify(user));
           
-          // if (user['archiveList']) this.movieService.archiveMoviesList = user['archiveList'];          
-          // console.log('archive init', this.movieService.archiveMoviesList);          
+          if (user['archiveList']) this.movieService.archiveMoviesList = user['archiveList'];          
+          console.log('archive init', this.movieService.archiveMoviesList);          
           // localStorage.setItem('archiveList', JSON.stringify(this.movieService.archiveMoviesList));
           // user['friendsList'] = user1['friendsList'];
 
