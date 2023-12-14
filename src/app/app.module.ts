@@ -43,6 +43,8 @@ import { FirstStartDialogComponent } from './components/first-start-dialog/first
 import { HelpDialogComponent } from './components/help-dialog/help-dialog.component';
 import { ArchiveComponent } from './components/archive/archive.component';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 
 @NgModule({
@@ -68,7 +70,7 @@ import { ArchiveComponent } from './components/archive/archive.component';
     ActorDialogComponent,
     FirstStartDialogComponent,
     HelpDialogComponent,
-    ArchiveComponent
+    ArchiveComponent,
   ],
   imports: [
     BrowserModule,
@@ -88,7 +90,8 @@ import { ArchiveComponent } from './components/archive/archive.component';
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     SharedModule,
-    ImageCropperModule
+    ImageCropperModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

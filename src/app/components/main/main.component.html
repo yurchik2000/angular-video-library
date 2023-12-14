@@ -1,4 +1,7 @@
 <div class="main container mx-auto max-w-7xl ">
+    <div *ngIf="isSpiner">
+        <mat-spinner class="mx-auto max-h-9 mt-1"></mat-spinner>
+    </div>    
     <div class="pagination__inner mt-1">
         <pagination-controls (pageChange)="currentPage = $event" class="text-right"></pagination-controls>
     </div>    

@@ -6,7 +6,8 @@ import { RatingChangeEvent } from 'angular-star-rating';
 import { Firestore, setDoc, docData, updateDoc, getDoc, collection, getDocs } from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
 import { Subscription } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog'
+import { MatDialog } from '@angular/material/dialog';
+
 import { FirstStartDialogComponent } from '../first-start-dialog/first-start-dialog.component'; 
 
 @Component({
@@ -33,6 +34,7 @@ export class MainComponent {
   public currentPage = this.movieService.currentPageGlobal; 
   public onRatingChangeResult?: RatingChangeEvent;     
   public getDataSubscription?: Subscription;  
+  public isSpiner = this.movieService.isFirstStart;
   
   constructor(
     private movieService: MoviesService,
@@ -98,7 +100,8 @@ export class MainComponent {
                   this.saveToLocalStorage(this.moviesDataList);
                 }
               }  
-              this.movieService.isFirstStart = false; 
+              this.movieService.isFirstStart = false;               
+              this.isSpiner = false;
           }
           
       });
