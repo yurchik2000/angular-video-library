@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PersonService } from 'src/app/services/person.service';
 import { MovieCarouselComponent } from '../movie-carousel/movie-carousel.component';
 import { IVideoContent } from 'src/app/interfaces/movies.interface';
+import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
   selector: 'app-trending',
@@ -15,26 +16,29 @@ export class TrendingComponent {
   public upcomingMovies: IVideoContent[] = [];
   public nowPlayingMovies: IVideoContent[] = [];
   public firstImage:string = '';
+  public counter: number = 0;
   // public firstImage:string = 'https://www.themoviedb.org/t/p/original/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg';
 
   constructor(
-    private personService: PersonService
+    private personService: PersonService,
   ) {}
 
-  ngOnInit() {    
+  ngOnInit() {            
+    this.counter = Math.floor(Math.random() * 10);
     this.getPopularMovies();    
     this.getUpcomingMovies();
-    this.getNowPlayingMovies();
+    this.getNowPlayingMovies();        
   }    
 
 
  
-  getPopularMovies(): void {
+  getPopularMovies(): void {    
     this.personService.getPopularMovie().subscribe(
       (data:any) => {        
         console.log(data.results);
+        console.log(this.counter);
         this.popularMovies = data.results;
-        this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[0].poster_path;        
+        this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[this.counter].backdrop_path;        
       }
     )
   }
@@ -60,6 +64,8 @@ export class TrendingComponent {
   onSwipeLeft() {
     console.log('swipe left')
   }
+
+  
   
 
 }
