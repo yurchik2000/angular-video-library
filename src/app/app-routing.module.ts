@@ -8,6 +8,7 @@ import { MovieInfoComponent } from './components/movie-info/movie-info.component
 import { FriendInfoComponent } from './components/friend-info/friend-info.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ArchiveComponent } from './components/archive/archive.component';
+import { TrendingComponent } from './components/trending/trending.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: "archive", component: ArchiveComponent },
   { path: "profile", component: ProfileComponent },
   { path: "profile/:email", component: FriendInfoComponent },
+  { path: "trending", component: TrendingComponent },
   { path: ":id", component: MovieInfoComponent },
   { path: '**', component: PageNotFoundComponent },     
 ];

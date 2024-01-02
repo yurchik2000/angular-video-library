@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -44,6 +44,8 @@ import { HelpDialogComponent } from './components/help-dialog/help-dialog.compon
 import { ArchiveComponent } from './components/archive/archive.component';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TrendingComponent } from './components/trending/trending.component';
+import { MovieCarouselComponent } from './components/movie-carousel/movie-carousel.component';
 
 
 
@@ -71,6 +73,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FirstStartDialogComponent,
     HelpDialogComponent,
     ArchiveComponent,
+    TrendingComponent,
+    MovieCarouselComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +98,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

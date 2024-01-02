@@ -59,8 +59,32 @@ export class PersonService {
     } else {
        return this.http.get<any>(`${this.url}tv/${tmdbId}/external_ids`, this.options)
     }
-      
   }
+  
+  // getDiscoverMovie():Observable<any> {  
+  //   return this.http.get<any>(`${this.url}discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`, this.options)
+  // } 
+
+  getPopularMovie():Observable<any> {  
+    return this.http.get<any>(`${this.url}movie/popular?language=en-US&page=1`, this.options)
+  } 
+
+  getUpcomingMovie():Observable<any> {  
+    return this.http.get<any>(`${this.url}/movie/upcoming?language=en-US&page=1&region=UA`, this.options)
+  }  
+
+  getNowPlayingMovie():Observable<any> {  
+    return this.http.get<any>(`${this.url}/movie/now_playing?language=en-US&page=1&region=UA`, this.options)
+  }  
+
+  
+
+    
+  
+
+
+
+
 
 
 

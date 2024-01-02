@@ -1,0 +1,27 @@
+<div class="container mx-auto max-w-7xl">
+    <p 
+        class="subtitle text-3xl font-bold mt-2 mb-2 mx-1 pb-2 border-b-2 border-solid border-gray-300 text-violet-900 cursor-pointer w-max"
+    >{{title}}</p>
+    <swiper-container #swiperContainer class="swiper-container w-full">
+        
+            <div class="swiper-wrapper">
+                <ng-container *ngFor="let movie of videoContents">
+                    <div class="swiper-slide relative w-48 h-24">
+                        <img [src]="'https://www.themoviedb.org/t/p/original/'+movie.poster_path" alt="">
+                        <div class="description p-2">
+                            <h4 class="text-base flex flex-wrap font-bold">{{movie.original_title}}</h4>
+                            <div class="details__inner flex justify-between">
+                                <p class="year">{{movie.release_date}}</p>
+                                <p class="rating">{{movie.vote_average}}</p>
+                            </div>                            
+                        </div>
+                    </div>
+                    <!-- <div class="swiper-pagination"></div> -->
+                    <!-- <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div> -->
+                </ng-container>
+            </div>
+        
+    </swiper-container>
+</div>
+
