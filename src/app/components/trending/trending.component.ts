@@ -15,6 +15,7 @@ export class TrendingComponent {
   public popularMovies: IVideoContent[] = [];
   public upcomingMovies: IVideoContent[] = [];
   public nowPlayingMovies: IVideoContent[] = [];
+  public trending: IVideoContent[] = [];
   public firstImage:string = '';
   public counter: number = 0;
   // public firstImage:string = 'https://www.themoviedb.org/t/p/original/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg';
@@ -26,8 +27,10 @@ export class TrendingComponent {
   ngOnInit() {            
     this.counter = Math.floor(Math.random() * 10);
     this.getPopularMovies();    
+    this.getTrending();        
     this.getUpcomingMovies();
     this.getNowPlayingMovies();        
+    
   }    
 
 
@@ -57,6 +60,14 @@ export class TrendingComponent {
       (data:any) => {        
         console.log(data.results);
         this.nowPlayingMovies = data.results;        
+      }
+    )
+  }
+  getTrending(): void {
+    this.personService.getTrending().subscribe(
+      (data:any) => {        
+        console.log(data.results);
+        this.trending = data.results;        
       }
     )
   }

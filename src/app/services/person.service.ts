@@ -75,6 +75,9 @@ export class PersonService {
 
   getNowPlayingMovie():Observable<any> {  
     return this.http.get<any>(`${this.url}/movie/now_playing?language=en-US&page=1&region=UA`, this.options)
+  }
+  getTrending():Observable<any> {  
+    return this.http.get<any>(`${this.url}/trending/all/day?language=en-US'`, this.options)
   }  
 
   
