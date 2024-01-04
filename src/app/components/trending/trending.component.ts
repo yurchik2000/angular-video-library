@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { PersonService } from 'src/app/services/person.service';
-import { MovieCarouselComponent } from '../movie-carousel/movie-carousel.component';
 import { IVideoContent } from 'src/app/interfaces/movies.interface';
-import { MoviesService } from 'src/app/services/movies.service';
+import { forkJoin, map } from 'rxjs';
 
 @Component({
   selector: 'app-trending',
@@ -18,6 +17,13 @@ export class TrendingComponent {
   public trending: IVideoContent[] = [];
   public firstImage:string = '';
   public counter: number = 0;
+  public sources = [
+    this.personService.getPopularMovie(),        
+    this.personService.getUpcomingMovie(),
+    this.personService.getNowPlayingMovie(),
+    this.personService.getTrending(),   
+  ];
+  
   // public firstImage:string = 'https://www.themoviedb.org/t/p/original/ctMserH8g2SeOAnCw5gFjdQF8mo.jpg';
 
   constructor(
@@ -26,57 +32,58 @@ export class TrendingComponent {
 
   ngOnInit() {            
     this.counter = Math.floor(Math.random() * 10);
-    this.getPopularMovies();    
-    this.getTrending();        
-    this.getUpcomingMovies();
-    this.getNowPlayingMovies();        
-    
+    if (localStorage.getItem('trending')) {      
+      let data = JSON.parse(localStorage.getItem('trending') || '');
+      if (data.currentDate === new Date().getDay()) {
+        this.popularMovies = data.popularMovies;
+        this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[this.counter].backdrop_path;        
+        this.upcomingMovies = data.upcomingMovies;
+        this.nowPlayingMovies = data.nowPlayingMovies;        
+        this.trending = data.trending;        
+      } else {
+        this.getAllTrendingData();
+      }      
+    } else {
+      this.getAllTrendingData();
+    }        
+            
   }    
 
+  getAllTrendingData():void {
+    forkJoin(this.sources)
+      .pipe(
+       map(( [popularMovies, upcomingMovies, nowPlayingMovies, trending] ) => {
+        return {popularMovies, upcomingMovies, nowPlayingMovies, trending}
+       }        
+       )
+      ).subscribe((res:any)=> {
+        this.popularMovies = res.popularMovies.results as IVideoContent[];
+        this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[this.counter].backdrop_path;        
+        this.upcomingMovies = res.upcomingMovies.results as IVideoContent[];
+        this.nowPlayingMovies = res.nowPlayingMovies.results as IVideoContent[];
+        this.trending = res.trending.results as IVideoContent[];      
+        console.log(this.trending);
+        localStorage.setItem('trending', JSON.stringify({
+          currentDate: new Date().getDate(),
+          popularMovies: this.popularMovies,
+          upcomingMovies: this.upcomingMovies,
+          nowPlayingMovies: this.nowPlayingMovies,
+          trending: this.trending
+        }))
+     })  
+  }
 
  
-  getPopularMovies(): void {    
-    this.personService.getPopularMovie().subscribe(
-      (data:any) => {        
-        console.log(data.results);
-        console.log(this.counter);
-        this.popularMovies = data.results;
-        this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[this.counter].backdrop_path;        
-      }
-    )
-  }
-
-  getUpcomingMovies(): void {
-    this.personService.getUpcomingMovie().subscribe(
-      (data:any) => {        
-        console.log(data.results);
-        this.upcomingMovies = data.results;        
-      }
-    )
-  }
-
-  getNowPlayingMovies(): void {
-    this.personService.getNowPlayingMovie().subscribe(
-      (data:any) => {        
-        console.log(data.results);
-        this.nowPlayingMovies = data.results;        
-      }
-    )
-  }
-  getTrending(): void {
-    this.personService.getTrending().subscribe(
-      (data:any) => {        
-        console.log(data.results);
-        this.trending = data.results;        
-      }
-    )
-  }
-
-  onSwipeLeft() {
-    console.log('swipe left')
-  }
+  // getPopularMovies(): void {    
+  //   this.personService.getPopularMovie().subscribe(
+  //     (data:any) => {        
+  //       console.log(data.results);        
+  //       this.popularMovies = data.results;
+  //       this.allTrends.popularMovies = data.results;
+  //       this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[this.counter].backdrop_path;        
+  //     }
+  //   )
+  // }
 
   
-  
-
 }

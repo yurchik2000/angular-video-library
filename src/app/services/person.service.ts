@@ -80,6 +80,7 @@ export class PersonService {
     return this.http.get<any>(`${this.url}/trending/all/day?language=en-US'`, this.options)
   }  
 
+
   
 
     

@@ -79,6 +79,7 @@ export class MovieInfoComponent {
   };
   
   loadMovie(): void {
+    console.log('movie info');
     const id = this.activedRoute.snapshot.paramMap.get('id');   
     const index =  this.moviesList.findIndex( movie => { return id === movie.id})
     if (index >= 0) 

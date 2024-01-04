@@ -9,9 +9,9 @@
                     <div class="swiper-slide relative w-48 h-24">
                         <img [src]="'https://www.themoviedb.org/t/p/original/'+movie.poster_path" alt="">
                         <div class="description p-2">
-                            <h4 *ngIf="movie.title" class="text-xl sm:text-lg flex flex-wrap font-bold">{{movie.title}}</h4>
+                            <h4 (click)="goMovieDetails(movie.id)" *ngIf="movie.title" class="text-xl sm:text-lg flex flex-wrap font-bold">{{movie.title}}</h4>
                             <div class="series__inner flex justify-between">
-                                <h4 *ngIf="!movie.title" class="text-lg flex flex-wrap font-bold">{{movie.name}}</h4>
+                                <h4 *ngIf="movie.name" class="text-lg flex flex-wrap font-bold">{{movie.name}}</h4>
                                 <div *ngIf="movie.media_type =='tv'"
                                         class="type__inner text-xl rounded-lg py-0 px-2 border border-solid border-1 border-violet-100 bg-violet-100 h-fit"
                                 >
