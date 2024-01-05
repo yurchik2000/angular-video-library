@@ -36,7 +36,7 @@ export class TrendingComponent {
       let data = JSON.parse(localStorage.getItem('trending') || '');
       if (data.currentDate === new Date().getDay()) {
         this.popularMovies = data.popularMovies;
-        this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[this.counter].backdrop_path;        
+        this.firstImage = 'https://www.themoviedb.org/t/p/w1280/' + this.popularMovies[this.counter].backdrop_path;        
         this.upcomingMovies = data.upcomingMovies;
         this.nowPlayingMovies = data.nowPlayingMovies;        
         this.trending = data.trending;        
@@ -58,11 +58,13 @@ export class TrendingComponent {
        )
       ).subscribe((res:any)=> {
         this.popularMovies = res.popularMovies.results as IVideoContent[];
-        this.firstImage = 'https://www.themoviedb.org/t/p/original/' + this.popularMovies[this.counter].backdrop_path;        
+        this.firstImage = 'https://www.themoviedb.org/t/p/w1280/' + this.popularMovies[this.counter].backdrop_path;        
+        this.popularMovies.map( movie => movie.media_type = 'movie');
         this.upcomingMovies = res.upcomingMovies.results as IVideoContent[];
+        this.upcomingMovies.map( movie => movie.media_type = 'movie');
         this.nowPlayingMovies = res.nowPlayingMovies.results as IVideoContent[];
-        this.trending = res.trending.results as IVideoContent[];      
-        console.log(this.trending);
+        this.nowPlayingMovies.map( movie => movie.media_type = 'movie');
+        this.trending = res.trending.results as IVideoContent[];         
         localStorage.setItem('trending', JSON.stringify({
           currentDate: new Date().getDate(),
           popularMovies: this.popularMovies,
