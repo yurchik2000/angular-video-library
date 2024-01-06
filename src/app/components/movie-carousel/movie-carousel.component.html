@@ -7,7 +7,7 @@
             <div class="swiper-wrapper">
                 <ng-container *ngFor="let movie of videoContents">
                     <div class="swiper-slide relative w-48 h-24">
-                        <img [src]="'https://www.themoviedb.org/t/p/w342/'+movie.poster_path" alt="">
+                        <img class="mx-auto" [src]="'https://www.themoviedb.org/t/p/w342/'+movie.poster_path" alt="">
                         <div class="description p-2">
                             <h4 (click)="goMovieDetails(movie.id)" *ngIf="movie.media_type =='movie'" class="text-xl sm:text-lg flex flex-wrap font-bold">{{movie.title}}</h4>
                             <div *ngIf="movie.media_type =='tv'"class="series__inner flex justify-between">
