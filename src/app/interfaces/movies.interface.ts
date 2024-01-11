@@ -142,6 +142,17 @@ export interface IVideoContent {
     name: string
     first_air_date: string
     media_type: string
+    profile_path: string
+    categoryTitle: string
+  }
+
+  export interface IGoldenGloveMovie {
+    id: string
+    categoryTitle: string
+    movieTitle: string
+    personTitle: string
+    poster_path: string
+    type: string
   }
 
 

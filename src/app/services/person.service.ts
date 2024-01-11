@@ -80,11 +80,19 @@ export class PersonService {
     return this.http.get<any>(`${this.url}/trending/all/day?language=en-US'`, this.options)
   }  
 
+  getMovieInfo(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}movie/${tmdbId}?language=en-US'`, this.options)    
+  };
+  getSeriesInfo(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}tv/${tmdbId}?language=en-US'`, this.options)    
+  }
+  getPersonInfo(tmdbId: string): Observable<any> {
+    return this.http.get<any>(`${this.url}person/${tmdbId}?language=en-US'`, this.options)    
+  }  
 
-  
+// const url = 'https://api.themoviedb.org/3/movie/872585?language=en-US';
 
-    
-  
+ 
 
 
 
