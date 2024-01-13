@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PersonService } from 'src/app/services/person.service';
-import { IGoldenGloveMovie, IVideoContent } from 'src/app/interfaces/movies.interface';
+import { IVideoContent } from 'src/app/interfaces/movies.interface';
 import { forkJoin, map } from 'rxjs';
 
 @Component({
@@ -85,7 +85,7 @@ export class TrendingComponent {
       { id: '792307', title: "Best Comedy", type: 'movie', movie: ''},
       { id: '915935', title: "Best Non-English", type: 'movie', movie: ''},
       { id: '346698', title: "Best Box Office ", type: 'movie', movie: ''},
-      { id: '154385', title: "Best TV", type: 'movie', movie: ''},
+      { id: '154385', title: "Best TV", type: 'tv', movie: ''},
       { id: '76331', title: "Best TV - Drama", type: 'tv', movie: ''},
       { id: '136315', title: "Best TV - Comedy", type: 'tv', movie: ''},
       { id: '915935', title: "Best Screenplay", type: 'movie', movie: ''},
@@ -120,8 +120,7 @@ export class TrendingComponent {
               media_type: 'movie',
               profile_path: data.profile_path,
               categoryTitle: goldenData[i].title 
-            });
-            
+            });            
           }
         )
       };
@@ -179,8 +178,7 @@ export class TrendingComponent {
             console.log(this.goldenGlobeList)
           }          
         )        
-      };
-      
+      };      
     }
     console.log(this.goldenGlobeList);
   }

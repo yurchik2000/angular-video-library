@@ -115,18 +115,24 @@ export class MainComponent {
       }  
     };
 
+    if (!localStorage.getItem('movies')) {
+      this.isSpiner = false;
+    }
+
     if (!this.moviesList.length && this.movieService.isFirstStart) {
-      // this.openFirstStartWindow();
+      // this.openFirstStartWindow();           
     } else {
       if (localStorage.getItem('movies')) {
         this.moviesList = JSON.parse(localStorage.getItem('movies') || '');
       }     
-    }  
+    }
 
     this.updateSearch();
     this.updateMode();
     this.updateSortDirection();    
     this.updateShowFavourite();
+
+    
     
   }  
 

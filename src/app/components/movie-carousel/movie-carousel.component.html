@@ -6,7 +6,7 @@
         
             <div class="swiper-wrapper">
                 <ng-container *ngFor="let movie of videoContents">
-                    <div class="swiper-slide relative w-48 h-24">
+                    <div class="swiper-slide relative h-24">
                         <h3 *ngIf="movie.categoryTitle" class="text-2xl font-bold mb-1 border-b-2 border-solid border-gray-300 bg-amber-300 text-violet-900 rounded-md text-center" >{{movie.categoryTitle}}</h3>
                         <img *ngIf="movie.poster_path" class="mx-auto" [src]="'https://www.themoviedb.org/t/p/w342/'+movie.poster_path" alt="">
                         <img *ngIf="movie.profile_path" class="mx-auto" [src]="'https://www.themoviedb.org/t/p/original/'+movie.profile_path" alt="">

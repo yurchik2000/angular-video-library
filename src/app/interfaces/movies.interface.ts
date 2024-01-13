@@ -146,14 +146,18 @@ export interface IVideoContent {
     categoryTitle: string
   }
 
-  export interface IGoldenGloveMovie {
-    id: string
-    categoryTitle: string
-    movieTitle: string
-    personTitle: string
-    poster_path: string
-    type: string
-  }
+//   export interface IAwardContent {
+//     id: number,
+//     popularity: string,
+//     poster_path: string,
+//     release_date: string,
+//     title: string,
+//     name: string,
+//     first_air_date: string,
+//     media_type: string,
+//     profile_path: string,
+//     categoryTitle: string 
+//   }
 
 
   
