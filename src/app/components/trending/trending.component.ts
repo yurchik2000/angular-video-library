@@ -78,7 +78,7 @@ export class TrendingComponent {
      })  
   }
 
-  getGoldenGlobe(): void {
+  getGoldenGlobe(): void {    
     const goldenData = [
       { id: '872585', title: "Best Drama", type: 'movie', movie: ''},
       { id: '508883', title: "Best Animated", type: 'movie', movie: ''},
@@ -96,91 +96,100 @@ export class TrendingComponent {
       { id: '1183917', title: "Actor in Drama", type: 'person', movie: "'Killers of the Flower Moon'"},            
       { id: '1133349', title: "Supporting Role", type: 'person', movie: "'The Crown'"}
     ];
-    for( let i = 0; i < goldenData.length;  i++) {
-      if (goldenData[i].type === 'movie') {
-        this.personService.getMovieInfo(goldenData[i].id).subscribe(
-          (data:any) => {
-            this.goldenGlobeList.push({
-              adult: data.adult,
-              backdrop_path: data.backdrop_path,
-              genre_ids: data.genre_ids,
-              id: data.id,
-              original_language: data.original_language,
-              original_title: data.original_title,
-              overview: data.overview,
-              popularity: data.popularity,
-              poster_path: data.poster_path,
-              release_date: data.release_date,
-              title: data.title,
-              video: data.video,
-              vote_average: data.vote_average,
-              vote_count: data.count,
-              name: data.name,
-              first_air_date: data.first_air_date,
-              media_type: 'movie',
-              profile_path: data.profile_path,
-              categoryTitle: goldenData[i].title 
-            });            
-          }
-        )
-      };
-      if (goldenData[i].type === 'tv') {
-        this.personService.getSeriesInfo(goldenData[i].id).subscribe(
-          (data:any) => {
-            this.goldenGlobeList.push({
-              adult: data.adult,
-              backdrop_path: data.backdrop_path,
-              genre_ids: data.genre_ids,
-              id: data.id,
-              original_language: data.original_language,
-              original_title: data.original_title,
-              overview: data.overview,
-              popularity: data.popularity,
-              poster_path: data.poster_path,
-              release_date: data.release_date,
-              title: data.title,
-              video: data.video,
-              vote_average: data.vote_average,
-              vote_count: data.count,
-              name: data.name,
-              first_air_date: data.first_air_date,
-              media_type: 'tv',
-              profile_path: data.profile_path,
-              categoryTitle: goldenData[i].title 
-            });            
-          }
-        )
-      };
-      if (goldenData[i].type === 'person') {
-        this.personService.getPersonInfo(goldenData[i].id).subscribe(
-          (data:any) => {
-            this.goldenGlobeList.push({
-              adult: data.adult,
-              backdrop_path: data.backdrop_path,
-              genre_ids: data.genre_ids,
-              id: data.id,
-              original_language: data.original_language,
-              original_title: data.original_title,
-              overview: data.overview,
-              popularity: data.popularity,
-              poster_path: data.poster_path,
-              release_date: data.release_date,
-              title: data.name,
-              video: data.video,
-              vote_average: data.vote_average,
-              vote_count: data.count,
-              name: goldenData[i].movie,
-              first_air_date: data.first_air_date,
-              media_type: 'person',
-              profile_path: data.profile_path,
-              categoryTitle: goldenData[i].title 
-            });            
-            console.log(this.goldenGlobeList)
-          }          
-        )        
-      };      
+    if (localStorage.getItem('awardsList')) {
+      this.goldenGlobeList = JSON.parse(localStorage.getItem('awardsList') || '');      
+    } else {
+      console.log('gerAwards')
+      for( let i = 0; i < goldenData.length;  i++) {
+        if (goldenData[i].type === 'movie') {
+          this.personService.getMovieInfo(goldenData[i].id).subscribe(
+            (data:any) => {
+              this.goldenGlobeList.push({
+                adult: data.adult,
+                backdrop_path: data.backdrop_path,
+                genre_ids: data.genre_ids,
+                id: data.id,
+                original_language: data.original_language,
+                original_title: data.original_title,
+                overview: data.overview,
+                popularity: data.popularity,
+                poster_path: data.poster_path,
+                release_date: data.release_date,
+                title: data.title,
+                video: data.video,
+                vote_average: data.vote_average,
+                vote_count: data.count,
+                name: data.name,
+                first_air_date: data.first_air_date,
+                media_type: 'movie',
+                profile_path: data.profile_path,
+                categoryTitle: goldenData[i].title 
+              });            
+              localStorage.setItem('awardsList', JSON.stringify(this.goldenGlobeList));
+            }            
+          )
+        };
+        if (goldenData[i].type === 'tv') {
+          this.personService.getSeriesInfo(goldenData[i].id).subscribe(
+            (data:any) => {
+              this.goldenGlobeList.push({
+                adult: data.adult,
+                backdrop_path: data.backdrop_path,
+                genre_ids: data.genre_ids,
+                id: data.id,
+                original_language: data.original_language,
+                original_title: data.original_title,
+                overview: data.overview,
+                popularity: data.popularity,
+                poster_path: data.poster_path,
+                release_date: data.release_date,
+                title: data.title,
+                video: data.video,
+                vote_average: data.vote_average,
+                vote_count: data.count,
+                name: data.name,
+                first_air_date: data.first_air_date,
+                media_type: 'tv',
+                profile_path: data.profile_path,
+                categoryTitle: goldenData[i].title 
+              });            
+              localStorage.setItem('awardsList', JSON.stringify(this.goldenGlobeList));
+            }
+          )
+        };
+        if (goldenData[i].type === 'person') {
+          this.personService.getPersonInfo(goldenData[i].id).subscribe(
+            (data:any) => {
+              this.goldenGlobeList.push({
+                adult: data.adult,
+                backdrop_path: data.backdrop_path,
+                genre_ids: data.genre_ids,
+                id: data.id,
+                original_language: data.original_language,
+                original_title: data.original_title,
+                overview: data.overview,
+                popularity: data.popularity,
+                poster_path: data.poster_path,
+                release_date: data.release_date,
+                title: data.name,
+                video: data.video,
+                vote_average: data.vote_average,
+                vote_count: data.count,
+                name: goldenData[i].movie,
+                first_air_date: data.first_air_date,
+                media_type: 'person',
+                profile_path: data.profile_path,
+                categoryTitle: goldenData[i].title 
+              });            
+              console.log(this.goldenGlobeList);
+              localStorage.setItem('awardsList', JSON.stringify(this.goldenGlobeList));
+            }          
+          )        
+        };      
+      }      
     }
-    console.log(this.goldenGlobeList);
+    
+    // console.log(this.goldenGlobeList);
   }
 
  
