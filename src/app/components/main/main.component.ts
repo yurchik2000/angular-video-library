@@ -47,11 +47,14 @@ export class MainComponent {
     console.log('hello', this.movieService.isFirstStart);
 
     if (localStorage.getItem('movies')) {
-        this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');
-        this.moviesList = [ ...this.moviesDataList ];
-        this.isSpiner = false;
-        console.log('un', this.moviesDataList)
+        this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');        
     }  
+    if (localStorage.getItem('movies') && !localStorage.getItem('currentUser')) {
+      this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');
+      this.moviesList = this.moviesDataList;
+      this.isSpiner = false;
+      console.log('un', this.moviesDataList)
+  }  
     // this.moviesList = [ ...this.moviesDataList ];        
     // console.log(2345, this.moviesList);
     // if (!localStorage.getItem('currentUser')) {            
