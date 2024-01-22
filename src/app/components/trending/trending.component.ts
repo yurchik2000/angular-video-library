@@ -80,6 +80,12 @@ export class TrendingComponent {
 
   getGoldenGlobe(): void {    
     const goldenData = [
+      { id: '54693', title: "Actor in Comedy", type: 'person', movie: "'Poor Things'"},  
+      { id: '1133349', title: "Supporting Role", type: 'person', movie: "'The Crown'"},
+      { id: '13242', title: "Actor in Comedy", type: 'person', movie: "'The Holdovers'"},
+      { id: '1180099', title: "Supporting Role", type: 'person', movie: "'The Holdovers'"},
+      { id: '525', title: "Director", type: 'person', movie: "'Oppenheimer'"},
+      { id: '1183917', title: "Actor in Drama", type: 'person', movie: "'Killers of the Flower Moon'"},                  
       { id: '872585', title: "Best Drama", type: 'movie', movie: ''},
       { id: '508883', title: "Best Animated", type: 'movie', movie: ''},
       { id: '792307', title: "Best Comedy", type: 'movie', movie: ''},
@@ -88,13 +94,7 @@ export class TrendingComponent {
       { id: '154385', title: "Best TV", type: 'tv', movie: ''},
       { id: '76331', title: "Best TV - Drama", type: 'tv', movie: ''},
       { id: '136315', title: "Best TV - Comedy", type: 'tv', movie: ''},
-      { id: '915935', title: "Best Screenplay", type: 'movie', movie: ''},
-      { id: '54693', title: "Actor in Comedy", type: 'person', movie: "'Poor Things'"},      
-      { id: '13242', title: "Actor in Comedy", type: 'person', movie: "'The Holdovers'"},
-      { id: '1180099', title: "Supporting Role", type: 'person', movie: "'The Holdovers'"},
-      { id: '525', title: "Director", type: 'person', movie: "'Oppenheimer'"},
-      { id: '1183917', title: "Actor in Drama", type: 'person', movie: "'Killers of the Flower Moon'"},            
-      { id: '1133349', title: "Supporting Role", type: 'person', movie: "'The Crown'"}
+      { id: '915935', title: "Best Screenplay", type: 'movie', movie: ''}      
     ];
     if (localStorage.getItem('awardsList')) {
       this.goldenGlobeList = JSON.parse(localStorage.getItem('awardsList') || '');      

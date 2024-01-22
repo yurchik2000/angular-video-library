@@ -48,6 +48,9 @@ export class MainComponent {
 
     if (localStorage.getItem('movies')) {
         this.moviesDataList = JSON.parse(localStorage.getItem('movies') || '');
+        this.moviesList = [ ...this.moviesDataList ];
+        this.isSpiner = false;
+        console.log('un', this.moviesDataList)
     }  
     // this.moviesList = [ ...this.moviesDataList ];        
     // console.log(2345, this.moviesList);
