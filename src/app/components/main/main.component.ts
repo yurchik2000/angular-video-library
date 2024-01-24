@@ -311,16 +311,16 @@ export class MainComponent {
         };      
         this.movieService.archiveMoviesList.push(aMovie);
         user.archiveList = this.movieService.archiveMoviesList;
-
         this.moviesList.splice(index, 1);
         this.saveToLocalStorage(this.moviesList);
-
         localStorage.setItem('currentUser', JSON.stringify(user));
         //  console.log('main archive', user)
         updateDoc(doc(this.afs, 'users', user.uid), {archiveList: this.movieService.archiveMoviesList});  
     } else {
-       
-    }
+      this.moviesList.splice(index, 1);
+      this.saveToLocalStorage(this.moviesList);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    };
       
     } else  {
 
