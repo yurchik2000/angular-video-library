@@ -22,12 +22,12 @@
                 <p *ngIf="popularMovies[0]" class="inline-block sm:text-base md:text-lg lg:text-xl py-6 w-2/3 md:w-1/2 lg:w-1/3 flex-wrap ml-2 sm:ml-10">{{popularMovies[counter].overview | slice:0:350}} </p>
             </div>        
         </div>
-    </div>
-    <app-movie-carousel [videoContents]="goldenGlobeList" [title]="'#goldenglobe #awards'"/>    
+    </div>    
     <app-movie-carousel [videoContents]="popularMovies" [title]="'#popular'"/>
     <app-movie-carousel [videoContents]="trending" [title]="'#trending #day'"/> 
     <app-movie-carousel [videoContents]="upcomingMovies" [title]="'#upcoming #Ukraine'"/>
     <app-movie-carousel [videoContents]="nowPlayingMovies" [title]="'#playing #Ukraine'"/>        
+    <app-movie-carousel [videoContents]="goldenGlobeList" [title]="'#goldenglobe #awards'"/>    
     
 </div>
 

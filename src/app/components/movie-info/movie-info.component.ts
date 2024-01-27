@@ -18,7 +18,7 @@ export class MovieInfoComponent {
 
   public movie: IMovie = this.movieService.initNewMovie();
   public moviesList: Array<IMovie> = [];
-  public onRatingChangeResult?: RatingChangeEvent;   
+  // public onRatingChangeResult?: RatingChangeEvent;   
   public movieBack:string = '';
   public movieTmdbId:string = '';
   public movieTmdbType: string = '';
@@ -52,35 +52,36 @@ export class MovieInfoComponent {
     this.loadMovie();    
   }
 
-  checkWatched(movie: IMovie): void {
-    movie.watched = !movie.watched;
-    this.saveToLocalStorage(this.moviesList);    
-    if (movie.watched) this.toastr.info('Add to watched list'); else {
-      this.toastr.info('Remove from watched list');
-    }
-  }
+  // checkWatched(movie: IMovie): void {
+  //   movie.watched = !movie.watched;
+  //   this.saveToLocalStorage(this.moviesList);    
+  //   if (movie.watched) this.toastr.info('Add to watched list'); else {
+  //     this.toastr.info('Remove from watched list');
+  //   }
+  // }
+
   saveToLocalStorage(moviesList: IMovie[]) {
     localStorage.setItem('movies', JSON.stringify(moviesList))
   }
-  onRatingChange = ($event: RatingChangeEvent, id:string) => {
-    // console.log(id, 'onRatingUpdated $event: ', $event);
-    this.onRatingChangeResult = $event;
-    let index = this.moviesList.findIndex(movie => movie.id === id);    
-    this.moviesList[index].myRating = Number(this.onRatingChangeResult.rating);
-    this.saveToLocalStorage(this.moviesList);
-  };
+  // onRatingChange = ($event: RatingChangeEvent, id:string) => {
+  //   // console.log(id, 'onRatingUpdated $event: ', $event);
+  //   this.onRatingChangeResult = $event;
+  //   let index = this.moviesList.findIndex(movie => movie.id === id);    
+  //   this.moviesList[index].myRating = Number(this.onRatingChangeResult.rating);
+  //   this.saveToLocalStorage(this.moviesList);
+  // };
 
-  deleteMovie(id:string): void {
-    // console.log(id, this.moviesList);
-    let index = this.moviesList.findIndex(movie => movie.id === id);
-    this.moviesList.splice(index, 1);
-    this.saveToLocalStorage(this.moviesList);
-    this.toastr.warning('This film successfully deleted from your list');        
-  };
+  // deleteMovie(id:string): void {
+  //   // console.log(id, this.moviesList);
+  //   let index = this.moviesList.findIndex(movie => movie.id === id);
+  //   this.moviesList.splice(index, 1);
+  //   this.saveToLocalStorage(this.moviesList);
+  //   this.toastr.warning('This film successfully deleted from your list');        
+  // };
   
   loadMovie(): void {
     console.log('movie info');
-    const id = this.activedRoute.snapshot.paramMap.get('id');   
+    const id = this.activedRoute.snapshot.paramMap.get('id') || '';   
     const index =  this.moviesList.findIndex( movie => { return id === movie.id})
     if (index >= 0) 
     {
@@ -89,8 +90,24 @@ export class MovieInfoComponent {
       console.log(this.movie);      
       this.searchMovieTmdb(this.movie.id);
     } else {      
-      this.router.navigate(['/']);
+      // this.router.navigate(['/']);
+      this.loadNewMovie(id);
     }
+  }
+
+  loadNewMovie(imdbId:string): void {
+    this.movieService.getOneMovie(imdbId).subscribe(data => {          
+      let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
+      movie.id = imdbId;          
+      console.log(1, movie);
+      this.movie = movie;
+      this.searchMovieTmdb(this.movie.id);
+      // this.moviesList.push(movie);        
+      // console.log(121, this.moviesList)
+      // this.saveToLocalStorage(this.moviesList);
+      // this.toastr.success('New film successfully added');
+      // this.router.navigate(['']);
+    })
   }
 
   showTranslate(text:string): void {            
@@ -151,7 +168,6 @@ export class MovieInfoComponent {
           console.log(this.actor);
           this.openActorWindow();
         }
-
       }
     )  
     console.log(actor)
@@ -417,9 +433,7 @@ export class MovieInfoComponent {
               this.toastr.success('New film successfully added');
               this.router.navigate(['']);
             })      
-        }
-        
-
+        }        
       }
     )
   }

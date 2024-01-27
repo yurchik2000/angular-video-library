@@ -96,7 +96,7 @@ export class TrendingComponent {
       { id: '136315', title: "Best TV - Comedy", type: 'tv', movie: ''},
       { id: '915935', title: "Best Screenplay", type: 'movie', movie: ''}      
     ];
-    if (localStorage.getItem('awardsList')) {
+    if (localStorage.getItem('awardsList') && JSON.parse(localStorage.getItem('awardsList') || '').length === goldenData.length ) {
       this.goldenGlobeList = JSON.parse(localStorage.getItem('awardsList') || '');      
     } else {
       console.log('gerAwards')

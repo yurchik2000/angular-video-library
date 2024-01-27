@@ -11,9 +11,17 @@
                         <img *ngIf="movie.poster_path" class="mx-auto w-full object-contain" [src]="'https://www.themoviedb.org/t/p/w342/'+movie.poster_path" alt="">
                         <img *ngIf="movie.profile_path" class="mx-auto w-full object-contain " [src]="'https://www.themoviedb.org/t/p/original/'+movie.profile_path" alt="">
                         <div class="description p-2">
-                            <h4 (click)="goMovieDetails(movie.id)" *ngIf="movie.media_type =='movie'" class="text-xl sm:text-lg flex flex-wrap font-bold">{{movie.title}}</h4>
+                            <h4 
+                                (click)="goMovieDetails(movie.id)" 
+                                *ngIf="movie.media_type =='movie'" 
+                                class="text-xl sm:text-lg flex flex-wrap font-bold cursor-pointer hover:text-teal-700 transition-all duration-300"                                
+                            >{{movie.title}}</h4>
                             <h4 *ngIf="movie.media_type =='person'" class="text-xl sm:text-lg flex flex-wrap font-bold">{{movie.title}}</h4>
-                            <div *ngIf="movie.media_type =='tv'"class="series__inner flex justify-between">
+                            <div 
+                                (click)="goTvDetails(movie.id)" 
+                                *ngIf="movie.media_type =='tv'"
+                                class="series__inner flex justify-between cursor-pointer hover:text-teal-700 transition-all duration-300"
+                            >
                                 <h4 class="text-lg flex flex-wrap font-bold">{{movie.name}}</h4>
                                 <div class="type__inner text-xl rounded-lg py-0 px-2 border border-solid border-1 border-violet-100 bg-violet-100 h-fit">
                                 tv     

@@ -80,7 +80,16 @@ export class MovieCarouselComponent implements AfterViewInit {
     this.personService.getImdbId(tmdbId.toString(), 'movie').subscribe(
       (data: any) => {
         console.log(data.imdb_id);
-        // this.router.navigate([`/:${data.imdb_id}`]);        
+        this.router.navigate([`/${data.imdb_id}`]);        
+      }
+    )    
+  }
+
+  goTvDetails(tmdbId: number): void {
+    this.personService.getImdbId(tmdbId.toString(), 'tv').subscribe(
+      (data: any) => {
+        console.log(data.imdb_id);
+        this.router.navigate([`/${data.imdb_id}`]);        
       }
     )    
   }
