@@ -125,6 +125,18 @@ export class MainComponent {
       this.isSpiner = false;
     }
 
+    if (!localStorage.getItem('movies') && !localStorage.getItem('currentUser')) {
+      console.log('no data');
+      this.movieService.getOneMovie('tt2096673').subscribe(data => {          
+        let movie: IMovie = this.movieService.convertDataToMvoeiInfo(data);
+        movie.id = 'tt2096673';          
+        console.log(1, movie);
+        this.moviesList.push(movie);        
+        console.log(121, this.moviesList)
+        this.saveToLocalStorage(this.moviesList);        
+      })
+    }
+
     if (!this.moviesList.length && this.movieService.isFirstStart) {
       // this.openFirstStartWindow();           
     } else {
@@ -137,9 +149,7 @@ export class MainComponent {
     this.updateMode();
     this.updateSortDirection();    
     this.updateShowFavourite();
-
-    
-    
+        
   }  
 
   ngOnDestroy() {
