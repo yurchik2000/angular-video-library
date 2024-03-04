@@ -24,7 +24,7 @@ export class TrendingComponent {
     { id: '929831', title: "Jury Prize", type: 'movie', movie: ""},
     { id: '1855531', title: "Best Director", type: 'person', movie: "'Pepe'"},
     { id: '60898', title: "Best Actor", type: 'person', movie: "'A Different Man'"},            
-    { id: '1639', title: "Supproting Role", type: 'person', movie: "'Small Things Like These'"},
+    { id: '1639', title: "Supporting Role", type: 'person', movie: "'Small Things Like These'"},
     { id: '1232781', title: "Best Screenplay", type: 'movie', movie: ""},
     { id: '931944', title: "Best Operator", type: 'movie', movie: ""},
     { id: '1232493', title: "Best Documentary", type: 'movie', movie: ""},
