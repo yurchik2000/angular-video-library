@@ -18,6 +18,26 @@ export class TrendingComponent {
   public firstImage:string = '';
   public counter: number = 0;  
   public awardShowList: IVideoContent[] = [];
+  public oscarData: IAwardContent[] = [    
+    { id: '872585', title: "Best picture", type: 'movie', movie: ''},
+    { id: '2037', title: "Best actor", type: 'person', movie: "'Oppenheimer'"},
+    { id: '54693', title: "Best actress", type: 'person', movie: "'Poor Things'"},
+    { id: '3223', title: "Supporting role", type: 'person', movie: "'Oppenheimer'"},
+    { id: '1180099', title: "Supporting role", type: 'person', movie: "'The Holdovers'"},
+    { id: '525', title: "Best director", type: 'person', movie: "'Oppenheimer'"},    
+    { id: '467244', title: "Best international", type: 'movie', movie: ""},  
+    { id: '1056360', title: "Adapted screenplay", type: 'movie', movie: ""},
+    { id: '915935', title: "Original screenplay", type: 'movie', movie: ""},
+    { id: '923939', title: "Live action short", type: 'movie', movie: ""},
+    { id: '508883', title: "Best animated", type: 'movie', movie: ""},
+    { id: '1058616', title: "Best documentary", type: 'movie', movie: ""},
+    { id: '346698', title: "Best original song", type: 'movie', movie: ""},
+    { id: '940721', title: "Best visual effects", type: 'movie', movie: ""},
+    { id: '467244', title: "Best Sound", type: 'movie', movie: ""},
+    { id: '1171861', title: "Documentary Short", type: 'movie', movie: ""},
+    { id: '1214020', title: "Animated Short", type: 'movie', movie: ""},
+        
+  ];
   public berlinData: IAwardContent[] = [    
     { id: '1101256', title: "Golden Bear", type: 'movie', movie: ''},
     { id: '1146410', title: "Silver Bear", type: 'movie', movie: ""},  
@@ -29,8 +49,7 @@ export class TrendingComponent {
     { id: '931944', title: "Best Operator", type: 'movie', movie: ""},
     { id: '1232493', title: "Best Documentary", type: 'movie', movie: ""},
     { id: '643776', title: "Best First Feature", type: 'movie', movie: ""},
-    { id: '1233393', title: "Best Short Film", type: 'movie', movie: ""},            
-    
+    { id: '1233393', title: "Best Short Film", type: 'movie', movie: ""},                
   ];
   public goldenData: IAwardContent[] = [
     { id: '54693', title: "Actor in Comedy", type: 'person', movie: "'Poor Things'"},  
@@ -80,7 +99,7 @@ export class TrendingComponent {
       this.getAllTrendingData();
     }        
 
-    this.getAwardsList(this.berlinData);
+    this.getAwardsList(this.oscarData);
             
   }    
 
