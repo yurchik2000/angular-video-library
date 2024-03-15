@@ -1,6 +1,7 @@
 <header
-  class="header container mx-auto bg-violet-400 font-mono relative rounded max-w-7xl sticky top-0 z-30"
+  class="header bg-violet-400 font-mono relative rounded sticky top-0 z-30"
 >
+<div class="header__container max-w-7xl mx-auto ">
   <nav class="flex justify-between items-center">
     <div class="logo__inner" (click)="clearInput()">
       <img src="assets/images/favicon.ico" alt="logo" class="logo h-10 sm:h-14 cursor-pointer pl-1 min-w-min" [routerLink]="[ '/' ]">
@@ -334,7 +335,7 @@
       *ngIf="!isShowFavourite" 
       (click)="checkFavourite()" 
       matTooltip="Show favourite movies"
-      class="check__item my-auto -center p-1 top-0 right-12 mx-0 sm:mx-1 my-1  cursor-pointer transition-all duration-300"
+      class="hidden sm:flex check__item my-auto -center p-1 top-0 right-12 mx-0 sm:mx-1 my-1  cursor-pointer transition-all duration-300"
   >
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ded9d9"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
   </div>
@@ -342,12 +343,12 @@
       *ngIf="isShowFavourite"  
       (click)="checkFavourite()" 
       matTooltip="Show all movies"
-      class="doublecheck__item my-auto p-1 top-0 right-12 m-1  cursor-pointer transition-all duration-300"
+      class="hidden sm:flex doublecheck__item my-auto p-1 top-0 right-12 m-1  cursor-pointer transition-all duration-300"
   >                
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#e84f4f"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
   </div>            
   <div 
-    class="show__trending cursor-pointer my-auto hidden sm:flex"
+    class="show__trending cursor-pointer my-auto flex"
     [routerLink]="[ '/trending' ]"
     matTooltip="Show movies trending"
   >
@@ -374,4 +375,5 @@
       </a>
     </div>
   </nav>    
+</div>  
 </header>
