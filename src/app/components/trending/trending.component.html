@@ -26,13 +26,14 @@
         </div>
     </div>    
     <div class="trending__container max-w-7xl mx-auto">
-        <app-movie-carousel [videoContents]="popularMovies" [title]="'#popular'"/>
-        <app-movie-carousel [videoContents]="trending" [title]="'#trending #day'"/> 
+        <app-movie-carousel [videoContents]="popularMovies" [title]="'#popular #movies'"/>
+        <app-movie-carousel [videoContents]="trending" [title]="'#trending #series'"/> 
         <app-movie-carousel [videoContents]="upcomingMovies" [title]="'#upcoming #Ukraine'"/>
         <app-movie-carousel [videoContents]="nowPlayingMovies" [title]="'#playing #Ukraine'"/>        
         <!-- <app-movie-carousel [videoContents]="awardShowList" [title]="'#goldenglobe #awards'"/>     -->
         <!-- <app-movie-carousel [videoContents]="awardShowList" [title]="'#berlinale #awards'"/>     -->
-        <app-movie-carousel [videoContents]="awardShowList" [title]="'#oscar #2024 #awards'"/>    
+        <!-- <app-movie-carousel [videoContents]="awardShowList" [title]="'#oscar #2024 #awards'"/>     -->
+        <app-movie-carousel [videoContents]="awardShowList" [title]="'#cannes #2024 #awards'"/>    
     </div>        
 </div>
 

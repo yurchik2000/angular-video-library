@@ -18,6 +18,14 @@ export class TrendingComponent {
   public firstImage:string = '';
   public counter: number = 0;  
   public awardShowList: IVideoContent[] = [];
+  public cannesData: IAwardContent[] = [    
+    { id: '1064213', title: "Palme d'or", type: 'movie', movie: ''},
+    { id: '927547', title: "Grand Prix", type: 'movie', movie: ''},
+    { id: '150512', title: "Best director", type: 'person', movie: "'Grand Tour'"},    
+    { id: '974950', title: "Juri Prize", type: 'movie', movie: ''},
+    { id: '1278263', title: "Special Prize", type: 'movie', movie: ''},
+        
+  ];
   public oscarData: IAwardContent[] = [    
     { id: '872585', title: "Best picture", type: 'movie', movie: ''},
     { id: '2037', title: "Best actor", type: 'person', movie: "'Oppenheimer'"},
@@ -35,8 +43,7 @@ export class TrendingComponent {
     { id: '940721', title: "Best visual effects", type: 'movie', movie: ""},
     { id: '467244', title: "Best Sound", type: 'movie', movie: ""},
     { id: '1171861', title: "Documentary Short", type: 'movie', movie: ""},
-    { id: '1214020', title: "Animated Short", type: 'movie', movie: ""},
-        
+    { id: '1214020', title: "Animated Short", type: 'movie', movie: ""},        
   ];
   public berlinData: IAwardContent[] = [    
     { id: '1101256', title: "Golden Bear", type: 'movie', movie: ''},
@@ -99,7 +106,8 @@ export class TrendingComponent {
       this.getAllTrendingData();
     }        
 
-    this.getAwardsList(this.oscarData);
+    // this.getAwardsList(this.oscarData);
+    this.getAwardsList(this.cannesData);
             
   }    
 
@@ -119,6 +127,7 @@ export class TrendingComponent {
         this.nowPlayingMovies = res.nowPlayingMovies.results as IVideoContent[];
         this.nowPlayingMovies.map( movie => movie.media_type = 'movie');
         this.trending = res.trending.results as IVideoContent[];         
+        // console.log('12',this.trending);
         localStorage.setItem('trending', JSON.stringify({
           currentDate: new Date().getDate(),
           popularMovies: this.popularMovies,
@@ -133,7 +142,7 @@ export class TrendingComponent {
     
     if (localStorage.getItem('awardsList') && JSON.parse(localStorage.getItem('awardsList') || '').length === awardList.length ) {
       this.awardShowList = JSON.parse(localStorage.getItem('awardsList') || '');      
-    } else {
+    } else {      
       console.log('gerAwards')
       for( let i = 0; i < awardList.length;  i++) {
         if (awardList[i].type === 'movie') {
