@@ -24,7 +24,24 @@ export class TrendingComponent {
     { id: '150512', title: "Best director", type: 'person', movie: "'Grand Tour'"},    
     { id: '974950', title: "Juri Prize", type: 'movie', movie: ''},
     { id: '1278263', title: "Special Prize", type: 'movie', movie: ''},
-        
+    { id: '88124', title: "Best actor", type: 'person', movie: "'Kind of kindness'"},
+    { id: '974950', title: "Best actress", type: 'movie', movie: ''},
+    { id: '933260', title: "Best screenplay", type: 'movie', movie: ''},
+    { id: '1109255', title: "Award for Technical", type: 'movie', movie: ''},
+    { id: '592831', title: "Francis Ford Coppola", type: 'movie', movie: ''},
+    { id: '970947', title: "David Cronenberg", type: 'movie', movie: ''},
+    { id: '1136987', title: "Leos Carax", type: 'movie', movie: ''},
+    { id: '1029955', title: "Yorgos Lanthimos", type: 'movie', movie: ''},
+    { id: '1128752', title: "Andrea Arnold", type: 'movie', movie: ''},
+    { id: '1082938', title: "Rungano Nyoni", type: 'movie', movie: ''},
+    { id: '1108336', title: "Agathe Riedinger", type: 'movie', movie: ''},
+    { id: '1214118', title: "Jonás Trueba", type: 'movie', movie: ''},
+    { id: '1098709', title: "Miguel Gomes", type: 'movie', movie: ''},
+    { id: '1232827', title: "Magnus von Horn", type: 'movie', movie: ''},
+    { id: '1136837', title: "Jia Zhangke", type: 'movie', movie: ''},
+    { id: '1182047', title: "Ali Abbasi", type: 'movie', movie: ''},
+    { id: '1063574', title: "Alain Guiraudie", type: 'movie', movie: ''},
+    { id: '1267822', title: "Hiroshi Okuyama", type: 'movie', movie: ''}
   ];
   public oscarData: IAwardContent[] = [    
     { id: '872585', title: "Best picture", type: 'movie', movie: ''},
