@@ -18,6 +18,36 @@ export class TrendingComponent {
   public firstImage:string = '';
   public counter: number = 0;  
   public awardShowList: IVideoContent[] = [];
+  public goldenGlobe2025: IAwardContent[] = [    
+    { id: '549509', title: "Best Drama", type: 'movie', movie: ''},
+    { id: '974950', title: "Best Musical", type: 'movie', movie: ''},    
+    { id: '823219', title: "Best Animated", type: 'movie', movie: ''},
+    { id: '402431', title: "Box Office", type: 'movie', movie: ''},
+    { id: '974950', title: "Best Non-English", type: 'movie', movie: ''},
+    { id: '87335', title: "Best in Drama", type: 'person', movie: "'I'm Still Here'"},
+    { id: '3490', title: "Best in Drama", type: 'person', movie: "'The Brutalist'"},
+    { id: '3416', title: "Best in Comedy", type: 'person', movie: "'The Substance'"},
+    { id: '60898', title: "Best in Comedy", type: 'person', movie: "'A Different Man'"},
+    { id: '8691', title: "Best Supporting", type: 'person', movie: "'Emilia Pérez'"},
+    { id: '18793', title: "Best Supporting", type: 'person', movie: "'A Real Pain'"},
+    { id: '55493', title: "Best Director", type: 'person', movie: "'The Brutalist'"},
+    { id: '974576', title: "Best Screenplay", type: 'movie', movie: ''},
+    { id: '937287', title: "Best Original Score", type: 'movie', movie: ''},
+    { id: '974950', title: "Best Original Song", type: 'movie', movie: ''},
+    { id: '126308', title: "Best TV Drama", type: 'tv', movie: ''},
+    { id: '124101', title: "Best TV  Comedy", type: 'tv', movie: ''},
+    { id: '241259', title: "Best TV Series", type: 'tv', movie: ''},
+    { id: '1434487', title: "Best in TV, Drama", type: 'person', movie: "'Shogun'"},
+    { id: '9195', title: "Best in TV, Drama", type: 'person', movie: "'Shogun'"},
+    { id: '5376', title: "Best in TV, Comedy", type: 'person', movie: "'Hacks'"},
+    { id: '206905', title: "Best in TV, Comedy", type: 'person', movie: "'The Bear'"},
+    { id: '1038', title: "Best Actor in TV", type: 'person', movie: "'Night Country'"},
+    { id: '72466', title: "Best Actor in TV", type: 'person', movie: "'The Penguin'"},
+    { id: '1196101', title: "Best Supporting", type: 'person', movie: "'Baby Reindeer'"},
+    { id: '13275', title: "Best Supporting", type: 'person', movie: "'Shogun'"}
+    
+
+  ];
   public cannesData: IAwardContent[] = [    
     { id: '1064213', title: "Palme d'or", type: 'movie', movie: ''},
     { id: '927547', title: "Grand Prix", type: 'movie', movie: ''},
@@ -124,7 +154,7 @@ export class TrendingComponent {
     }        
 
     // this.getAwardsList(this.oscarData);
-    this.getAwardsList(this.cannesData);
+    this.getAwardsList(this.goldenGlobe2025);
             
   }    
 
