@@ -1,4 +1,12 @@
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[build]
+  publish = "dist/myvideo"
+  command = "npm run build"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self';"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
