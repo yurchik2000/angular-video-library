@@ -1,0 +1,14 @@
+[build]
+  command = "ng build"
+  publish = "dist/angular-video-library"
+
+[[redirects]]
+  from = "http://my-video-lib2.netlify.app/*"
+  to = "https://my-video-lib2.netlify.app/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
