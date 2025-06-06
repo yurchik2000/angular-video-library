@@ -18,6 +18,23 @@ export class TrendingComponent {
   public firstImage:string = '';
   public counter: number = 0;  
   public awardShowList: IVideoContent[] = [];
+  public oscar2025: IAwardContent[] = [
+  { id: '1064213', title: 'Best Picture', type: 'movie', movie: 'Anora' },
+  { id: '118415', title: 'Best Director', type: 'person', movie: 'Anora' }, // Sean Baker
+  { id: '1640439', title: 'Best Actress', type: 'person', movie: 'Anora' }, // Mikey Madison
+  { id: '3490', title: 'Best Actor', type: 'person', movie: 'The Brutalist' }, // Adrien Brody
+  { id: '8691', title: 'Supporting Actress', type: 'person', movie: 'Emilia Pérez' }, // Zoe Saldaña
+  { id: '18793', title: 'Supporting Actor', type: 'person', movie: 'A Real Pain' }, // Kieran Culkin
+  { id: '1064213', title: 'Original Screenplay', type: 'movie', movie: 'Anora' },
+  { id: '974576', title: 'Adapted Screenplay', type: 'movie', movie: 'Conclave' },
+  { id: '1000837', title: 'International Feature', type: 'movie', movie: "I'm Still Here" },
+  { id: '823219', title: 'Animated Feature', type: 'movie', movie: 'Flow' },
+  { id: '974950', title: 'Original Song', type: 'movie', movie: 'Emilia Pérez' }, // "El Mal"
+  { id: '549509', title: 'Best Cinematography', type: 'movie', movie: 'The Brutalist' },
+  { id: '402431', title: 'Costume Design', type: 'movie', movie: 'Wicked' },
+  { id: '693134', title: 'Visual Effects', type: 'movie', movie: 'Dune: Part Two' }
+];
+
   public goldenGlobe2025: IAwardContent[] = [    
     { id: '549509', title: "Best Drama", type: 'movie', movie: ''},
     { id: '974950', title: "Best Musical", type: 'movie', movie: ''},    
@@ -154,7 +171,8 @@ export class TrendingComponent {
     }        
 
     // this.getAwardsList(this.oscarData);
-    this.getAwardsList(this.goldenGlobe2025);
+    // this.getAwardsList(this.goldenGlobe2025);
+    this.getAwardsList(this.oscar2025);
             
   }    
 
