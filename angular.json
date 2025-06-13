@@ -14,7 +14,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
-        "build": {
+        "build": {          
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/myvideo",
@@ -42,6 +42,8 @@
           },
           "configurations": {
             "production": {
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json",
               "budgets": [
                 {
                   "type": "initial",
