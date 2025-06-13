@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target" : {
+    "namespace": "android_app",
+    "package_name": "com.example.myvideo", 
+    "sha256_cert_fingerprints": ["B4:DC:6A:42:31:6A:6F:DA:EA:2C:9E:7B:BD:C2:B9:BB:85:A4:EF:0E:E8:79:7D:FB:6B:6A:82:BA:5A:6A:3F:A6"] 
+  }
+}]
